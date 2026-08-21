@@ -307,7 +307,7 @@ footer{border-top:1px solid var(--linha);padding:2rem 3.5rem;margin-top:4rem;
       <div class="facts">
         <div class="fact"><div class="fl">Encontros</div><div class="fv">12 ao vivo<small>2h cada</small></div></div>
         <div class="fact"><div class="fl">Quando</div><div class="fv">Sábados<small>10h às 12h</small></div></div>
-        <div class="fact"><div class="fl">Período</div><div class="fv">15/08 a 31/10<small>de 2026</small></div></div>
+        <div class="fact"><div class="fl">Período</div><div class="fv">15/08 a 14/11<small>sábados, de 2026</small></div></div>
         <div class="fact"><div class="fl">Professores</div><div class="fv">Júlio &amp; Andressa<small>Gonçalves · Juliana</small></div></div>
       </div>
 
@@ -440,8 +440,8 @@ const AULAS = [
   {n:12, data:"2026-10-31", titulo:"Validação, estratégias dialéticas e a relação terapêutica",
    ementa:["Os níveis de validação e onde cada um entra","Estratégias irreverentes e recíprocas","Time de consultoria e cuidado com o terapeuta"], material:null, pdf:null}
 ];
-/* Para inserir uma pausa entre encontros: PAUSA = {depois:6, texto:"Semana de pausa"} */
-const PAUSA = null;
+/* Semanas sem encontro. Ex.: [{depois:6, texto:"Semana sem encontro · 26/09"}] */
+const PAUSAS = [];
 
 /* ---------- armazenamento com plano B em memória ---------- */
 const mem = {};
@@ -525,7 +525,8 @@ function renderTrilha(){
   let html = '';
   AULAS.forEach(a=>{
     html += cardHTML(a);
-    if(PAUSA && PAUSA.depois === a.n) html += `<div class="pausa">◷ ${esc(PAUSA.texto)}</div>`;
+    PAUSAS.filter(x => x.depois === a.n)
+          .forEach(x => html += `<div class="pausa">◷ ${esc(x.texto)}</div>`);
   });
   t.innerHTML = html;
   atualizaProgresso();
