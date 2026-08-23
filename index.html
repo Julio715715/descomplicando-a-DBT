@@ -152,6 +152,8 @@ p.body{font-size:.93rem;line-height:1.8;color:var(--texto);font-weight:300;margi
 .h-date{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dourado);font-weight:600}
 .h-title{font-size:1rem;font-weight:600;letter-spacing:-.01em;line-height:1.35;margin-top:.35rem}
 .aula.feita .h-title{color:var(--fraco)}
+.h-prof{font-size:.72rem;color:var(--fraco);margin-top:.3rem}
+.h-prof b{font-weight:600;color:var(--texto)}
 .h-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem}
 .tag{font-size:.62rem;font-weight:600;padding:.2rem .6rem;border-radius:100px;letter-spacing:.02em}
 .tag.soon{background:#f4f4f4;color:#999}
@@ -307,7 +309,7 @@ footer{border-top:1px solid var(--linha);padding:2rem 3.5rem;margin-top:4rem;
       <div class="facts">
         <div class="fact"><div class="fl">Encontros</div><div class="fv">12 ao vivo<small>2h cada</small></div></div>
         <div class="fact"><div class="fl">Quando</div><div class="fv">Sábados<small>10h às 12h</small></div></div>
-        <div class="fact"><div class="fl">Período</div><div class="fv">15/08 a 14/11<small>sábados, de 2026</small></div></div>
+        <div class="fact"><div class="fl">Período</div><div class="fv">15/08 a 07/11<small>sábados, de 2026</small></div></div>
         <div class="fact"><div class="fl">Professores</div><div class="fv">Júlio &amp; Andressa<small>Gonçalves · Juliana</small></div></div>
       </div>
 
@@ -416,32 +418,34 @@ footer{border-top:1px solid var(--linha);padding:2rem 3.5rem;margin-top:4rem;
    ============================================================ */
 const AULAS = [
   {n:1, data:"2026-08-15", titulo:"Quem somos e o que conta como evidência",
-   ementa:["Apresentação dos professores e a proposta da formação","Como distinguir evidência de marketing: randomização, comparador e abandono","A metanálise de 2019 e por que processos explicam os buracos da evidência","DBT standard ou prática adaptada: os cinco critérios de severidade"], material:"aula1/", pdf:"aula1/resumo.pdf"},
+   ementa:["Apresentação dos professores e a proposta da formação","Como distinguir evidência de marketing: randomização, comparador e abandono","A metanálise de 2019 e por que processos explicam os buracos da evidência","DBT standard ou prática adaptada: os cinco critérios de severidade"], prof:"Júlio e Andressa", material:"aula1/", pdf:"aula1/resumo.pdf"},
   {n:2, data:"2026-08-22", titulo:"Filosofia dialética: a base que sustenta a técnica",
-   ementa:["Como a dialética entrou na DBT e a história de Marsha Linehan","As três premissas: interconexão, polaridade e mudança transacional","Aceitação e mudança: a pílula amarga e a cobertura de açúcar","Improviso, irreverência e os pressupostos da DBT"], material:"aula2/", pdf:"aula2/resumo.pdf"},
-  {n:3, data:"2026-08-29", titulo:"Teoria biossocial e desregulação emocional",
-   ementa:["Vulnerabilidade emocional e ambiente invalidante","A transação entre pessoa e contexto ao longo do tempo","O que a teoria muda na forma de conversar com o paciente"], material:null, pdf:null},
-  {n:4, data:"2026-09-05", titulo:"Alvos, hierarquia e o mapa do tratamento",
-   ementa:["Comportamentos que ameaçam a vida, a terapia e a qualidade de vida","Cartão diário: o que registrar e como usar na sessão","Definição de metas com o paciente e compromisso"], material:null, pdf:null},
-  {n:5, data:"2026-09-12", titulo:"Análise em cadeia comportamental",
-   ementa:["Vulnerabilidade, evento disparador, elos e consequências","Como conduzir a cadeia sem virar interrogatório","Erros comuns e o que fazer quando o paciente trava"], material:null, pdf:null},
-  {n:6, data:"2026-09-19", titulo:"Análise de solução e análise do elo perdido",
-   ementa:["De onde saem as soluções dentro da própria cadeia","Missing link: quando a tarefa combinada não acontece","Ensaio de soluções e antecipação de obstáculos"], material:null, pdf:null},
-  {n:7, data:"2026-09-26", titulo:"Mindfulness: estados da mente e habilidades nucleares",
-   ementa:["Mente racional, mente emocional e mente sábia","Habilidades do 'quê' e do 'como'","Como ensinar mindfulness para quem não para quieto"], material:null, pdf:null},
-  {n:8, data:"2026-10-03", titulo:"Tolerância ao mal-estar e manejo de crises",
-   ementa:["Habilidades de sobrevivência à crise e quando indicá-las","Aceitação radical e disposição","Protocolo de conduta diante de risco em sessão"], material:null, pdf:null},
-  {n:9, data:"2026-10-10", titulo:"Regulação emocional",
-   ementa:["Modelo da emoção e checagem dos fatos","Ação oposta e resolução de problemas","Redução da vulnerabilidade emocional no dia a dia"], material:null, pdf:null},
-  {n:10, data:"2026-10-17", titulo:"Efetividade interpessoal",
-   ementa:["Pedir, recusar e manter o autorrespeito","Prioridades: objetivo, relação e autoestima","Aplicação em conflitos reais trazidos pelos pacientes"], material:null, pdf:null},
-  {n:11, data:"2026-10-24", titulo:"Grupo de habilidades: montar e conduzir",
-   ementa:["Formato, contrato e manejo do grupo","Revisão de tarefas sem transformar em cobrança","O que fazer com faltas, atrasos e resistência"], material:null, pdf:null},
-  {n:12, data:"2026-10-31", titulo:"Validação, estratégias dialéticas e a relação terapêutica",
-   ementa:["Os níveis de validação e onde cada um entra","Estratégias irreverentes e recíprocas","Time de consultoria e cuidado com o terapeuta"], material:null, pdf:null}
+   ementa:["Como a dialética entrou na DBT e a história de Marsha Linehan","As três premissas: interconexão, polaridade e mudança transacional","Aceitação e mudança: a pílula amarga e a cobertura de açúcar","Improviso, irreverência e os pressupostos da DBT"], prof:"Andressa", material:"aula2/", pdf:"aula2/resumo.pdf"},
+  {n:3, data:"2026-08-29", titulo:"Como o paciente chega, dilemas dialéticos e teoria biossocial",
+   ementa:["\"Difícil\" descreve o terapeuta, não o paciente: a pergunta funcional","Teoria biossocial: vulnerabilidade, ambiente invalidante e transação","O que a evidência sustenta — e o que ela não sustenta","Os três dilemas dialéticos e o polo que puxa o terapeuta","A primeira entrevista em casos de alta complexidade"], prof:"Júlio", material:null, pdf:null},
+  {n:4, data:"2026-09-05", titulo:"Estrutura do tratamento",
+   ementa:["Os quatro modos e as cinco funções na prática","Estágios do tratamento e hierarquia de alvos","Cartão diário: o que registrar e como usar na sessão"], prof:"Andressa", material:null, pdf:null},
+  {n:5, data:"2026-09-12", titulo:"Aceitação, mudança e dialética",
+   ementa:["Os níveis de validação e onde cada um entra","Estratégias de aceitação e de mudança em equilíbrio","Estratégias dialéticas na condução da sessão"], prof:"Júlio", material:null, pdf:null},
+  {n:6, data:"2026-09-19", titulo:"Análise em cadeia, de soluções e de missing link",
+   ementa:["Vulnerabilidade, elo disparador, elos e consequências","Como conduzir a cadeia sem virar interrogatório","Missing link: quando a tarefa combinada não acontece"], prof:"Júlio", material:null, pdf:null},
+  {n:7, data:"2026-09-26", titulo:"Compromisso e manejo de crises",
+   ementa:["Estratégias de compromisso e como fortalecê-lo","Protocolo de conduta diante de risco em sessão","Coaching por telefone: contrato, limites e função"], prof:"Andressa", material:null, pdf:null},
+  {n:8, data:"2026-10-03", titulo:"A relação terapêutica e comportamentos que interferem na terapia",
+   ementa:["Comportamentos que interferem na terapia, dos dois lados","Limites do terapeuta: nem rígidos, nem totalmente flexíveis","Reparo de rupturas e uso da relação como ferramenta"], prof:"Andressa", material:null, pdf:null},
+  {n:9, data:"2026-10-10", titulo:"Mindfulness e tolerância ao mal-estar",
+   ementa:["Mente racional, mente emocional e mente sábia","Habilidades do \"quê\" e do \"como\"","Sobrevivência à crise e aceitação radical"], prof:"Andressa", material:null, pdf:null},
+  {n:10, data:"2026-10-24", titulo:"Regulação emocional",
+   ementa:["Modelo da emoção e checagem dos fatos","Ação oposta e resolução de problemas","Redução da vulnerabilidade emocional no dia a dia"], prof:"Júlio", material:null, pdf:null},
+  {n:11, data:"2026-10-31", titulo:"Efetividade interpessoal",
+   ementa:["Pedir, recusar e manter o autorrespeito","Prioridades: objetivo, relação e autoestima","Aplicação em conflitos reais trazidos pelos pacientes"], prof:"Júlio", material:null, pdf:null},
+  {n:12, data:"2026-11-07", titulo:"Próximos passos: grupo de consultoria e de habilidades",
+   ementa:["Como montar e conduzir o grupo de habilidades","Time de consultoria: formato, acordos e função","Caminhos de formação continuada depois do curso"], prof:"Júlio e Andressa", material:null, pdf:null}
 ];
 /* Semanas sem encontro. Ex.: [{depois:6, texto:"Semana sem encontro · 26/09"}] */
-const PAUSAS = [];
+const PAUSAS = [
+  {depois: 9, texto: "Semana sem encontro · 17 de outubro"}
+];
 
 /* ---------- armazenamento com plano B em memória ---------- */
 const mem = {};
@@ -493,6 +497,7 @@ function cardHTML(a){
         <div class="h-meta">
           <div class="h-date">Aula ${String(a.n).padStart(2,'0')} · ${fmt(a.data)}</div>
           <div class="h-title">${esc(a.titulo)}</div>
+          <div class="h-prof">Conduz <b>${esc(a.prof)}</b></div>
           <div class="h-tags">
             <span class="tag ${st.cls}">${st.txt}</span>
             ${feita?'<span class="tag done">Assistida</span>':''}
