@@ -111,6 +111,18 @@ ul.key li{font-size:.92rem;line-height:1.7;color:var(--texto);font-weight:300;
 ul.key li::before{content:'→';color:var(--vinho);font-size:.8rem;position:absolute;left:0;top:.1rem}
 ul.key li b{font-weight:600;color:var(--tinta)}
 
+
+/* gabarito */
+details.gab{margin-top:.7rem;border:1.5px solid var(--rosa-2);border-radius:12px;background:var(--rosa);overflow:hidden}
+details.gab summary{cursor:pointer;list-style:none;padding:.6rem 1rem;font-size:.78rem;font-weight:700;
+  color:var(--vinho);display:flex;align-items:center;gap:.45rem;user-select:none}
+details.gab summary::-webkit-details-marker{display:none}
+details.gab summary::before{content:'▸';font-size:.7rem;transition:transform .2s}
+details.gab[open] summary::before{transform:rotate(90deg)}
+details.gab .gab-in{padding:0 1rem 1rem;font-size:.85rem;line-height:1.7;color:#5c4448;font-weight:300}
+details.gab .gab-in b{font-weight:600;color:var(--vinho-escuro)}
+@media print{details.gab{border-color:#ddd;background:none}}
+
 /* interativo */
 .bloco{border:1.5px solid var(--linha);border-radius:var(--raio);padding:1.8rem;margin-top:1.4rem}
 .check{display:flex;gap:.85rem;align-items:flex-start;padding:.7rem 0;border-bottom:1px solid #f5f5f5;cursor:pointer}
@@ -395,18 +407,22 @@ footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
     <div class="pergunta">
       <div class="pq"><b>01.</b> Descreva um momento da sua prática em que a intervenção pode ter funcionado como invalidação. O que você faria diferente com a lente do modelo biossocial?</div>
       <textarea data-p="1" placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver gabarito</summary><div class="gab-in"><b>Uma boa resposta identifica a tentativa de ajustar a pessoa a uma norma.</b> Exemplos típicos: prescrever oito horas de sono a quem trabalha à noite, tratar estereotipia ou impulsividade como comportamento a suprimir sem perguntar que função cumpre, ou aplicar contrato de não-suicídio como fórmula. Com a lente biossocial, a pergunta muda: qual a função disso para essa pessoa, neste contexto? A intervenção passa a construir repertório antes de retirar o que já existe.</div></details>
     </div>
     <div class="pergunta">
       <div class="pq"><b>02.</b> Explique com suas palavras por que a leitura transacional elimina a busca por um culpado — e o que isso muda na conversa com a família.</div>
       <textarea data-p="2" placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver gabarito</summary><div class="gab-in"><b>Porque a causalidade é circular.</b> No modelo transacional, vulnerabilidade biológica e ambiente se modelam mutuamente num ciclo contínuo: a criança sensível extrai mais invalidação de um ambiente que bastaria para outra, e o ambiente intensifica a sensibilidade. Cada elo é causa e efeito ao mesmo tempo, então não há paciente zero nem culpado único. Com a família, isso muda o clima da conversa: sai a acusação, entra a pergunta sobre o que mantém o padrão — e, para o paciente, reduz o peso da culpa pessoal.</div></details>
     </div>
     <div class="pergunta">
       <div class="pq"><b>03.</b> Num paciente seu, identifique evidências de cada um dos três fatores da vulnerabilidade emocional: sensibilidade, intensidade e retorno lento.</div>
       <textarea data-p="3" placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver gabarito</summary><div class="gab-in"><b>Procure evidências separadas para cada fator.</b> Sensibilidade: qual o tamanho do gatilho que dispara — uma mensagem que demora, um esquecimento. Intensidade: o tamanho da resposta comparado ao que a situação costuma produzir nos outros. Retorno lento: quanto tempo depois do evento a pessoa ainda está ativada, e se o evento seguinte a encontra já elevada. Esse terceiro fator é o que explica a aparência de crise contínua — e é onde entra o efeito de soma.</div></details>
     </div>
     <div class="pergunta">
       <div class="pq"><b>04.</b> Qual dos três dilemas dialéticos você reconhece no caso que escolheu na aula 1? Em que comportamento observado na sessão você se baseia?</div>
       <textarea data-p="4" placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver gabarito</summary><div class="gab-in"><b>A exigência aqui é a evidência, não o rótulo.</b> Uma boa resposta nomeia o dilema — vulnerabilidade emocional e autoinvalidação, passividade ativa e competência aparente, ou crises inexoráveis e luto inibido — e o ancora em comportamento observado na sessão: o que a pessoa fez, disse ou evitou ali. Foi o cuidado combinado em aula: os dilemas se baseiam em observação concreta, não em suposição sobre a vida externa do paciente. E lembre que a pessoa não fica num polo — ela salta entre os dois.</div></details>
     </div>
     <div class="acoes">
       <button class="btn solid" id="salvar">Salvar respostas</button>
