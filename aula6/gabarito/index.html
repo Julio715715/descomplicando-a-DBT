@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Caso da Bruna com gabarito · Aula 06 · Descomplicando a DBT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--vinho:#8c2335;--vinho-e:#2d0a12;--rosa:#fdf0f2;--rosa2:#f2dde0;--dourado:#c8893a;--tinta:#111;--texto:#555;--linha:#ececec}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--tinta);font-family:'Sora',system-ui,sans-serif;font-size:11pt;line-height:1.5}
+.pagina{max-width:190mm;margin:0 auto;padding:12mm 0}
+@media screen{body{background:#faf9f7}.pagina{background:#fff;margin:16px auto;padding:14mm;box-shadow:0 1px 4px rgba(0,0,0,.08);border-radius:12px}}
+@media print{@page{size:A4;margin:14mm 14mm 16mm}.pagina{page-break-after:always;padding:0}.pagina:last-child{page-break-after:auto}.barra-site{display:none}}
+h1{font-size:26pt;line-height:1.1;margin:0 0 4mm;color:var(--vinho);font-weight:700;letter-spacing:-.01em}
+h2{font-size:17pt;margin:0 0 4mm;color:var(--vinho);font-weight:700}
+h3{font-size:12.5pt;margin:6mm 0 2mm;color:var(--vinho)}
+.sup{display:block;font-size:9pt;letter-spacing:.14em;text-transform:uppercase;color:var(--dourado);font-weight:700;margin-bottom:1mm}
+.capa{background:var(--vinho-e);color:#fff;border-radius:16px;padding:14mm 12mm}
+.capa h1{color:#fff}.capa .sup{color:var(--rosa2)}.capa p{color:var(--rosa2);max-width:130mm}
+.capa .assina{margin-top:16mm;font-size:9.5pt;color:#c9a6ad}
+.pos-r,.c1 .pos-r{display:block;font-size:8.5pt;letter-spacing:.12em;text-transform:uppercase;color:var(--vinho);font-weight:700;margin:3mm 0 1mm}
+.c1-grade{display:grid;grid-template-columns:1fr 1fr;gap:4mm 6mm}
+.c1{background:var(--rosa);border-radius:12px;padding:3mm 4mm}.c1 p{margin:0;font-size:10pt}
+.t{margin:0 0 2.2mm;padding-left:4mm;border-left:2px solid var(--linha);font-size:10pt}
+.t.T{border-left-color:var(--vinho)}.t b{color:var(--vinho);font-weight:600}.t.P b{color:var(--texto)}
+.ctx{font-style:italic;color:var(--texto);font-size:9.5pt;margin:3mm 0}
+.pos{background:var(--rosa);border-left:3px solid var(--vinho);border-radius:0 10px 10px 0;padding:2mm 4mm;margin:0 0 2.5mm}.pos p{margin:0;font-size:10pt}
+.desenho{margin:3mm 0 4mm;break-inside:avoid;page-break-inside:avoid}.desenho svg{display:block;width:auto;max-width:100%;max-height:236mm;height:auto;margin:0 auto}
+h2,h3{break-after:avoid;page-break-after:avoid}.duas>div,.pos,.c1{break-inside:avoid}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:6mm}.duas p{margin:0 0 1mm;font-size:10pt}
+.coment{margin-top:2mm!important;color:var(--texto);font-size:9.5pt!important;border-top:1px solid var(--linha);padding-top:2mm}
+table.lupa{width:100%;border-collapse:collapse;font-size:9.5pt;margin:2mm 0 4mm}
+table.lupa th{text-align:left;font-size:8.5pt;letter-spacing:.1em;text-transform:uppercase;color:var(--texto);padding:1.5mm 2mm;border-bottom:2px solid var(--rosa2)}
+table.lupa td{vertical-align:top;padding:2mm;border-bottom:1px solid var(--linha)}
+table.lupa td.n{color:var(--dourado);font-weight:700;width:6mm}
+table.lupa td.sim b{color:#3f7a3a}table.lupa td.nao b{color:var(--vinho)}
+.troca{background:var(--rosa);border-radius:12px;padding:3mm 4mm;margin:0 0 4mm}.cit{margin:0 0 2mm;font-style:italic;font-size:10pt}.cit.ok{color:var(--vinho)}
+.erro,.onde{break-inside:avoid;margin:0 0 3mm;padding:2.5mm 4mm;border-radius:10px;background:var(--rosa)}.erro b,.onde b{color:var(--vinho)}.erro p,.onde p{margin:1mm 0 0;font-size:10pt}
+.onde{background:#fff;border:1px solid var(--rosa2)}
+.grade2{display:grid;grid-template-columns:1fr 1fr;gap:3mm 5mm}
+.rodape{font-size:8.5pt;color:var(--texto);margin-top:8mm;border-top:1px solid var(--linha);padding-top:2mm}
+.barra-site{max-width:190mm;margin:14px auto 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:10pt}
+.barra-site a{background:var(--vinho);color:#fff;text-decoration:none;padding:9px 16px;border-radius:12px;font-weight:600}
+.barra-site a.sec{background:#fff;color:var(--vinho);border:1px solid var(--rosa2)}
+</style></head><body>
+<div class="barra-site"><a href="caso-bruna-gabarito.pdf" download>Baixar em PDF</a><a class="sec" href="../">Voltar aos cadernos</a><span style="color:var(--texto)">ou Ctrl+P para imprimir esta página</span></div>
+
+<section class="pagina capa">
+<span class="sup">Descomplicando a DBT · Aula 06 · 19/09/2026</span>
+<h1>O caso da Bruna,<br>com o gabarito</h1>
+<p>O episódio como chega, a sessão da análise em cadeia, a análise de soluções e o missing link três semanas depois. Depois, a cadeia do professor, a correção da condução e, nas páginas finais, mais duas cadeias com as indicações de onde intervir.</p>
+<p class="assina">Prof. Júlio Gonçalves, MSc. · CRP 12/17614<br>Caso construído para fins didáticos, sem dados de paciente real.</p>
+</section>
+
+<section class="pagina">
+<h2><span class="sup">Camada 1</span>O episódio como chega</h2>
+<div class="c1-grade"><div class="c1"><span class="pos-r">Quem é</span><p>Estudante de enfermagem no último ano, estágio no hospital de manhã. Mora com o namorado, Caio, há um ano e meio. Está em DBT há dois meses: sessão individual semanal e grupo de habilidades, no módulo de tolerância ao mal-estar. Alvo número 1 da hierarquia: cortes superficiais no antebraço. Estava há sete semanas sem se cortar.</p></div><div class="c1"><span class="pos-r">O cartão diário da semana</span><p>Terça: dormiu 4 horas (estudou até as 3h para a prova de farmacologia). Urgência de se cortar 1. Quarta: pulou o almoço (o estágio atrasou). Urgência 5. Cortou: sim. Emoções mais fortes: vergonha 4, raiva 4, medo 4. Habilidades: marcou &quot;pensei em usar, não usei&quot;. Quinta: urgência 2. Faltou ao grupo de habilidades.</p></div><div class="c1"><span class="pos-r">Como ela conta, no começo da sessão</span><p>&quot;Foi quarta. O Caio me deixou no vácuo o dia inteiro. Eu mandei mensagem, ele viu e não respondeu. Fiquei muito mal, mandei mais umas, aí ele respondeu que depois a gente conversava. Aí eu surtei e me cortei. Depois ele chegou em casa preocupado, a gente conversou, ficou tudo bem. Não foi grande coisa, foi superficial. Eu sei que não devia. Eu tô aqui pra isso, né.&quot;</p></div><div class="c1"><span class="pos-r">O que a terapeuta sabe de antes</span><p>Os episódios anteriores aconteceram à noite, em casa, sozinha, quase sempre depois de algum sinal de distanciamento de alguém próximo. Nos dois últimos, Caio saiu mais cedo do trabalho para ir para casa. Bruna tem a habilidade de água gelada treinada no grupo, e o telefone da terapeuta para coaching entre sessões.</p></div></div>
+</section>
+
+<section class="pagina">
+<h2><span class="sup">Camada 2</span>A sessão: a análise em cadeia</h2>
+<p class="ctx">Sessão individual, primeiros vinte minutos. A terapeuta abriu o cartão diário e foi direto ao alvo 1.</p>
+<p class="t T"><b>Terapeuta</b> Quarta tu marcou que cortou. Antes de qualquer coisa eu preciso do episódio bem concreto. Me diz exatamente o que tu fez: onde, com o quê, quantos cortes, que horas.</p>
+<p class="t P"><b>Paciente</b> No banheiro, porta trancada, umas seis e meia da tarde. Com a lâmina de barbear. Dois cortes no braço esquerdo, superficiais.</p>
+<p class="t T"><b>Terapeuta</b> Então o que a gente vai analisar é isso: dois cortes no antebraço esquerdo, com lâmina, no banheiro trancado, por volta das seis e meia. Agora eu quero chegar até aí passo a passo. Tu disse que ele te deixou no vácuo o dia inteiro. O dia inteiro é longo. Qual foi o momento em que a coisa virou?</p>
+<p class="t P"><b>Paciente</b> Quando eu vi que ele tinha visto a mensagem e não respondeu. Umas quatro da tarde. Perguntei se ele ia chegar cedo, dois tiques azuis, e nada.</p>
+<p class="t T"><b>Terapeuta</b> E o que tu fez nas horas seguintes?</p>
+<p class="t P"><b>Paciente</b> Fiquei olhando o celular. Trancava a tela, destrancava, olhava de novo.</p>
+<p class="t T"><b>Terapeuta</b> Enquanto tu olhava, o que passava pela tua cabeça?</p>
+<p class="t P"><b>Paciente</b> Que ele tá cansado de mim. Que ele tá me evitando.</p>
+<p class="t T"><b>Terapeuta</b> E o que tu sentia quando esse pensamento vinha? De zero a cinco.</p>
+<p class="t P"><b>Paciente</b> Medo. Um medo de estômago embrulhado. Uns três, depois foi subindo.</p>
+<p class="t T"><b>Terapeuta</b> E o que tu fez com o medo?</p>
+<p class="t P"><b>Paciente</b> Mandei mais três mensagens. &quot;Oi?&quot;, &quot;tá tudo bem?&quot;, &quot;tu tá bravo comigo?&quot;. Umas seis e dez ele respondeu: &quot;depois a gente conversa, tô em reunião&quot;.</p>
+<p class="t T"><b>Terapeuta</b> Logo depois de ler isso, o que passou pela tua cabeça? A primeira coisa.</p>
+<p class="t P"><b>Paciente</b> Acabou. Ele vai terminar comigo.</p>
+<p class="t T"><b>Terapeuta</b> E no corpo?</p>
+<p class="t P"><b>Paciente</b> Aperto no peito. Calor no rosto. A mão tremendo.</p>
+<p class="t T"><b>Terapeuta</b> E a emoção, se tu tivesse que dar nome?</p>
+<p class="t P"><b>Paciente</b> Vergonha. E raiva dele. Junto.</p>
+<p class="t T"><b>Terapeuta</b> Aí tu disse que surtou. Surtei é o quê, exatamente?</p>
+<p class="t P"><b>Paciente</b> Chorei. Fiquei andando pela casa, da sala pro quarto, do quarto pra sala, uns quinze minutos. Aí eu fui no banheiro e me cortei.</p>
+<p class="t T"><b>Terapeuta</b> Nossa. Deve ter sido muito difícil. Me conta com calma como foi, como tu tava te sentindo na hora do corte, o que tu pensou enquanto cortava.</p>
+<p class="t P"><b>Paciente</b> Foi rápido. Eu pensei &quot;só pra parar&quot;. Depois do segundo corte aliviou. Parei de chorar, fez silêncio na cabeça. Uns dois minutos e eu tava calma.</p>
+<p class="t T"><b>Terapeuta</b> Por que tu não me ligou? A gente tinha combinado que tu ligaria antes.</p>
+<p class="t P"><b>Paciente</b> Não sei. Não pensei.</p>
+<p class="t T"><b>Terapeuta</b> Tá. Vamos seguir. Depois dos dois minutos de calma, o que tu fez?</p>
+<p class="t P"><b>Paciente</b> Mandei &quot;tô mal&quot; pro Caio. Ele ligou em cinco minutos, saiu da reunião, chegou em casa umas sete e quinze. Me abraçou, fez o jantar, ficou comigo a noite toda.</p>
+<p class="t T"><b>Terapeuta</b> E no dia seguinte?</p>
+<p class="t P"><b>Paciente</b> Acordei com vergonha. Fui pro estágio de manga comprida, com trinta graus. À noite era grupo e eu não fui, não queria mostrar o braço. Na sexta o Caio falou que não aguenta mais ficar com medo de chegar em casa e me encontrar assim. Aí veio o medo de novo, de ele cansar.</p>
+<p class="t T"><b>Terapeuta</b> Deixa eu voltar para antes de tudo isso. Como tu tava na terça e na quarta, antes das quatro da tarde? Sono, comida, estresse.</p>
+<p class="t P"><b>Paciente</b> Dormi umas quatro horas na terça, fiquei estudando farmaco. E na quarta não almocei, o estágio atrasou e eu vim direto.</p>
+<p class="t T"><b>Terapeuta</b> Então na quarta às quatro da tarde tu tava com quatro horas de sono e sem almoçar.</p>
+<p class="t P"><b>Paciente</b> É. Não tinha pensado nisso.</p>
+</section>
+
+<section class="pagina">
+<h2><span class="sup">Camada 3</span>O terapeuta indica soluções, e três semanas depois o missing link</h2>
+<p class="ctx">Mesma sessão, minutos finais. A cadeia está desenhada no papel entre as duas.</p>
+<p class="t T"><b>Terapeuta</b> A gente tem a cadeia inteira aqui. Agora a pergunta é outra: em cada ponto, o que poderia ter sido diferente. Vamos do começo. Quatro horas de sono e sem almoço.</p>
+<p class="t P"><b>Paciente</b> PLEASE. Cuidar do corpo.</p>
+<p class="t T"><b>Terapeuta</b> Isso. E aqui: ele viu e não respondeu, e tu pensou &quot;ele tá cansado de mim&quot;. O que cabia?</p>
+<p class="t P"><b>Paciente</b> Checar os fatos? Ele tava trabalhando.</p>
+<p class="t T"><b>Terapeuta</b> Cabia. E quando tu tava trancando e destrancando o celular e o medo subindo?</p>
+<p class="t P"><b>Paciente</b> Não sei. Largar o celular?</p>
+<p class="t T"><b>Terapeuta</b> Isso é uma. Tem também o STOP, que a gente viu. E quando o corpo já tá em cinco, aperto no peito e mão tremendo, tem a água gelada, que tu já usou uma vez. Nas três mensagens caberia adiar, escrever e não mandar. E quando tu tava andando pela casa, tem os prós e contras, e tem me ligar. Então a gente tem PLEASE, checar os fatos, STOP, água gelada, adiar a mensagem, prós e contras, e o telefone.</p>
+<p class="t P"><b>Paciente</b> Tá.</p>
+<p class="t T"><b>Terapeuta</b> É muita coisa. Dessas, quais tu acha que tu faria de verdade, numa quarta às seis da tarde, sozinha em casa?</p>
+<p class="t P"><b>Paciente</b> A água gelada. Eu já fiz e funcionou. E te ligar, se eu lembrar.</p>
+<p class="t T"><b>Terapeuta</b> Duas, então. A água gelada: onde, e em que ponto da cadeia?</p>
+<p class="t P"><b>Paciente</b> Na pia da cozinha, tem gelo no congelador. Quando o peito apertar, antes de começar a andar pela casa.</p>
+<p class="t T"><b>Terapeuta</b> E me ligar?</p>
+<p class="t P"><b>Paciente</b> Antes de ir pro banheiro. Se eu for pro banheiro, eu ligo antes.</p>
+<p class="t T"><b>Terapeuta</b> O que pode atrapalhar?</p>
+<p class="t P"><b>Paciente</b> Eu não querer ligar. Na hora eu não quero ajuda, eu quero que passe.</p>
+<p class="t T"><b>Terapeuta</b> Isso é importante. Anota isso também: &quot;na hora eu não quero ajuda&quot;. A gente volta nisso.</p>
+<p class="ctx">Três semanas depois. No cartão diário, domingo: urgência 5, cortou: sim (um corte). Habilidades: &quot;pensei em usar, não usei&quot;. O plano das duas habilidades estava combinado e escrito.</p>
+<p class="t T"><b>Terapeuta</b> Domingo. Me conta o que aconteceu, rápido, só o esqueleto.</p>
+<p class="t P"><b>Paciente</b> O Caio disse de manhã que ia dormir na casa do amigo. À noite eu fiquei sozinha, comecei a pensar que ele tava fugindo de casa por minha causa, mandei mensagem, ele demorou, eu fui pro banheiro e me cortei. Um corte.</p>
+<p class="t T"><b>Terapeuta</b> A gente tinha um plano. Água gelada quando o peito apertasse, e me ligar antes de ir pro banheiro. Por que tu não fez?</p>
+<p class="t P"><b>Paciente</b> Não sei.</p>
+<p class="t T"><b>Terapeuta</b> Deixa eu perguntar de outro jeito, uma coisa de cada vez. A água gelada primeiro. Tu sabia, naquela hora, que era isso que precisava fazer?</p>
+<p class="t P"><b>Paciente</b> Sabia. Tava no cartão, tava na minha cabeça.</p>
+<p class="t T"><b>Terapeuta</b> Tu tava disposta a fazer?</p>
+<p class="t P"><b>Paciente</b> Sinceramente, não. Eu pensei &quot;não vai adiantar&quot;. E eu queria que doesse. Na hora eu queria que doesse.</p>
+<p class="t T"><b>Terapeuta</b> Então a ideia de fazer chegou a passar pela tua cabeça, e o que ficou no caminho foi isso.</p>
+<p class="t P"><b>Paciente</b> Passou. Eu olhei pra cozinha e não fui.</p>
+<p class="t T"><b>Terapeuta</b> Tá. Agora me ligar. Tu sabia que era pra ligar antes de ir pro banheiro? Tava disposta?</p>
+<p class="t P"><b>Paciente</b> Sabia. E tava, não tenho vergonha de te ligar.</p>
+<p class="t T"><b>Terapeuta</b> Chegou a passar pela cabeça?</p>
+<p class="t P"><b>Paciente</b> Não. Nem lembrei. Só lembrei depois, quando vi o cartão na bolsa, na sala. Eu tava no quarto e fui pro banheiro.</p>
+<p class="t T"><b>Terapeuta</b> Então esse é diferente. Tu sabia e tava disposta, e a ideia não apareceu na hora, porque o lembrete tava na bolsa. Dois obstáculos diferentes: na água gelada, a disposição; na ligação, a lembrança.</p>
+<p class="t P"><b>Paciente</b> Faz sentido.</p>
+<p class="t T"><b>Terapeuta</b> Então a gente tem dois trabalhos diferentes. Pra ligação é mais simples: o cartão vai pra porta do banheiro. E a água gelada a gente vai trabalhar de outro jeito, porque o problema não é lembrar. É o &quot;eu quero que doa&quot;. Isso a gente vai olhar de frente hoje.</p>
+</section>
+
+<section class="pagina">
+<h2><span class="sup">Gabarito · 1</span>A cadeia da Bruna</h2>
+<div class="desenho" id="diag-1"></div>
+<h3>As cinco posições, por extenso</h3>
+<div class="pos"><span class="pos-r">Vulnerabilidade</span><p>terça: dormiu quatro horas, estudando farmacologia até as 3h</p><p>quarta: sem almoço, o estágio atrasou</p></div><div class="pos"><span class="pos-r">Evento precipitante</span><p>quarta, por volta das 16h: pergunta se ele vai chegar cedo, ele vê a mensagem e não responde</p></div><div class="pos"><span class="pos-r">Elos</span><p>ação: checa o celular repetidas vezes, tranca e destranca a tela</p><p>pensamento: &quot;ele tá cansado de mim, tá me evitando&quot;</p><p>emoção: medo, 3 subindo</p><p>ação: manda três mensagens em sequência</p><p>evento: 18h10, ele responde &quot;depois a gente conversa, tô em reunião&quot;</p><p>pensamento: &quot;acabou, ele vai terminar comigo&quot;</p><p>sensação: aperto no peito, calor no rosto, mão tremendo</p><p>emoção: vergonha e raiva, 5</p><p>ação: chora e anda pela casa por uns quinze minutos</p><p>ação: vai ao banheiro, tranca a porta, pega a lâmina</p><p>pensamento: &quot;só pra parar&quot;</p></div><div class="pos"><span class="pos-r">Comportamento-problema</span><p>18h30, dois cortes superficiais no antebraço esquerdo, com lâmina de barbear, no banheiro trancado</p></div><div class="pos"><span class="pos-r">Consequências</span><p>curto: alívio em um ou dois minutos, para de chorar, &quot;silêncio na cabeça&quot; (reforço negativo)</p><p>curto: ela manda &quot;tô mal&quot;, Caio liga em cinco minutos, sai da reunião e chega às 19h15 (o distanciamento que iniciou a cadeia desaparece)</p><p>curto: Caio abraça, faz o jantar, fica atento a noite toda (reforço positivo, feito por ele)</p><p>longo: vergonha na manhã seguinte, manga comprida no estágio com trinta graus</p><p>longo: falta ao grupo de habilidades na quinta, para não mostrar o braço</p><p>longo: na sexta, Caio diz que não aguenta mais ficar com medo. Isso alimenta a vulnerabilidade da próxima cadeia</p></div>
+</section>
+
+<section class="pagina">
+<h2><span class="sup">Gabarito · 2</span>Soluções e missing link</h2>
+<div class="duas">
+<div><span class="pos-r">Soluções que a terapeuta indicou</span><p>vulnerabilidade: PLEASE, regulação emocional</p><p>elo 2: checar os fatos, regulação emocional</p><p>elo 1 e elo 3: STOP, tolerância ao mal-estar</p><p>elo 4: adiar a mensagem, escrever e não mandar</p><p>elo 7: água gelada (TIP), tolerância ao mal-estar</p><p>elo 9: prós e contras, tolerância ao mal-estar</p><p>elo 10: ligar para a terapeuta antes de entrar no banheiro</p><p class="coment">As duas que ela escolheu: água gelada quando o peito apertar (elo 7) e ligar antes de ir ao banheiro (elo 10). Critério certo: o que ela já treinou e o que ela mesma disse que faria. O &quot;na hora eu não quero ajuda&quot;, anotado no fim, é o que vai aparecer três semanas depois.</p></div>
+<div><span class="pos-r">Missing link, três semanas depois</span><p>elo 7: água gelada · disposição · &quot;não vai adiantar&quot; e &quot;eu queria que doesse&quot;</p><p>elo 10: ligar para a terapeuta · lembrança · &quot;nem lembrei, o cartão tava na bolsa&quot;</p><p class="coment">Dois obstáculos de tipos diferentes, dois trabalhos diferentes. Para a ligação, o problema é de pista: a ideia não apareceu no lugar em que precisava aparecer. Solução de ambiente, cartão na porta do banheiro, e ensaio. Para a água gelada, o problema é de disposição: a ideia apareceu, ela olhou para a cozinha e escolheu não ir. Isso pede trabalho de compromisso, prós e contras de novo com o &quot;eu quero que doa&quot; na mesa, e provavelmente uma análise em cadeia do próprio &quot;querer que doa&quot;, que é a função do corte aparecendo em forma de vontade.</p></div>
+</div>
+<h3>Onde a Bruna travou, nas quatro perguntas</h3>
+<p>Para a ligação: sabia, estava disposta, e a ideia não passou pela cabeça no banheiro (lembrança). Pista no ambiente. Para a água gelada: sabia, a ideia passou, e ela escolheu não ir (disposição). Trabalho de compromisso, e uma cadeia do próprio "eu queria que doesse".</p>
+</section>
+
+<section class="pagina">
+<h2><span class="sup">Gabarito · 3</span>A condução na camada 2</h2>
+<table class="lupa"><tr><th></th><th>O terapeuta fez isto?</th><th>Resposta</th></tr>
+<tr><td class="n">1</td><td>definiu o comportamento-problema do jeito que dá para filmar, antes de puxar a cadeia</td><td class="sim"><b>Sim.</b> &quot;Me diz exatamente o que tu fez: onde, com o quê, quantos cortes, que horas.&quot; E repete a definição antes de puxar a cadeia.</td></tr>
+<tr><td class="n">2</td><td>colocou hora no precipitante, em vez de aceitar &quot;o dia inteiro&quot;</td><td class="sim"><b>Sim.</b> &quot;O dia inteiro é longo. Qual foi o momento em que a coisa virou?&quot; Sai &quot;umas quatro da tarde, dois tiques azuis&quot;.</td></tr>
+<tr><td class="n">3</td><td>abriu o resumo (&quot;surtei&quot;, &quot;fiquei puto&quot;) em pensamento, emoção, sensação e ação</td><td class="sim"><b>Sim.</b> &quot;Surtei é o quê, exatamente?&quot; Sai o choro e os quinze minutos andando pela casa.</td></tr>
+<tr><td class="n">4</td><td>perguntou o que os outros fizeram depois, e o que veio nos dias seguintes</td><td class="sim"><b>Sim.</b> Pergunta o que ela fez depois dos dois minutos de calma, o que o Caio fez, o dia seguinte e a sexta.</td></tr>
+<tr><td class="n">5</td><td>aceitou um resumo e seguiu em frente, sem abrir o que tinha dentro</td><td class="sim"><b>Sim.</b> &quot;Aí eu fui no banheiro e me cortei&quot; passa sem abrir. Entre entrar no banheiro e cortar tem trancar a porta, pegar a lâmina e o &quot;só pra parar&quot;. Esse era o último ponto de saída.</td></tr>
+<tr><td class="n">6</td><td>esquentou justamente no comportamento-problema: validou, tranquilizou, se demorou ali</td><td class="sim"><b>Sim.</b> &quot;Nossa. Deve ter sido muito difícil. Me conta com calma como foi...&quot; O calor da sessão cai justamente sobre o corte.</td></tr>
+<tr><td class="n">7</td><td>perguntou &quot;por quê&quot;, ou cobrou, e recebeu &quot;não sei&quot;</td><td class="sim"><b>Sim.</b> &quot;Por que tu não me ligou?&quot; rende &quot;não sei, não pensei&quot;.</td></tr>
+<tr><td class="n">8</td><td>deu solução ou sermão antes de fechar a cadeia</td><td class="sim"><b>Sim.</b> A mesma fala é solução e cobrança no meio da cadeia. O lugar dela é o missing link, três semanas depois.</td></tr>
+</table>
+<div class="troca"><span class="pos-r">A fala que valia trocar</span><p class="cit">"Nossa. Deve ter sido muito difícil. Me conta com calma como foi, como tu tava te sentindo na hora do corte, o que tu pensou enquanto cortava."</p><span class="pos-r">Como eu diria</span><p class="cit ok">"Quando tu entrou no banheiro, tu já ia se cortar? O que tu fez primeiro: trancou a porta, pegou a lâmina? E entre pegar a lâmina e cortar, passou alguma coisa pela tua cabeça?"</p></div>
+</section>
+
+<section class="pagina">
+<h2><span class="sup">Gabarito · 4</span>A condução na camada 3</h2>
+<table class="lupa"><tr><th></th><th>O terapeuta fez isto?</th><th>Resposta</th></tr>
+<tr><td class="n">1</td><td>fez as quatro perguntas na ordem: sabia? estava disposto? a ideia passou pela cabeça? o que ficou no caminho?</td><td class="sim"><b>Sim.</b> Depois do &quot;não sei&quot;, recomeça: sabia? tava disposta? passou pela cabeça? o que ficou no caminho?</td></tr>
+<tr><td class="n">2</td><td>uma habilidade de cada vez, e separou obstáculos de tipos diferentes</td><td class="sim"><b>Sim.</b> Água gelada primeiro, ligação depois. E fecha: &quot;na água gelada, a disposição; na ligação, a lembrança&quot;.</td></tr>
+<tr><td class="n">3</td><td>perguntou &quot;por que tu não fez?&quot; e recebeu &quot;não sei&quot;</td><td class="sim"><b>Sim.</b> &quot;A gente tinha um plano. Por que tu não fez?&quot; rende &quot;não sei&quot;. A terapeuta se corrige em seguida.</td></tr>
+<tr><td class="n">4</td><td>tratou obstáculos diferentes com o mesmo remédio, como se tudo fosse falta de vontade</td><td class="nao"><b>Não.</b> O cartão vai para a porta do banheiro; o &quot;eu quero que doa&quot; vai para a sessão. Dois remédios.</td></tr>
+</table>
+<div class="troca"><span class="pos-r">A fala que valia trocar</span><p class="cit">"A gente tinha um plano. Água gelada quando o peito apertasse, e me ligar antes de ir pro banheiro. Por que tu não fez?"</p><span class="pos-r">Como eu diria</span><p class="cit ok">"A gente tinha um plano de duas habilidades. Vamos olhar uma de cada vez. A água gelada: naquela hora, tu sabia que era isso que precisava fazer?"</p></div>
+<h3>Erros comuns em análises em cadeia</h3>
+<div class="grade2"><div class="erro"><b>Comportamento-problema vago</b><p>&quot;Me cortei&quot;, &quot;bebi&quot;, &quot;faltei&quot;. Se não dá para filmar, não dá para analisar. Definir o quê, onde, quando, com o quê, quanto, antes de puxar a cadeia.</p></div><div class="erro"><b>Precipitante sem hora</b><p>&quot;O dia inteiro&quot;, &quot;foi um caos&quot;. O precipitante é um evento do ambiente com hora. Sem ele, a cadeia começa num estado e não num acontecimento.</p></div><div class="erro"><b>Elo que na verdade são três</b><p>&quot;Aí eu surtei&quot;, &quot;fiquei puto&quot;, &quot;travei&quot;. Toda palavra-resumo esconde pensamento, emoção, sensação e ação em sequência. Abrir sempre.</p></div><div class="erro"><b>Consequência confundida com elo</b><p>O alívio depois do comportamento não é o último elo, é a consequência. E a consequência não é o fim da cadeia, é o que a fecha e a mantém.</p></div><div class="erro"><b>Vulnerabilidade inventada ou ausente</b><p>Ou a lista genérica de tudo o que a pessoa tem de ruim na vida, ou nada. A vulnerabilidade daquele dia está no cartão diário: sono, comida, dor, o que aconteceu na véspera, a tarefa não feita.</p></div><div class="erro"><b>Esquecer o que os outros fizeram</b><p>A consequência que mais mantém o comportamento é quase sempre feita por outra pessoa. Se a cadeia termina no paciente, falta metade.</p></div><div class="erro"><b>Calor no lugar errado</b><p>Interesse, lentidão, validação ou tranquilização justamente no comportamento-problema. O tom no alvo é de inventário; o calor vai para os elos anteriores e para o esforço.</p></div><div class="erro"><b>Solução ou sermão no meio da cadeia</b><p>&quot;Por que tu não...&quot;, &quot;isso não resolve...&quot;. Toda solução ou julgamento antes de fechar a cadeia corta a análise e vira cobrança. As soluções têm lugar próprio, depois.</p></div><div class="erro"><b>&quot;Por que tu não fez?&quot;</b><p>A pergunta que produz &quot;não sei&quot;. O missing link existe para trocá-la por quatro que o paciente consegue responder: sabia, estava disposto, a ideia passou pela cabeça, o que ficou no caminho.</p></div><div class="erro"><b>O mesmo remédio para obstáculos diferentes</b><p>Não saber, não estar disposto, não lembrar e algo no caminho pedem trabalhos diferentes: ensinar, compromisso, pista no ambiente, resolver o obstáculo. Tratar tudo como falta de motivação é o erro mais comum.</p></div></div>
+</section>
+
+<section class="pagina">
+<h2><span class="sup">Anexo</span>Onde intervir numa cadeia</h2>
+<p>Uma cadeia mostra muitos pontos possíveis. A escolha não é "o elo mais grave", é o elo em que uma habilidade tem chance real de acontecer. Seis lugares para olhar, na ordem em que costumam render mais.</p>
+<div class="onde"><b>Cedo, na vulnerabilidade</b><p>Sono, comida, dor, álcool, a tarefa não feita. É a intervenção mais barata e a que mais reduz o número de cadeias que sequer começam. Na DBT, é o PLEASE. Nas três cadeias deste material, a vulnerabilidade aparece no cartão diário antes de aparecer na sessão.</p></div><div class="onde"><b>No primeiro elo que dá para ver chegando</b><p>O elo mais precoce que a pessoa consegue notar em tempo real. Não é o primeiro da cadeia, é o primeiro que ela reconhece. Na Bruna é o peito apertando (elo 7), não o &quot;ele tá me evitando&quot; (elo 2), porque o pensamento vem rápido demais e o corpo ela sente. É ali que a habilidade tem chance de ser lembrada.</p></div><div class="onde"><b>No elo de maior alavanca</b><p>O ponto em que uma mudança pequena muda o resto. Costuma ser onde a emoção sobe de degrau (o medo virando &quot;acabou&quot;), ou a ação que aumenta o problema (as três mensagens em sequência). Uma habilidade nesse elo vale mais do que três habilidades no fim.</p></div><div class="onde"><b>Onde a habilidade já existe e não foi usada</b><p>É o missing link. Quando a pessoa sabia, o trabalho não é ensinar: é descobrir se ela estava disposta, se lembrou, ou o que ficou no caminho. As três cadeias mostram os quatro tipos de obstáculo, e cada um pede um remédio diferente.</p></div><div class="onde"><b>Nas consequências</b><p>O que os outros fazem depois é quase sempre o que mantém o comportamento. Caio chegando às 19h15, a filha ligando, a terapeuta remarcando sem comentar. Intervir aqui é trabalhar com o ambiente (e às vezes com o próprio terapeuta), e é o que a DBT chama de manejo de contingências.</p></div><div class="onde"><b>Não intervir no comportamento-problema</b><p>O comportamento é o fim da cadeia, não o lugar da intervenção. Tudo o que se faz sobre ele (validar, tranquilizar, demorar-se ali) reforça. O calor vai para os elos anteriores; no alvo, o tom é de inventário.</p></div>
+</section>
+
+<section class="pagina">
+<h2><span class="sup">Cadeia 2</span>Rafael, 34 anos: beber até apagar</h2>
+<div class="c1-grade"><div class="c1"><span class="pos-r">Quem é</span><p>Técnico de manutenção numa fábrica, escala de segunda a sábado. Separado há dois anos, tem uma filha de sete, a Lívia, que dorme na casa dele a cada duas semanas. Está em DBT há três meses, encaminhado depois de dois episódios de quebrar coisas em casa. Alvos na hierarquia: beber até apagar (alvo de qualidade de vida, o que mais aparece no cartão) e explosões de raiva. Estava há cinco semanas sem beber.</p></div><div class="c1"><span class="pos-r">O cartão diário da semana</span><p>Quinta: discussão por telefone com a ex sobre a pensão. Raiva 4. Dor nas costas 3, não foi à academia pelo terceiro dia. Sexta: urgência de beber 5. Bebeu: sim. Raiva 5, vergonha 4. Habilidades: &quot;pensei em usar, não usei&quot;. Sábado: faltou ao trabalho. Vergonha 5.</p></div><div class="c1"><span class="pos-r">Como ele conta, no começo da sessão</span><p>&quot;Sexta a Fernanda me ligou dizendo que a Lívia não ia dormir lá em casa esse fim de semana. Eu fiquei puto. A gente discutiu, ela desligou na minha cara. Aí eu bebi. No sábado eu não consegui levantar, perdi o dia. Foi só isso. Eu tava indo bem, foi um dia ruim.&quot;</p></div><div class="c1"><span class="pos-r">O que o terapeuta sabe de antes</span><p>Os episódios de bebida acontecem sempre em casa, sozinho, à noite, e quase sempre depois de alguma notícia sobre a filha. A Fernanda usa os episódios como argumento para reduzir as visitas. Rafael tem o STOP e o exercício intenso do TIP treinados no grupo, e o telefone do terapeuta.</p></div></div>
+<h3>A cadeia, com as habilidades que caberiam e o que faltou</h3>
+<div class="desenho" id="diag-2"></div>
+<div class="duas">
+<div><span class="pos-r">Soluções que o terapeuta indicou</span><p>vulnerabilidade: PLEASE, voltar a se mexer mesmo com dor</p><p>elo 1: checar os fatos, regulação emocional</p><p>elo 2: STOP, desligar ele antes de gritar</p><p>elo 6 e elo 7: ação oposta à vergonha, ligar para a filha ou mandar mensagem para o terapeuta</p><p>elo 8: escada (TIP), exercício intenso, tolerância ao mal-estar</p><p class="coment">As três que ele escolheu: a escada quando pensar &quot;só hoje&quot;, desligar quando o pescoço esquentar, e mandar mensagem se a vergonha vier. Ele mesmo antecipou o problema da escada (fácil de esquecer) e disse que a mensagem &quot;vai&quot;. Três semanas depois, a que falhou por obstáculo prático foi justamente a mensagem.</p></div>
+<div><span class="pos-r">Missing link, três semanas depois</span><p>elo 8: escada (TIP) · saber · &quot;eu achei que era pra quando eu tô com raiva, eu tava triste&quot;</p><p>elo 7: mensagem para o terapeuta · obstáculo · &quot;o celular tava sem bateria e eu não levantei&quot;</p><p class="coment">Dois obstáculos diferentes. A escada falhou por saber: ele reconhecia a habilidade, mas a pista que ele tinha era raiva, e a cadeia dessa vez passou por tristeza e ficar quieto. A solução é trocar a pista: o &quot;só hoje&quot; é o sinal, em qualquer emoção. A mensagem falhou por um obstáculo prático: sabia, estava disposto, a ideia veio, e o celular estava sem bateria do outro lado da sala. Carregador ao lado do sofá. Repare que ele usou a primeira habilidade (não ligou, não gritou) e a cadeia mudou de forma: a raiva virou tristeza e o comportamento-problema veio do mesmo jeito. Isso vale um comentário no fechamento.</p></div>
+</div>
+</section>
+
+<section class="pagina">
+<h2><span class="sup">Cadeia 3</span>Camila, 31 anos: faltar à sessão sem avisar</h2>
+<div class="c1-grade"><div class="c1"><span class="pos-r">Quem é</span><p>Analista de marketing numa agência, home office três dias por semana. Mora sozinha. Está em DBT há quatro meses, encaminhada por episódios de compulsão alimentar e por uma história de abandonar tratamentos no meio. Alvos na hierarquia: compulsão alimentar e, como comportamento que interfere na terapia, faltar sem avisar e não fazer as tarefas de casa. É a terceira falta em quatro meses.</p></div><div class="c1"><span class="pos-r">O cartão diário da semana</span><p>Segunda: cólica 4, dormiu mal. Discussão com a irmã por mensagem. Terça: sessão marcada às 15h. Não foi. Ansiedade 5, vergonha 5. Tarefa de casa da semana (registro de uma ação oposta): não fez. Quarta e quinta: não respondeu às mensagens da terapeuta.</p></div><div class="c1"><span class="pos-r">Como ela conta, na sessão seguinte</span><p>&quot;Desculpa. Terça foi um caos no trabalho, minha chefe me pediu um relatório pra entregar no mesmo dia e eu não tinha como sair. Eu ia avisar, mas aí a tarde passou. Depois eu fiquei com vergonha de responder tuas mensagens. Não é nada contigo, é que eu travei.&quot;</p></div><div class="c1"><span class="pos-r">O que a terapeuta sabe de antes</span><p>As duas faltas anteriores aconteceram em semanas em que ela não tinha feito a tarefa de casa. Nas duas ela também demorou dias para responder. Camila tem o DEAR MAN treinado no grupo e o combinado de avisar por mensagem com qualquer antecedência.</p></div></div>
+<h3>A cadeia, com as habilidades que caberiam e o que faltou</h3>
+<div class="desenho" id="diag-3"></div>
+<div class="duas">
+<div><span class="pos-r">Soluções que o terapeuta indicou</span><p>elo 1: DEAR MAN com a chefe, pedir prazo até as 18h</p><p>elo 2: checar os fatos, regulação emocional</p><p>elo 5: ação oposta à vergonha, vir e dizer &quot;não fiz&quot;</p><p>elo 7 e elo 8: responder a mensagem com uma linha, &quot;não vou conseguir hoje&quot;</p><p class="coment">As duas que ela escolheu: a resposta de uma linha e chegar dizendo &quot;não fiz&quot;, com o combinado de que &quot;não fiz&quot; basta. Ela mesma disse o que atrapalha: não saber o que escrever, e a vergonha.</p></div>
+<div><span class="pos-r">Missing link, três semanas depois</span><p>elo 5: vir e dizer &quot;não fiz&quot; · disposição · &quot;ela vai achar que eu não levo a sério&quot;</p><p>elo 8: responder com uma linha · obstáculo · &quot;escrevi quatro versões e apaguei todas&quot;</p><p class="coment">Dois obstáculos diferentes. A mensagem falhou por um obstáculo prático que parece de habilidade: ela sabia o que fazer e não sabia o que escrever. A solução é escrever a frase na sessão e deixar salva no celular. A ação oposta falhou por disposição, e a frase &quot;ela vai achar que eu não levo a sério&quot; é o pensamento que sustenta a vergonha que a tira de todos os tratamentos. Esse é o trabalho da sessão, e provavelmente do próximo mês. Repare que ela avançou: mandou mensagem duas horas depois, o que na primeira cadeia levou dois dias.</p></div>
+</div>
+</section>
+<section class="pagina">
+<h2><span class="sup">Anexo</span>Três cadeias lado a lado</h2>
+<table class="lupa"><tr><th></th><th>Bruna</th><th>Rafael</th><th>Camila</th></tr>
+<tr><td class="n">Alvo</td><td>cortes no antebraço</td><td>beber até apagar</td><td>faltar à sessão sem avisar (interfere na terapia)</td></tr>
+<tr><td class="n">Vulnerabilidade</td><td>4h de sono, sem almoço</td><td>briga com a ex na véspera, três dias sem academia, dor nas costas</td><td>cólica e sono ruim, briga com a irmã, tarefa de casa não feita</td></tr>
+<tr><td class="n">Precipitante</td><td>16h, mensagem vista e não respondida</td><td>18h, a ex liga: a filha não vai dormir na casa dele</td><td>14h, mensagem da chefe: "preciso disso hoje"</td></tr>
+<tr><td class="n">Elo com mais alavanca</td><td>o "acabou" depois da resposta seca</td><td>o "só hoje"</td><td>o "ela vai achar que eu não levo a sério"</td></tr>
+<tr><td class="n">O que mantém</td><td>alívio, Caio chegando às 19h15</td><td>a raiva passa em meia hora, fica tranquilo</td><td>a vergonha diminui e ela trabalha; a chefe elogia o relatório</td></tr>
+<tr><td class="n">Missing link</td><td>disposição (água gelada) e lembrança (ligar)</td><td>saber (escada, pista errada) e obstáculo (celular sem bateria)</td><td>disposição (dizer "não fiz") e obstáculo (não saber o que escrever)</td></tr>
+</table>
+<p class="rodape">Descomplicando a DBT · Aula 06 · 19/09/2026 · Prof. Júlio Gonçalves, MSc. · CRP 12/17614 · Casos construídos para fins didáticos. Cadernos dos grupos em descomplicandoadbt.psicojulio.com/aula6/</p>
+</section>
+
+<script>/* Parser e layout da cadeia. Usado na página e na bateria (node). Sem DOM aqui. */
+(function (root) {
+  const TIPOS_ELO = {
+    pensamento: { rot: 'pensamento', pref: ['pensamento', 'pensou', 'pens', 'pensa', 'p'] },
+    emocao:     { rot: 'emoção',     pref: ['emocao', 'emoção', 'emoc', 'sentiu', 'sente', 'e'] },
+    sensacao:   { rot: 'sensação',   pref: ['sensacao', 'sensação', 'sens', 'corpo', 's'] },
+    acao:       { rot: 'ação',       pref: ['acao', 'ação', 'ac', 'fez', 'faz', 'a'] },
+    evento:     { rot: 'evento',     pref: ['evento', 'ev', 'ambiente', 'outro', 'v'] },
+  };
+  const LEX = {
+    pensamento: ['pensou', 'pensa ', 'pensamento', 'achou', 'acha que', 'ele ta ', 'ela ta ', 'vai terminar', 'acabou',
+                 'cansad', 'ninguem', 'nunca', 'sempre', 'so pra', 'eu sou', 'nao vai adiantar', 'me evitando', 'tem que', 'devia'],
+    emocao:     ['medo', 'raiva', 'vergonha', 'triste', 'tristeza', 'culpa', 'ansied', 'angust', 'panico', 'pânico', 'nojo', 'inveja',
+                 'ciume', 'ciúme', 'solidao', 'solidão', 'desespero', 'frustra', 'emocao', 'emoção', 'humilha'],
+    sensacao:   ['aperto', 'peito', 'coracao', 'coração', 'estomago', 'estômago', 'tremendo', 'tremor', 'calor', 'frio', 'suor', 'no', 'nó',
+                 'no corpo', 'garganta', 'mao trem', 'mão trem', 'tontura', 'falta de ar', 'respira', 'agita', 'tensao', 'tensão', 'embrulh'],
+    evento:     ['ele respond', 'ela respond', 'responde', 'respondeu', 'mensagem chega', 'chega mensagem', 'ele diz', 'ela diz', 'ele fal',
+                 'ela fal', 'ele viu', 'ele ve', 'ele vê', 'ligou', 'toca', 'chegou em casa', 'ele sai', 'ela sai', 'disse que', 'reuniao', 'reunião',
+                 'ele manda', 'ela manda', 'namorad', 'mae ', 'mãe ', 'pai '],
+    acao:       ['manda', 'mandou', 'envia', 'enviou', 'checa', 'olha', 'olhou', 'tranca', 'destranca', 'chora', 'chorou', 'anda', 'andou',
+                 'vai ', 'foi ', 'pega', 'pegou', 'liga', 'bebe', 'bebeu', 'toma', 'tomou', 'grita', 'gritou', 'fica olhando', 'abre', 'abriu',
+                 'fecha', 'fechou', 'sai ', 'saiu', 'deita', 'deitou', 'escreve', 'escreveu', 'apaga', 'joga', 'jogou', 'quebra', 'come', 'comeu'],
+  };
+  const MODULOS = [
+    ['mindfulness', 'MF'], ['mente sabia', 'MF'], ['mente sábia', 'MF'], ['atencao plena', 'MF'], ['atenção plena', 'MF'],
+    ['tolerancia', 'TM'], ['tolerância', 'TM'], ['mal-estar', 'TM'], ['mal estar', 'TM'], ['crise', 'TM'],
+    ['regulacao', 'RE'], ['regulação', 'RE'], ['emocional', 'RE'],
+    ['efetividade', 'EI'], ['interpessoal', 'EI'],
+  ];
+  const HAB_MODULO = [
+    ['tip', 'TM'], ['agua gelada', 'TM'], ['água gelada', 'TM'], ['gelo', 'TM'], ['stop', 'TM'], ['pros e contras', 'TM'], ['prós e contras', 'TM'],
+    ['accepts', 'TM'], ['distra', 'TM'], ['autoacalm', 'TM'], ['aceitacao radical', 'TM'], ['aceitação radical', 'TM'], ['disposicao', 'TM'], ['disposição', 'TM'],
+    ['please', 'RE'], ['checar os fatos', 'RE'], ['checagem', 'RE'], ['acao oposta', 'RE'], ['ação oposta', 'RE'], ['resolucao de problema', 'RE'],
+    ['resolução de problema', 'RE'], ['acumular', 'RE'], ['abc', 'RE'], ['nomear a emocao', 'RE'], ['nomear a emoção', 'RE'],
+    ['dear man', 'EI'], ['dearman', 'EI'], ['give', 'EI'], ['fast', 'EI'], ['adiar', 'EI'], ['pedir', 'EI'],
+    ['mente sabia', 'MF'], ['mente sábia', 'MF'], ['observar', 'MF'], ['descrever', 'MF'], ['participar', 'MF'], ['sem julgar', 'MF'],
+    ['ligar', 'coaching'], ['telefon', 'coaching'], ['coaching', 'coaching'],
+  ];
+  const OBST = [
+    ['saber', 'saber'], ['sabia', 'saber'], ['conhec', 'saber'], ['nao sabia', 'saber'],
+    ['dispos', 'disposição'], ['querer', 'disposição'], ['queria', 'disposição'], ['vontade', 'disposição'], ['willing', 'disposição'],
+    ['lembr', 'lembrança'], ['passou pela cabeca', 'lembrança'], ['passou pela cabeça', 'lembrança'], ['ideia', 'lembrança'], ['pista', 'lembrança'],
+    ['obst', 'obstáculo'], ['caminho', 'obstáculo'], ['atrapalh', 'obstáculo'], ['impediu', 'obstáculo'],
+  ];
+
+  function semAcento(t) { return (t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function limpa(t) { return (t || '').replace(/^[\s\-–—•*·]+/, '').replace(/[\s.;]+$/, '').replace(/\s+/g, ' ').trim(); }
+  function linhas(txt) { return (txt || '').split('\n').map(limpa).filter(Boolean); }
+
+  function tipoPorPrefixo(l) {
+    const m = l.match(/^([A-Za-zÀ-ÿ]+)\s*[:\-–—]\s*(.+)$/);
+    if (!m) return null;
+    const p = semAcento(m[1]);
+    for (const k in TIPOS_ELO) {
+      if (TIPOS_ELO[k].pref.map(semAcento).indexOf(p) >= 0) return { tipo: k, texto: limpa(m[2]) };
+    }
+    return null;
+  }
+  function tipoPorLexico(l) {
+    const s = ' ' + semAcento(l) + ' ';
+    let melhor = null, onde = 1e9;
+    for (const k in LEX) {
+      for (const ch of LEX[k]) {
+        const i = s.indexOf(semAcento(ch));
+        if (i >= 0 && i < onde) { onde = i; melhor = k; }
+      }
+    }
+    return melhor;
+  }
+  function leElos(txt) {
+    return linhas(txt).map((l, i) => {
+      const pp = tipoPorPrefixo(l);
+      if (pp) return { n: i + 1, tipo: pp.tipo, texto: pp.texto, marcado: true };
+      return { n: i + 1, tipo: tipoPorLexico(l), texto: l, marcado: false };
+    });
+  }
+  function leConsequencias(txt) {
+    return linhas(txt).map(l => {
+      const m = l.match(/^(curto|longo|imediat[ao]s?|curto prazo|longo prazo|depois|tarde)\s*[:\-–—]\s*(.+)$/i);
+      if (m) {
+        const p = semAcento(m[1]);
+        return { prazo: /^(curto|imediat)/.test(p) ? 'curto' : 'longo', texto: limpa(m[2]) };
+      }
+      return { prazo: null, texto: l };
+    });
+  }
+  function siglaModulo(t) {
+    const s = semAcento(t);
+    for (const [ch, sg] of MODULOS) if (s.indexOf(semAcento(ch)) >= 0) return sg;
+    for (const [ch, sg] of HAB_MODULO) if (s.indexOf(semAcento(ch)) >= 0) return sg;
+    return null;
+  }
+  function tipoObstaculo(t) {
+    const s = semAcento(t);
+    for (const [ch, k] of OBST) if (s.indexOf(semAcento(ch)) >= 0) return k;
+    return null;
+  }
+  // "elo 3: STOP, tolerância ao mal-estar" | "3 - água gelada" | "vulnerabilidade: PLEASE"
+  function leAlvo(l) {
+    let m = l.match(/^([^:\-–—.)]*?\d[^:\-–—.)]*?)\s*[:\-–—.)]\s*(.+)$/i);
+    if (m && semAcento(m[1]).replace(/elos?|links?|\be\b|,|\s|\d/g, '') === '') {
+      const ns = (m[1].match(/\d+/g) || []).map(Number);
+      if (ns.length) return { alvo: ns[0], alvos: ns, resto: limpa(m[2]) };
+    }
+    m = l.match(/^(vulnerabilidade|vulnerab|vul|precipitante|prec|pre|consequencia|consequência|cons|comportamento|cp)\s*[:\-–—]\s*(.+)$/i);
+    if (m) {
+      const p = semAcento(m[1]);
+      const alvo = p.startsWith('vul') ? 'vul' : p.startsWith('pre') ? 'pre' : p.startsWith('con') ? 'con' : 'cp';
+      return { alvo: alvo, resto: limpa(m[2]) };
+    }
+    return null;
+  }
+  function leSolucoes(txt) {
+    const out = [];
+    linhas(txt).forEach(l => {
+      const a = leAlvo(l);
+      if (!a) return;
+      const partes = a.resto.split(/\s*[,;·|]\s*|\s+[-–—]\s+/).map(limpa).filter(Boolean);
+      const hab = partes[0] || a.resto;
+      (a.alvos || [a.alvo]).forEach(al => out.push({ alvo: al, hab: hab, modulo: siglaModulo(a.resto) }));
+    });
+    return out;
+  }
+  // "elo 7: água gelada · disposição · "eu queria que doesse""
+  function leMissing(txt) {
+    const out = [];
+    linhas(txt).forEach(l => {
+      const a = leAlvo(l);
+      if (!a) return;
+      const partes = a.resto.split(/\s*[·|;]\s*|\s+[-–—]\s+/).map(limpa).filter(Boolean);
+      const hab = partes[0] || a.resto;
+      let obst = null;
+      for (let i = 1; i < partes.length && !obst; i++) obst = tipoObstaculo(partes[i]);
+      if (!obst) obst = tipoObstaculo(a.resto.slice(hab.length));
+      out.push({ alvo: a.alvo, hab: hab, obst: obst, modulo: siglaModulo(hab) });
+    });
+    return out;
+  }
+
+  function mesmaHab(a, b) {
+    const x = semAcento(a).trim(), y = semAcento(b).trim();
+    if (!x || !y) return false;
+    if (x.startsWith(y) || y.startsWith(x)) return true;
+    return x.split(/\s+/)[0] === y.split(/\s+/)[0];
+  }
+  function leCadeia(v) {
+    return {
+      vul: linhas(v.cad_vul),
+      pre: linhas(v.cad_pre)[0] || '',
+      elos: leElos(v.cad_elos),
+      cp: linhas(v.cad_cp)[0] || '',
+      con: leConsequencias(v.cad_con),
+      sol: leSolucoes(v.sol_hab),
+      ml: leMissing(v.ml_obst),
+    };
+  }
+
+  function quebra(txt, max, maxLinhas) {
+    const out = []; let cur = '';
+    String(txt).split(' ').forEach(w => {
+      if ((cur + ' ' + w).trim().length <= max) cur = (cur + ' ' + w).trim();
+      else { if (cur) out.push(cur); cur = w; }
+    });
+    if (cur) out.push(cur);
+    if (out.length > (maxLinhas || 3)) { const o = out.slice(0, maxLinhas || 3); o[o.length - 1] = o[o.length - 1].replace(/\s*\S*$/, '') + '…'; return o; }
+    return out;
+  }
+
+  /* Layout vertical. Unidades em px de SVG. Devolve caixas e setas com coordenadas absolutas. */
+  function layoutCadeia(c, opt) {
+    const o = Object.assign({ LB: 300, LG: 210, X0: 150, XG: 490, ALT_LIN: 15, PAD: 12, GAP: 24, MAX: 40, MAXG: 26 }, opt || {});
+    const caixas = [], setas = [], rotulos = [];
+    let y = 18;
+    const vazio = !c.vul.length && !c.pre && !c.elos.length && !c.cp && !c.con.length;
+    if (vazio) return { caixas, setas, rotulos, W: o.XG + o.LG + 20, H: 60, vazio: true };
+
+    function altura(linhas, tag) { return Math.max(44, o.PAD * 2 + linhas.length * o.ALT_LIN + (tag ? 12 : 0)); }
+    function caixa(kind, texto, x, w, tag, extra) {
+      const ls = quebra(texto || '(em branco)', Math.round(o.MAX * w / o.LB), kind === 'vul' ? 4 : 3);
+      const h = altura(ls, tag);
+      const cx = Object.assign({ kind, x, y, w, h, linhas: ls, tag, texto }, extra || {});
+      caixas.push(cx);
+      return cx;
+    }
+    // posições vazias aparecem tracejadas, para o grupo ver o que falta
+    const VAZIO = 'ainda em branco';
+    // vulnerabilidade: lado a lado, até 3 por linha
+    let ultimaFaixaVul = [];
+    {
+      const vul = c.vul.length ? c.vul : [VAZIO];
+      const yIni = y;
+      const porLinha = Math.min(3, vul.length);
+      const w = (o.LB - (porLinha - 1) * 10) / porLinha;
+      let maxH = 0, col = 0, faixa = [];
+      vul.forEach((t, i) => {
+        if (col === porLinha) { y += maxH + 12; col = 0; maxH = 0; faixa = []; }
+        const cx = caixa('vul', t, o.X0 + col * (w + 10), w, null, { vazio: !c.vul.length });
+        faixa.push(cx); maxH = Math.max(maxH, cx.h); col++;
+      });
+      faixa.forEach(cx => { cx.h = maxH; });
+      ultimaFaixaVul = faixa;
+      rotulos.push({ texto: 'Vulnerabilidade', y: (yIni + y + maxH) / 2 });
+      y += maxH + o.GAP + 6;
+    }
+    // precipitante
+    let anterior = null;
+    {
+      const cx = caixa('pre', c.pre || VAZIO, o.X0, o.LB, null, { vazio: !c.pre });
+      rotulos.push({ texto: 'Precipitante', y: cx.y + cx.h / 2 });
+      ultimaFaixaVul.forEach(v => setas.push({ tipo: 'vul', de: v, para: cx }));
+      anterior = cx;
+      y += cx.h + o.GAP;
+    }
+    // elos
+    const porN = {};
+    {
+      const elos = c.elos.length ? c.elos : [{ n: null, tipo: null, texto: VAZIO, vazio: true }];
+      const yIni = y;
+      elos.forEach(e => {
+        const cx = caixa('elo', e.texto, o.X0, o.LB, e.tipo ? TIPOS_ELO[e.tipo].rot : null, { n: e.n, vazio: !!e.vazio });
+        if (e.n) porN[e.n] = cx;
+        if (anterior) setas.push({ tipo: 'dispara', de: anterior, para: cx });
+        anterior = cx;
+        y += cx.h + o.GAP;
+      });
+      rotulos.push({ texto: 'Elos', y: (yIni + y - o.GAP) / 2 });
+    }
+    // comportamento-problema
+    let cpBox = null;
+    {
+      cpBox = caixa('cp', c.cp || VAZIO, o.X0, o.LB, null, { vazio: !c.cp });
+      rotulos.push({ texto: 'Comportamento-problema', y: cpBox.y + cpBox.h / 2 });
+      if (anterior) setas.push({ tipo: 'dispara', de: anterior, para: cpBox });
+      y += cpBox.h + o.GAP + 4;
+    }
+    // consequências
+    {
+      const con = c.con.length ? c.con : [{ prazo: null, texto: VAZIO, vazio: true }];
+      const yIni = y;
+      con.forEach((k, i) => {
+        const cx = caixa('con', k.texto, o.X0, o.LB, k.prazo ? (k.prazo === 'curto' ? 'curto prazo' : 'longo prazo') : null, { idx: i, vazio: !!k.vazio });
+        if (cpBox) setas.push({ tipo: 'mantem', de: cx, para: cpBox, idx: i });
+        y += cx.h + 12;
+      });
+      rotulos.push({ texto: 'Consequências', y: (yIni + y - 12) / 2 });
+      y += 8;
+    }
+    // fantasmas: soluções e missing link, à direita do alvo
+    const alvoBox = a => (a === 'vul' ? ultimaFaixaVul[0] : a === 'pre' ? caixas.find(b => b.kind === 'pre') :
+                          a === 'cp' ? cpBox : a === 'con' ? caixas.find(b => b.kind === 'con') : porN[a]) || null;
+    const fant = {};
+    c.sol.forEach(s => {
+      const alvo = alvoBox(s.alvo);
+      if (!alvo) return;
+      const k = String(s.alvo) + '|' + semAcento(s.hab).slice(0, 8);
+      fant[k] = { alvo, hab: s.hab, modulo: s.modulo, obst: null };
+    });
+    c.ml.forEach(m => {
+      const alvo = alvoBox(m.alvo);
+      if (!alvo) return;
+      let achou = null;
+      for (const k in fant) if (fant[k].alvo === alvo && mesmaHab(fant[k].hab, m.hab)) achou = fant[k];
+      if (!achou) { const k = String(m.alvo) + '|' + semAcento(m.hab).slice(0, 8); fant[k] = achou = { alvo, hab: m.hab, modulo: m.modulo, obst: null }; }
+      achou.obst = m.obst || 'obstáculo';
+    });
+    // empilha fantasmas do mesmo alvo
+    const porAlvo = new Map();
+    Object.keys(fant).forEach(k => {
+      const f = fant[k];
+      const lista = porAlvo.get(f.alvo) || []; lista.push(f); porAlvo.set(f.alvo, lista);
+    });
+    let fundoAnterior = -1e9;
+    Array.from(porAlvo.keys()).sort((p, q) => p.y - q.y).forEach(alvo => {
+      const lista = porAlvo.get(alvo);
+      let yy = Math.max(alvo.y, fundoAnterior + 10);
+      lista.forEach(f => {
+        const ls = quebra(f.hab, o.MAXG, 2);
+        const h = Math.max(40, o.PAD * 2 + ls.length * o.ALT_LIN + (f.obst ? 12 : 0));
+        const cx = { kind: 'fant', x: o.XG, y: yy, w: o.LG, h, linhas: ls, modulo: f.modulo, obst: f.obst, texto: f.hab };
+        caixas.push(cx);
+        setas.push({ tipo: 'atenua', de: cx, para: alvo, faltou: !!f.obst });
+        yy += h + 8;
+      });
+      fundoAnterior = yy - 8;
+      y = Math.max(y, yy + 4);
+    });
+    const temFant = caixas.some(b => b.kind === 'fant');
+    return { caixas, setas, rotulos, W: temFant ? o.XG + o.LG + 16 : o.X0 + o.LB + 60, H: y + 10, vazio: false };
+  }
+
+  root.Cadeia = { leCadeia, leElos, leConsequencias, leSolucoes, leMissing, layoutCadeia, quebra, siglaModulo, tipoObstaculo, TIPOS_ELO };
+})(typeof window !== 'undefined' ? window : (typeof module !== 'undefined' ? module.exports : this));
+</script>
+<script>
+const COR = { oliva: '#8c2335', rust: '#c8893a', suave: '#8a8a8a', creme: '#fdf0f2', creme2: '#faf9f7', rosa: '#f2dde0', tinta: '#111111', cinza: '#555555', dourado: '#c8893a' };
+function escX(t) { return String(t).replace(/[<>&]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c])); }
+  function svgCadeia(L) {
+    const W = L.W, H = L.H;
+    let s = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">';
+    s += '<defs>'
+      + '<marker id="m-d" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="' + COR.oliva + '"/></marker>'
+      + '<marker id="m-m" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="' + COR.rust + '"/></marker>'
+      + '<marker id="m-v" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="' + COR.cinza + '"/></marker>'
+      + '<marker id="m-b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M5,0.5 L5,9.5" stroke="' + COR.suave + '" stroke-width="3"/></marker>'
+      + '<marker id="m-bf" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M5,0.5 L5,9.5" stroke="' + COR.rust + '" stroke-width="3"/></marker>'
+      + '</defs>';
+    // rótulos das posições, à esquerda
+    L.rotulos.forEach(r => {
+      const ls = r.texto.toUpperCase().split(/(?<=-)/);
+      ls.forEach((l, i) => {
+        s += '<text x="118" y="' + (r.y + 4 - (ls.length - 1) * 6 + i * 12) + '" text-anchor="end" font-size="10.5" font-weight="700" letter-spacing="1" fill="' + COR.cinza + '">' + escX(l) + '</text>';
+      });
+    });
+    // setas
+    L.setas.forEach(a => {
+      const de = a.de, para = a.para;
+      if (a.tipo === 'vul') {
+        const x1 = de.x + de.w / 2, y1 = de.y + de.h, x2 = Math.min(Math.max(x1, para.x + 30), para.x + para.w - 30), y2 = para.y;
+        s += '<path d="M' + x1 + ',' + y1 + ' C' + x1 + ',' + (y1 + 14) + ' ' + x2 + ',' + (y2 - 14) + ' ' + x2 + ',' + (y2 - 1) + '" fill="none" stroke="' + COR.cinza + '" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#m-v)"/>';
+      } else if (a.tipo === 'dispara') {
+        const x = de.x + de.w / 2;
+        s += '<line x1="' + x + '" y1="' + (de.y + de.h) + '" x2="' + x + '" y2="' + (para.y - 1) + '" stroke="' + COR.oliva + '" stroke-width="2.3" marker-end="url(#m-d)" stroke-linecap="round"/>';
+      } else if (a.tipo === 'mantem') {
+        const off = 14 + a.idx * 11;
+        const x1 = de.x + de.w, y1 = de.y + de.h / 2, x2 = para.x + para.w, y2 = Math.min(para.y + para.h - 6, para.y + 10 + a.idx * 6);
+        const xc = x1 + off;
+        s += '<path d="M' + x1 + ',' + y1 + ' C' + xc + ',' + y1 + ' ' + xc + ',' + y2 + ' ' + (x2 + 1) + ',' + y2 + '" fill="none" stroke="' + COR.rust + '" stroke-width="2.4" marker-end="url(#m-m)" stroke-linecap="round"/>';
+      } else if (a.tipo === 'atenua') {
+        const y = Math.min(de.y + de.h / 2, para.y + para.h - 6);
+        const cor = a.faltou ? COR.rust : COR.suave;
+        s += '<path d="M' + de.x + ',' + (de.y + de.h / 2) + ' C' + (de.x - 24) + ',' + (de.y + de.h / 2) + ' ' + (para.x + para.w + 24) + ',' + y + ' ' + (para.x + para.w + 2) + ',' + y + '" fill="none" stroke="' + cor + '" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#' + (a.faltou ? 'm-bf' : 'm-b') + ')"/>';
+      }
+    });
+    // caixas
+    L.caixas.forEach(b => {
+      let fill = COR.creme, stroke = COR.oliva, sw = 1.7, dash = '';
+      if (b.kind === 'vul') { fill = COR.creme2; dash = ' stroke-dasharray="6 4"'; }
+      if (b.kind === 'cp') { fill = COR.rosa; stroke = COR.rust; sw = 2.6; }
+      if (b.kind === 'con') { fill = '#ffffff'; stroke = COR.rust; sw = 1.4; }
+      if (b.kind === 'fant') { fill = '#ffffff'; stroke = b.obst ? COR.rust : COR.suave; sw = 1.5; dash = ' stroke-dasharray="6 4"'; }
+      if (b.vazio) { fill = 'none'; stroke = COR.cinza; sw = 1.2; dash = ' stroke-dasharray="4 4"'; }
+      s += '<rect x="' + b.x + '" y="' + b.y + '" width="' + b.w + '" height="' + b.h + '" rx="9" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + sw + '"' + dash + '/>';
+      if (b.kind === 'elo' && b.n) {
+        s += '<circle cx="' + (b.x - 16) + '" cy="' + (b.y + b.h / 2) + '" r="11" fill="' + COR.oliva + '"/>'
+           + '<text x="' + (b.x - 16) + '" y="' + (b.y + b.h / 2 + 4) + '" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">' + b.n + '</text>';
+      }
+      let top = b.y + 14;
+      if (b.tag) {
+        s += '<text x="' + (b.x + 12) + '" y="' + (b.y + 14) + '" font-size="9.5" font-weight="700" letter-spacing="0.8" fill="' + (b.kind === 'con' ? COR.rust : COR.cinza) + '">' + escX(b.tag.toUpperCase()) + '</text>';
+        top += 12;
+      }
+      if (b.kind === 'fant' && b.obst) {
+        s += '<text x="' + (b.x + 12) + '" y="' + (b.y + 14) + '" font-size="9.5" font-weight="700" letter-spacing="0.8" fill="' + COR.rust + '">FALTOU · ' + escX(b.obst.toUpperCase()) + '</text>';
+        top += 12;
+      }
+      const nL = b.linhas.length;
+      const yTxt = b.tag || (b.kind === 'fant' && b.obst) ? top + 6 : b.y + b.h / 2 - (nL - 1) * 7.5 + 5;
+      b.linhas.forEach((l, i) => {
+        s += '<text x="' + (b.x + 12) + '" y="' + (yTxt + i * 15) + '" font-size="13" fill="' + (b.vazio ? COR.cinza : COR.tinta) + '"' + (b.kind === 'fant' || b.vazio ? ' font-style="italic"' : '') + '>' + escX(l) + '</text>';
+      });
+      if (b.kind === 'fant' && b.modulo) {
+        s += '<text x="' + (b.x + b.w - 10) + '" y="' + (b.y + b.h - 8) + '" text-anchor="end" font-size="9.5" font-weight="700" letter-spacing="0.8" fill="' + COR.oliva + '">' + escX(b.modulo) + '</text>';
+      }
+    });
+    s += '</svg>';
+    return s;
+  }
+  
+const DADOS = {"1": {"cad_vul": "terça: dormiu quatro horas, estudando farmacologia até as 3h\nquarta: sem almoço, o estágio atrasou", "cad_pre": "quarta, por volta das 16h: pergunta se ele vai chegar cedo, ele vê a mensagem e não responde", "cad_elos": "ação: checa o celular repetidas vezes, tranca e destranca a tela\npensamento: \"ele tá cansado de mim, tá me evitando\"\nemoção: medo, 3 subindo\nação: manda três mensagens em sequência\nevento: 18h10, ele responde \"depois a gente conversa, tô em reunião\"\npensamento: \"acabou, ele vai terminar comigo\"\nsensação: aperto no peito, calor no rosto, mão tremendo\nemoção: vergonha e raiva, 5\nação: chora e anda pela casa por uns quinze minutos\nação: vai ao banheiro, tranca a porta, pega a lâmina\npensamento: \"só pra parar\"", "cad_cp": "18h30, dois cortes superficiais no antebraço esquerdo, com lâmina de barbear, no banheiro trancado", "cad_con": "curto: alívio em um ou dois minutos, para de chorar, \"silêncio na cabeça\" (reforço negativo)\ncurto: ela manda \"tô mal\", Caio liga em cinco minutos, sai da reunião e chega às 19h15 (o distanciamento que iniciou a cadeia desaparece)\ncurto: Caio abraça, faz o jantar, fica atento a noite toda (reforço positivo, feito por ele)\nlongo: vergonha na manhã seguinte, manga comprida no estágio com trinta graus\nlongo: falta ao grupo de habilidades na quinta, para não mostrar o braço\nlongo: na sexta, Caio diz que não aguenta mais ficar com medo. Isso alimenta a vulnerabilidade da próxima cadeia", "sol_hab": "vulnerabilidade: PLEASE, regulação emocional\nelo 2: checar os fatos, regulação emocional\nelo 1 e elo 3: STOP, tolerância ao mal-estar\nelo 4: adiar a mensagem, escrever e não mandar\nelo 7: água gelada (TIP), tolerância ao mal-estar\nelo 9: prós e contras, tolerância ao mal-estar\nelo 10: ligar para a terapeuta antes de entrar no banheiro\n\nAs duas que ela escolheu: água gelada quando o peito apertar (elo 7) e ligar antes de ir ao banheiro (elo 10). Critério certo: o que ela já treinou e o que ela mesma disse que faria. O \"na hora eu não quero ajuda\", anotado no fim, é o que vai aparecer três semanas depois.", "ml_obst": "elo 7: água gelada · disposição · \"não vai adiantar\" e \"eu queria que doesse\"\nelo 10: ligar para a terapeuta · lembrança · \"nem lembrei, o cartão tava na bolsa\"\n\nDois obstáculos de tipos diferentes, dois trabalhos diferentes. Para a ligação, o problema é de pista: a ideia não apareceu no lugar em que precisava aparecer. Solução de ambiente, cartão na porta do banheiro, e ensaio. Para a água gelada, o problema é de disposição: a ideia apareceu, ela olhou para a cozinha e escolheu não ir. Isso pede trabalho de compromisso, prós e contras de novo com o \"eu quero que doa\" na mesa, e provavelmente uma análise em cadeia do próprio \"querer que doa\", que é a função do corte aparecendo em forma de vontade."}, "2": {"cad_vul": "quinta: briga por telefone com a ex sobre a pensão\ntrês dias sem academia, dor nas costas", "cad_pre": "sexta, por volta das 18h, chegando da fábrica: a ex liga avisando que a filha não vai dormir na casa dele", "cad_elos": "pensamento: \"ela tá me tirando a minha filha, é sempre assim\"\nsensação: rosto e pescoço quentes, mão fechada\nemoção: raiva, 4\nação: chama a ex de egoísta, grita\nevento: ela desliga\npensamento: \"eu sou um pai de merda mesmo, ela tem razão\"\nemoção: vergonha, um peso\npensamento: \"só hoje\"\nação: pega a chave do carro, vai ao mercado, compra o fardo e a vodca", "cad_cp": "sexta, das 19h30 às 23h, seis latas e meia garrafa de vodca, sozinho em casa, até apagar no sofá", "cad_con": "curto: a raiva passa em meia hora, fica tranquilo, vê televisão (reforço negativo)\nlongo: acorda às 11h de sábado, falta ao trabalho, advertência na segunda\nlongo: a filha liga e o percebe grogue\nlongo: a ex fica sabendo e usa o episódio como argumento para a próxima visita, o que alimenta o precipitante da próxima cadeia\nlongo: vergonha 5 no sábado", "sol_hab": "vulnerabilidade: PLEASE, voltar a se mexer mesmo com dor\nelo 1: checar os fatos, regulação emocional\nelo 2: STOP, desligar ele antes de gritar\nelo 6 e elo 7: ação oposta à vergonha, ligar para a filha ou mandar mensagem para o terapeuta\nelo 8: escada (TIP), exercício intenso, tolerância ao mal-estar\n\nAs três que ele escolheu: a escada quando pensar \"só hoje\", desligar quando o pescoço esquentar, e mandar mensagem se a vergonha vier. Ele mesmo antecipou o problema da escada (fácil de esquecer) e disse que a mensagem \"vai\". Três semanas depois, a que falhou por obstáculo prático foi justamente a mensagem.", "ml_obst": "elo 8: escada (TIP) · saber · \"eu achei que era pra quando eu tô com raiva, eu tava triste\"\nelo 7: mensagem para o terapeuta · obstáculo · \"o celular tava sem bateria e eu não levantei\"\n\nDois obstáculos diferentes. A escada falhou por saber: ele reconhecia a habilidade, mas a pista que ele tinha era raiva, e a cadeia dessa vez passou por tristeza e ficar quieto. A solução é trocar a pista: o \"só hoje\" é o sinal, em qualquer emoção. A mensagem falhou por um obstáculo prático: sabia, estava disposto, a ideia veio, e o celular estava sem bateria do outro lado da sala. Carregador ao lado do sofá. Repare que ele usou a primeira habilidade (não ligou, não gritou) e a cadeia mudou de forma: a raiva virou tristeza e o comportamento-problema veio do mesmo jeito. Isso vale um comentário no fechamento."}, "3": {"cad_vul": "segunda: cólica, dormiu mal\nsegunda: briga com a irmã por mensagem (\"tu sumiu\")\ntarefa de casa da semana não feita", "cad_pre": "terça, por volta das 14h: mensagem da chefe, \"preciso disso hoje\"", "cad_elos": "pensamento: \"não vou dar conta de nada\"\nemoção: ansiedade, 4\nsensação: aperto na garganta\nação: abre o arquivo e fica vinte minutos sem escrever\npensamento: \"se eu for na terapia vou chorar e não vou fazer o relatório\", e \"não quero chegar sem a tarefa de novo\"\nação: 14h30, deixa o celular no silencioso\nevento: 15h05, mensagem da terapeuta, \"tá tudo bem?\"\npensamento: \"eu devia responder, e não vou saber o que dizer\"\nemoção: vergonha, 5\nação: vira o celular para baixo", "cad_cp": "terça, 15h, em casa: não entra na sessão e não avisa", "cad_con": "curto: a vergonha diminui, consegue trabalhar (reforço negativo)\ncurto: entrega o relatório às 18h e a chefe elogia (reforço positivo, feito pela chefe)\nlongo: culpa à noite, não responde às mensagens da terapeuta por dois dias\nlongo: entra na sessão seguinte com mais vergonha (\"quase não vim\"), o que é a vulnerabilidade da próxima cadeia", "sol_hab": "elo 1: DEAR MAN com a chefe, pedir prazo até as 18h\nelo 2: checar os fatos, regulação emocional\nelo 5: ação oposta à vergonha, vir e dizer \"não fiz\"\nelo 7 e elo 8: responder a mensagem com uma linha, \"não vou conseguir hoje\"\n\nAs duas que ela escolheu: a resposta de uma linha e chegar dizendo \"não fiz\", com o combinado de que \"não fiz\" basta. Ela mesma disse o que atrapalha: não saber o que escrever, e a vergonha.", "ml_obst": "elo 5: vir e dizer \"não fiz\" · disposição · \"ela vai achar que eu não levo a sério\"\nelo 8: responder com uma linha · obstáculo · \"escrevi quatro versões e apaguei todas\"\n\nDois obstáculos diferentes. A mensagem falhou por um obstáculo prático que parece de habilidade: ela sabia o que fazer e não sabia o que escrever. A solução é escrever a frase na sessão e deixar salva no celular. A ação oposta falhou por disposição, e a frase \"ela vai achar que eu não levo a sério\" é o pensamento que sustenta a vergonha que a tira de todos os tratamentos. Esse é o trabalho da sessão, e provavelmente do próximo mês. Repare que ela avançou: mandou mensagem duas horas depois, o que na primeira cadeia levou dois dias."}};
+Object.keys(DADOS).forEach(k => {
+  const el = document.getElementById('diag-' + k);
+  if (el) el.innerHTML = svgCadeia(Cadeia.layoutCadeia(Cadeia.leCadeia(DADOS[k])));
+});
+</script>
+</body></html>
