@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aula 07 · Compromisso e manejo de crises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vinho:#8c2335; --vinho-escuro:#2d0a12; --rosa:#fdf0f2; --rosa-2:#f2dde0;
+  --dourado:#c8893a; --tinta:#111; --texto:#4a4a4a; --fraco:#8a8a8a;
+  --linha:#ececec; --papel:#fff; --papel-2:#faf9f7; --raio:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Sora',system-ui,-apple-system,sans-serif;background:var(--papel);color:var(--tinta);-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--vinho);outline-offset:3px;border-radius:4px}
+.wrap{max-width:780px;margin:0 auto;padding:0 1.6rem}
+
+/* BARRA LATERAL — a mesma do portal */
+.sidebar{position:fixed;inset:0 auto 0 0;width:270px;background:var(--vinho-escuro);color:#fff;
+  display:flex;flex-direction:column;z-index:60;padding:1.8rem 0 0;overflow-y:auto}
+.sb-brand{padding:0 1.5rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-brand .b1{font-size:1.02rem;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.sb-brand .b1 span{color:#e8909a}
+.sb-brand .b2{font-size:.68rem;color:rgba(255,255,255,.4);margin-top:.2rem}
+.sb-prog{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-prog-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.55rem}
+.sb-prog-n{font-size:1.4rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+.sb-prog-n small{font-size:.72rem;font-weight:400;color:rgba(255,255,255,.35)}
+.sb-prog-l{font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.35)}
+.bar{height:3px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden;margin-top:.2rem}
+.bar i{display:block;height:100%;background:var(--dourado);width:0%}
+.sb-nav{padding:.6rem 0}
+.sb-nav a{display:flex;gap:.6rem;align-items:center;font-size:.82rem;color:rgba(255,255,255,.7);
+  text-decoration:none;padding:.55rem 1.5rem}
+.sb-nav a:hover{color:#fff;background:rgba(255,255,255,.05)}
+.sb-nav .ic{font-size:.78rem;opacity:.7;flex-shrink:0}
+.sb-sep{font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.25);
+  padding:1.1rem 1.5rem .45rem}
+.ix a{display:block;font-size:.78rem;line-height:1.4;color:rgba(255,255,255,.5);text-decoration:none;
+  padding:.42rem 1.5rem;border-left:2px solid transparent;transition:.2s;cursor:pointer}
+.ix a:hover{color:#fff}
+.ix a.on{color:#fff;border-left-color:var(--vinho);background:rgba(140,35,53,.28);font-weight:500}
+.sb-foot{margin-top:auto;padding:1.2rem 1.5rem;border-top:1px solid rgba(255,255,255,.08)}
+.ix-pdf{display:block;text-align:center;background:#fff;color:var(--vinho-escuro);padding:.65rem;
+  border-radius:100px;font-size:.76rem;font-weight:700;text-decoration:none;transition:.2s}
+.ix-pdf:hover{background:var(--vinho);color:#fff}
+.sb-duo{display:flex;align-items:center;gap:.6rem;margin-top:1rem}
+.sb-duo .av{display:flex}
+.sb-duo .in{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--vinho);color:#fff;font-size:.6rem;font-weight:700;border:2px solid var(--vinho-escuro);margin-left:-9px}
+.sb-duo .in:first-child{margin-left:0}
+.sb-duo span{font-size:.62rem;color:rgba(255,255,255,.4);line-height:1.35}
+
+.main{margin-left:270px}
+.burger{display:none;position:fixed;top:.9rem;left:.9rem;z-index:80;background:var(--vinho-escuro);
+  color:#fff;border:none;width:42px;height:42px;border-radius:12px;font-size:1.05rem;cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.scrim{display:none;position:fixed;inset:0;background:rgba(20,8,12,.5);z-index:55}
+body.ix .scrim{display:block}
+
+/* capa */
+.capa{background:linear-gradient(135deg,var(--rosa) 0%,var(--rosa-2) 100%);padding:3.6rem 0 3.2rem;margin-bottom:3rem}
+.kicker{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--vinho);font-weight:600}
+h1{font-size:clamp(1.75rem,4.4vw,2.7rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;margin:.8rem 0}
+.linha-meta{font-size:.82rem;color:#6b5257;line-height:1.7;margin-top:1.1rem}
+
+h2{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 .9rem;line-height:1.25}
+h2 .num{color:var(--rosa-2);font-size:1.05rem;font-weight:800;margin-right:.5rem}
+p{font-size:.95rem;line-height:1.85;color:var(--texto);font-weight:300;margin-top:1rem}
+p strong{font-weight:600;color:var(--tinta)}
+em{color:var(--tinta)}
+
+/* o essencial */
+.essencial{background:var(--vinho-escuro);color:#fff;border-radius:20px;padding:2.2rem 2.4rem;position:relative;overflow:hidden}
+.essencial::after{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;border-radius:50%;background:rgba(140,35,53,.35)}
+.essencial .et{font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);position:relative;z-index:1}
+.essencial ul{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.9rem;position:relative;z-index:1}
+.essencial li{font-size:.92rem;line-height:1.6;color:rgba(255,255,255,.82);font-weight:300;
+  position:relative;padding-left:1.55rem;overflow-wrap:break-word}
+.essencial li::before{content:'';position:absolute;left:0;top:.5em;width:7px;height:7px;border-radius:50%;background:var(--dourado)}
+.essencial b{color:#fff;font-weight:600}
+
+ul.key{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.8rem}
+ul.key li{font-size:.9rem;line-height:1.7;color:var(--texto);font-weight:300;padding-left:1.3rem;position:relative}
+ul.key li::before{content:'';position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%;background:var(--vinho)}
+ul.key b{font-weight:600;color:var(--tinta)}
+
+.obs{background:var(--papel-2);border-left:3px solid var(--vinho);border-radius:0 12px 12px 0;padding:1.2rem 1.5rem;margin-top:1.6rem}
+.obs h4{font-size:.82rem;font-weight:700;color:var(--vinho-escuro);letter-spacing:-.01em}
+.obs p{font-size:.88rem;margin-top:.5rem;line-height:1.75}
+.nota-c{background:#fdf5ea;border:1.5px dashed #f0d9b0;border-radius:12px;padding:1.2rem 1.5rem;margin-top:1.6rem}
+.nota-c .ct{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dourado);font-weight:700;margin-bottom:.4rem}
+.nota-c p{font-size:.86rem;margin-top:0;line-height:1.7}
+
+.compara{display:grid;grid-template-columns:1fr;gap:12px;margin-top:1.6rem}
+.compara .d{border:1.5px solid var(--linha);border-radius:12px;padding:1.3rem 1.4rem}
+.compara .dt{font-size:.84rem;font-weight:700;color:var(--vinho);margin-bottom:.45rem}
+.compara p{font-size:.85rem;margin-top:0;line-height:1.65}
+
+/* interativo */
+.bloco{border:1.5px solid var(--linha);border-radius:var(--raio);padding:1.8rem;margin-top:1.4rem}
+.check{display:flex;gap:.85rem;align-items:flex-start;padding:.7rem 0;border-bottom:1px solid #f5f5f5;cursor:pointer}
+.check:last-child{border-bottom:none}
+.check input{appearance:none;width:19px;height:19px;border:2px solid #d6d6d6;border-radius:5px;flex-shrink:0;margin-top:.15rem;cursor:pointer;transition:.2s;position:relative}
+.check input:checked{background:var(--vinho);border-color:var(--vinho)}
+.check input:checked::after{content:'✓';color:#fff;font-size:.7rem;position:absolute;top:-1px;left:3px}
+.check span{font-size:.89rem;line-height:1.55;color:var(--texto);font-weight:300}
+.check input:checked+span{color:var(--fraco);text-decoration:line-through}
+.pergunta{margin-top:1.5rem}
+.pergunta:first-child{margin-top:0}
+.pq{font-size:.89rem;font-weight:600;line-height:1.55;margin-bottom:.6rem}
+.pq b{color:var(--vinho);margin-right:.3rem}
+textarea{width:100%;min-height:110px;border:1.5px solid var(--linha);border-radius:12px;padding:.9rem 1rem;
+  font-family:inherit;font-size:.87rem;line-height:1.65;color:var(--tinta);resize:vertical}
+textarea:focus{outline:none;border-color:var(--vinho)}
+textarea::placeholder{color:#c9c9c9}
+details.gab{margin-top:.6rem}
+details.gab summary{font-size:.78rem;color:var(--vinho);font-weight:600;cursor:pointer}
+.gab-in{font-size:.85rem;line-height:1.75;color:var(--texto);margin-top:.6rem;padding:.9rem 1rem;background:var(--papel-2);border-radius:10px}
+@media print{details.gab{border-color:#ddd;background:none}}
+
+.acoes{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:1.4rem}
+.btn{border:1.5px solid var(--linha);background:var(--papel);color:var(--texto);padding:.6rem 1.2rem;
+  border-radius:100px;font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;gap:.4rem;transition:.2s}
+.btn:hover{border-color:var(--vinho);color:var(--vinho)}
+.btn.solid{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.btn.solid:hover{background:var(--vinho);border-color:var(--vinho);color:#fff}
+.estado{font-size:.72rem;color:var(--fraco)}
+
+/* referências */
+ul.refs{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.7rem}
+ul.refs li{font-size:.85rem;line-height:1.7;color:var(--texto);font-weight:300;padding-left:1.2rem;position:relative}
+ul.refs li::before{content:'';position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:var(--dourado)}
+
+footer.rod{margin:3.5rem 0 3rem;padding-top:1.6rem;border-top:1px solid var(--linha);font-size:.76rem;color:var(--fraco)}
+
+@media print{
+  .sidebar,.burger,.acoes{display:none}
+  .main{margin-left:0}
+  .capa{background:none;padding:0 0 1.5rem}
+  .essencial{background:none;color:#000;border:1.5px solid #ccc}
+  .essencial li,.essencial .et{color:#000}
+  textarea{min-height:80px}
+}
+@media (max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:.25s;box-shadow:0 0 40px rgba(0,0,0,.3)}
+  body.ix .sidebar{transform:translateX(0)}
+  .main{margin-left:0}
+  .burger{display:block}
+}
+</style></head>
+<body>
+
+<button class="burger" id="burger" aria-label="Abrir menu">☰</button>
+<div class="scrim" id="scrim"></div>
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="b1">Descomplicando <span>a DBT</span></div>
+    <div class="b2">Portal da turma · 2026</div>
+  </div>
+  <div class="sb-prog">
+    <div class="sb-prog-top">
+      <div class="sb-prog-n" id="progN">0<small>/12</small></div>
+      <div class="sb-prog-l">aulas</div>
+    </div>
+    <div class="bar"><i id="progBar"></i></div>
+  </div>
+  <nav class="sb-nav">
+    <a href="../#inicio"><span class="ic">◆</span>Início</a>
+    <a href="../#grade"><span class="ic">▤</span>As 12 aulas</a>
+    <a href="../#anotacoes"><span class="ic">✎</span>Minhas anotações</a>
+    <a href="../#metodo"><span class="ic">◇</span>Como funciona</a>
+  </nav>
+  <div class="sb-sep">Nesta aula</div>
+  <div class="ix">
+    <a href="#s0">O essencial</a>
+    <a href="#s1">01 · O que é compromisso</a>
+    <a href="#s2">02 · Limites do papel terapêutico</a>
+    <a href="#s3">03 · Avaliação do risco</a>
+    <a href="#s4">04 · Instrumentos estruturados</a>
+    <a href="#s5">05 · Manejo a curto prazo</a>
+    <a href="#s6">06 · Médio e longo prazo</a>
+    <a href="#s7">07 · Hospitalização</a>
+    <a href="#s8">08 · O plano de crise</a>
+    <a href="#s9">09 · Tolerância ao mal-estar</a>
+    <a href="#s10">10 · Coaching telefônico</a>
+    <a href="#s11">11 · Depois da crise</a>
+    <a href="#s12">12 · Uma vida que vale a pena</a>
+    <a href="#s13">13 · O contrato de compromisso</a>
+    <a href="#s14">14 · Perguntas de revisão</a>
+    <a href="#s15">15 · Referências</a>
+  </div>
+  <div class="sb-foot">
+    <a class="ix-pdf" href="resumo.pdf" download>Baixar o PDF</a>
+    <div class="sb-duo">
+      <div class="av"><div class="in">JG</div><div class="in">AJ</div></div>
+      <span>Idealização<br>Júlio &amp; Andressa</span>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+<header class="capa">
+  <div class="wrap">
+    <div class="kicker">Aula 07 · sábado, 26 de setembro de 2026</div>
+    <h1>Compromisso e manejo de crises</h1>
+    <div class="linha-meta">
+      Conduzido por Andressa Juliana, com Júlio Gonçalves<br>
+      Material de apoio — resumo fiel ao que foi dito no encontro
+    </div>
+  </div>
+</header>
+
+<main class="conteudo wrap">
+  <div class="essencial" id="s0">
+    <div class="et">O essencial</div>
+    <ul>
+      <li><b>Compromisso em DBT não é adesão passiva.</b> É um combinado explícito, revisitado ao longo do tratamento: permanência mínima, frequência, pagamento.</li>
+      <li><b>O terapeuta não é a rede de apoio da pessoa nem seu salvador.</b> Um caso de risco só deve ser assumido com rede social estruturada e acompanhamento psiquiátrico.</li>
+      <li><b>Perguntar diretamente sobre ideação suicida não induz o comportamento.</b> A evidência disponível aponta na direção oposta: costuma validar o sofrimento.</li>
+      <li><b>O plano de crise é obrigatório para todo paciente em DBT</b>, não um recurso reservado aos casos mais graves — e é revisado a partir das próprias análises em cadeia.</li>
+      <li><b>Depois de uma tentativa ou automutilação, o contato do terapeuta pausa por 24h.</b> A razão é comportamental: evitar que a atenção reforce o comportamento extremo.</li>
+    </ul>
+  </div>
+
+  <h2 id="s1"><span class="num">01</span>O que é compromisso, em DBT</h2>
+  <p>O compromisso não é a assinatura de um termo no início do tratamento. É um processo ativo e contínuo de escolha, que o paciente reafirma — ou renegocia — em vários momentos, não só naquele primeiro encontro. Engajar a pessoa no tratamento começa antes mesmo de tratar: no pré-tratamento, quando se avalia se a DBT é de fato a abordagem certa para aquele momento da vida dela.</p>
+  <p>A DBT raramente é o primeiro tratamento que a pessoa procura. É comum que já tenha passado por experiências terapêuticas anteriores problemáticas ou inadequadas. O pré-tratamento serve exatamente para avaliar o funcionamento geral, o risco de vida, os tratamentos já tentados, e se a abordagem é de fato adequada ao momento daquela pessoa.</p>
+
+  <h2 id="s2"><span class="num">02</span>Os limites do papel terapêutico</h2>
+  <p>Um ponto insistido em aula: o terapeuta não pode assumir o papel de salvador nem se tornar a única rede de apoio do paciente. O trabalho de mudança é feito pela pessoa em conjunto com sua rede social e com o acompanhamento psiquiátrico, não pelo terapeuta sozinho.</p>
+  <div class="obs">
+    <h4>Sem rede, o caso não deve ser assumido</h4>
+    <p>Casos de risco elevado não devem ser assumidos sem uma rede de apoio estruturada e sem acompanhamento psiquiátrico ativo. Aceitar um caso assim sem essas condições sobrecarrega a profissional e piora o manejo do risco, não melhora.</p>
+  </div>
+  <p>Isso não é uma exceção clínica: profissionais de psicologia têm o direito de escolher quais casos atender e de respeitar seus próprios limites técnicos e pessoais para evitar o esgotamento (burnout). Quando a demanda excede a disponibilidade real, o encaminhamento seguro é a conduta correta, mesmo que gere sentimentos de rejeição ou de idealização por parte de quem é atendido.</p>
+
+  <h2 id="s3"><span class="num">03</span>Avaliação do risco de suicídio e autolesão</h2>
+  <p>Perguntar de forma direta sobre ideação suicida — ativa ou passiva — não instiga o comportamento. Ao contrário: costuma validar o sofrimento e abrir espaço para que a pessoa fale do que, de outro modo, ficaria calado. Revisões sistemáticas não encontram evidência de que perguntar sobre suicídio aumente a ideação (Dazzi et al., 2014).</p>
+  <p>A avaliação investiga, no mínimo: existência de plano estruturado (quando, onde, como), tentativas anteriores, e acesso a meios letais — medicações em quantidade, armas de fogo, outros métodos disponíveis.</p>
+  <div class="nota-c">
+    <div class="ct">Diretriz prática</div>
+    <p>Coletar contatos completos da rede de apoio e documentos do paciente já no pré-tratamento, antes da primeira sessão de fato. Numa crise em que a pessoa recuse ajuda, é isso que garante à equipe como acionar alguém.</p>
+  </div>
+
+  <h2 id="s4"><span class="num">04</span>Instrumentos estruturados de avaliação</h2>
+  <p>Dois instrumentos foram citados como apoio à documentação e à tomada de decisão clínica: o <strong>formulário do Botega</strong>, para visualização rápida dos fatores de risco (Botega, 2021), e o <strong>LRAMP</strong> — Linehan Risk Assessment and Management Protocol —, desenvolvido por Marsha Linehan especificamente para pacientes em DBT, detalhando a razão da avaliação, a descrição da ameaça, fatores de risco e protetivos, histórico de tentativas e intervenções realizadas (Carmel et al., 2018).</p>
+  <p>A recomendação que atravessa os dois é a mesma: documentar rigorosamente toda comunicação, encaminhamento e registro no prontuário. Isso protege o paciente, porque força uma avaliação sistemática, e protege juridicamente a profissional.</p>
+
+  <h2 id="s5"><span class="num">05</span>Manejo a curto prazo</h2>
+  <p>Diante de um risco iminente, a primeira linha de ação é afastar o acesso a meios letais: pedir a devolução de caixas de medicamento excedentes ao trocar uma prescrição, coordenar o controle das doses com a rede de apoio e com o psiquiatra responsável.</p>
+  <ul class="key">
+    <li><b>Suporte emocional</b> direto, no momento em que a pessoa procura</li>
+    <li><b>Vigilância familiar</b> temporária, combinada com a rede</li>
+    <li><b>Programação de atividades</b> para preencher o tempo de maior risco</li>
+    <li><b>Sessões mais frequentes ou mais curtas</b> — por exemplo, 30 minutos, duas vezes por semana</li>
+    <li><b>Coaching telefônico</b> entre sessões</li>
+    <li><b>Reavaliação contínua do risco</b>, não uma avaliação única e fechada</li>
+  </ul>
+
+  <h2 id="s6"><span class="num">06</span>Tratamento a médio e longo prazo</h2>
+  <p>Enquanto o manejo de curto prazo garante a segurança imediata, o trabalho de médio e longo prazo mira as condições subjacentes: diagnóstico e tratamento de quadros como transtorno bipolar ou episódios mistos, os estressores crônicos que alimentam a crise, e a modificação sustentada dos comportamentos disfuncionais.</p>
+  <p>Isso exige assegurar a adesão a tratamentos complementares — participação no grupo de treinamento de habilidades e acompanhamento psiquiátrico ou neurológico quando indicado — e não apenas a presença nas sessões individuais.</p>
+
+  <h2 id="s7"><span class="num">07</span>Hospitalização: quando considerar</h2>
+  <p>A DBT não é contrária à hospitalização, mas também não a trata como resposta automática para qualquer sinal de risco. A internação é indicada em situações específicas: psicose, risco agudo severo, episódios maníacos ou mistos de transtorno bipolar, e transições complexas de medicação que exigem supervisão de enfermagem.</p>
+  <div class="obs">
+    <h4>Cuidado com o reforço operante</h4>
+    <p>Algumas pessoas buscam a internação pelo alívio que ela proporciona, ou reforçam operantemente a ameaça suicida como forma de obter cuidado. Avaliar o risco real — e não apenas a intensidade do pedido — evita reforçar um estilo de vida organizado em torno de crises e internações recorrentes.</p>
+  </div>
+
+  <h2 id="s8"><span class="num">08</span>O plano de crise</h2>
+  <p>O plano de segurança contra crises é uma intervenção breve, validada e obrigatória para todo paciente em DBT — não um recurso reservado aos casos mais graves. Ele pode cobrir diferentes tipos de crise: desregulação emocional aguda, compulsão alimentar, uso excessivo de medicação.</p>
+  <ul class="key">
+    <li><b>Individualizado</b> — construído a partir da história e dos gatilhos específicos daquela pessoa</li>
+    <li><b>Treinado colaborativamente</b> — não é entregue pronto, é ensaiado com o paciente</li>
+    <li><b>Revisado constantemente</b> — a partir das análises em cadeia dos momentos críticos que de fato aconteceram</li>
+  </ul>
+  <p>O elemento central é identificar sinais de alerta precoces — mudanças de humor, de padrão de sono, de comportamento — para intervir antes que a pessoa atinja o pico da dor, quando os métodos desadaptativos rápidos passam a parecer a única saída.</p>
+
+  <h2 id="s9"><span class="num">09</span>Tolerância ao mal-estar no pico da crise</h2>
+  <p>As estratégias de tolerância ao mal-estar não eliminam a emoção — servem para reduzir sua intensidade e tirar a pessoa do pico da crise até que ela consiga acessar outras habilidades.</p>
+  <div class="compara">
+    <div class="d"><div class="dt">Distração e atenção sensorial</div><p>A técnica 5-4-3-2-1 direciona a atenção para o ambiente externo: cinco coisas para ver, quatro para sentir, três sons, dois cheiros e um gosto — geralmente antes de um trabalho de respiração.</p></div>
+    <div class="d"><div class="dt">Respiração compassada</div><p>Estratégia preferencial para crises agudas: a expiração mais longa que a inspiração ativa o sistema nervoso parassimpático. A diafragmática isolada pode gerar reatividade em quem é vulnerável a pânico.</p></div>
+    <div class="d"><div class="dt">TIP — intervenções físicas</div><p>Água ou compressa gelada no rosto e na nuca (reflexo de mergulho), exercício físico intenso, gelo nas mãos, pontos de pressão, sabores intensos — azedo, pimenta, balas fortes com água gelada.</p></div>
+    <div class="d"><div class="dt">Kit de emergência</div><p>Fones com playlist de crise, fotos com motivos para viver, técnicas impressas, cartões de enfrentamento, itens de conforto sensorial — e, quando possível, um desenho colorido do próprio plano, para memorização visual.</p></div>
+  </div>
+
+  <h2 id="s10"><span class="num">10</span>Coaching telefônico</h2>
+  <p>O contato entre sessões tem três alvos, nessa ordem de prioridade: reduzir comportamento suicida, generalizar habilidades para a vida real, resolver conflitos com o terapeuta.</p>
+  <p>O formato é deliberadamente breve e estruturado — ligações de 10 a 20 minutos, ou mensagens — seguindo um roteiro fixo: onde a pessoa está, quem está com ela, a intensidade da emoção e do impulso, e quais habilidades já foram ou serão usadas. Não é uma sessão reduzida; é uma intervenção de coaching no momento do impulso.</p>
+
+  <h2 id="s11"><span class="num">11</span>Depois de uma crise</h2>
+  <p>Em caso de tentativa de suicídio ou automutilação, o contato do terapeuta é suspenso por 24 horas. A razão é comportamental, não punitiva: evitar que a atenção excessiva do terapeuta reforce o comportamento extremo.</p>
+  <p>A prioridade absoluta nesse momento é a segurança médica imediata — acionar a rede de apoio ou serviços de emergência como o SAMU. O retorno ao plano de tratamento regular acontece assim que o risco agudo diminui.</p>
+
+  <h2 id="s12"><span class="num">12</span>Uma vida que vale a pena, e o sigilo</h2>
+  <p>O foco da terapia não é apenas a ausência de comportamento suicida — é ajudar a pessoa a construir uma vida que valha a pena ser vivida. Isso significa trabalhar o plano de crise e validar o sofrimento sem, ao mesmo tempo, reforçar os comportamentos desadaptativos que a pessoa usa para lidar com ele.</p>
+  <p>O sigilo é quebrado desde o pré-tratamento sempre que houver risco de vida para o paciente ou para terceiros — isso é combinado com a pessoa antes de começar, não decidido no meio de uma crise, e aciona obrigatoriamente a rede de apoio.</p>
+
+  <h2 id="s13"><span class="num">13</span>O contrato de compromisso</h2>
+  <p>A DBT trata o compromisso como parte estrutural do tratamento, não como formalidade em torno dele. Os pontos combinados em contrato, na aula, foram estes:</p>
+  <ul class="key">
+    <li><b>Permanência:</b> compromisso inicial de um ano em tratamento, com possibilidade de renovação — horizonte necessário para resultados consistentes.</li>
+    <li><b>Faltas:</b> quatro faltas consecutivas, tanto na terapia individual quanto no treinamento de habilidades, resultam em desligamento do tratamento. Alguns profissionais adotam um limite mais restritivo em contrato próprio — no caso da aula, duas faltas consecutivas.</li>
+    <li><b>Pagamento:</b> os acordos precisam constar expressamente em contrato; inadimplência prolongada compromete a viabilidade do processo terapêutico e precisa ser tratada como parte do enquadre, não como um assunto à parte da clínica.</li>
+  </ul>
+  <p>Há espaço para adaptação individualizada do treinamento de habilidades em casos específicos, mas essa flexibilidade é a exceção negociada, não a regra de partida.</p>
+  <div class="compara">
+    <div class="d"><div class="dt">Metas de vida</div><p>O que a pessoa gostaria de viver caso não tivesse os problemas atuais — a direção maior do tratamento.</p></div>
+    <div class="d"><div class="dt">Alvos terapêuticos</div><p>A eliminação dos comportamentos desadaptativos específicos que impedem o caminho até essas metas.</p></div>
+  </div>
+
+  <h2 id="s14"><span class="num">14</span>Perguntas de revisão</h2>
+  <div class="bloco">
+    <div class="pergunta">
+      <div class="pq"><b>01.</b> Uma paciente relata ideação suicida passiva pela primeira vez. Tu evita perguntar sobre plano e meios letais para "não plantar a ideia"?</div>
+      <textarea data-p="1" placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver gabarito</summary><div class="gab-in">Não. A evidência disponível não sustenta que perguntar induza o comportamento (Dazzi et al., 2014) — o efeito costuma ser o oposto: validar o sofrimento e abrir espaço para a pessoa falar. A pergunta direta sobre plano, tentativas anteriores e acesso a meios letais é parte da avaliação de risco, não um risco em si.</div></details>
+    </div>
+    <div class="pergunta">
+      <div class="pq"><b>02.</b> Um paciente liga fora do horário de coaching, em crise, mas passa a sessão inteira falando sobre um conflito no trabalho. Isso é coaching de crise?</div>
+      <textarea data-p="2" placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver gabarito</summary><div class="gab-in">Não, pelo menos não da forma como está sendo conduzido. O coaching telefônico segue um formato breve e estruturado — localização, companhia, intensidade da emoção e do impulso, habilidades usadas ou a usar — voltado a um dos três alvos (reduzir comportamento suicida, generalizar habilidades, resolver conflito com o terapeuta). Uma ligação que vira sessão estendida sobre um tema geral foge do formato e deixa de cumprir a função do coaching.</div></details>
+    </div>
+    <div class="pergunta">
+      <div class="pq"><b>03.</b> Depois de uma tentativa de suicídio, o paciente manda mensagens repetidas pedindo para conversar. Por que a orientação é suspender o contato por 24 horas, e o que fazer nesse intervalo?</div>
+      <textarea data-p="3" placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver gabarito</summary><div class="gab-in">A pausa é comportamental, não punitiva: evita que a atenção intensa do terapeuta reforce o comportamento extremo. No intervalo, a prioridade é a segurança médica imediata — acionar a rede de apoio e os serviços de emergência (SAMU) — e não deixar o paciente sem nenhum suporte: quem assume esse papel nas 24h é a rede, previamente combinada, não o silêncio.</div></details>
+    </div>
+    <div class="acoes">
+      <button class="btn solid" id="salvar">Salvar respostas</button>
+      <button class="btn" id="exportar">Exportar em .txt</button>
+      <a class="btn" href="resumo.pdf" download>Baixar o PDF</a>
+      <button class="btn" onclick="window.print()">Imprimir</button>
+      <span class="estado" id="estado"></span>
+    </div>
+  </div>
+
+  <h2 id="s15"><span class="num">15</span>Referências</h2>
+  <ul class="refs">
+    <li>Botega, N. J. (2021). <em>Crise suicida: avaliação e manejo</em> (2ª ed.). Artmed.</li>
+    <li>Carmel, A., Templeton, E., Sorenson, S. M., &amp; Logvinenko, E. (2018). Using the Linehan Risk Assessment and Management Protocol with a chronically suicidal patient: A case report. <em>Cognitive and Behavioral Practice, 25</em>(4), 449–459.</li>
+    <li>Dazzi, T., Gribble, R., Wessely, S., &amp; Fear, N. T. (2014). Does asking about suicide and related behaviours induce suicidal ideation? What is the evidence? <em>Psychological Medicine, 44</em>(16), 3361–3363.</li>
+    <li>Linehan, M. M. (1993). <em>Cognitive-behavioral treatment of borderline personality disorder</em>. Guilford Press.</li>
+    <li>Linehan, M. M. (2015). <em>DBT skills training manual</em> (2ª ed.). Guilford Press.</li>
+  </ul>
+
+  <div class="nota-c" style="margin-top:2rem">
+    <div class="ct">Nota de método</div>
+    <p>Resumo escrito a partir da transcrição do encontro, conduzido por Andressa Juliana. As referências ao Botega e ao LRAMP foram formalizadas a partir do que foi citado em aula; a nota sobre perguntar diretamente sobre suicídio foi complementada com uma revisão sistemática real, por não ter sido citada uma fonte específica no encontro. Nenhum caso clínico real foi usado nesta aula.</p>
+  </div>
+
+  <footer class="rod">
+    Lógica Psicológica · Descomplicando a DBT · Idealizado e conduzido por Júlio Gonçalves e Andressa Juliana
+  </footer>
+</main>
+</div>
+
+<script>
+(function(){
+  var KEY = 'dbt_aula7_';
+  var burger = document.getElementById('burger'), scrim = document.getElementById('scrim');
+  if(burger) burger.onclick = function(){ document.body.classList.toggle('ix'); };
+  if(scrim) scrim.onclick = function(){ document.body.classList.remove('ix'); };
+
+  document.querySelectorAll('textarea[data-p]').forEach(function(t){
+    var k = KEY + 'p' + t.dataset.p;
+    var saved = localStorage.getItem(k);
+    if(saved) t.value = saved;
+  });
+  var estado = document.getElementById('estado');
+  var salvar = document.getElementById('salvar');
+  if(salvar) salvar.onclick = function(){
+    document.querySelectorAll('textarea[data-p]').forEach(function(t){
+      localStorage.setItem(KEY + 'p' + t.dataset.p, t.value);
+    });
+    if(estado) estado.textContent = 'Respostas salvas neste navegador.';
+  };
+  var exportar = document.getElementById('exportar');
+  if(exportar) exportar.onclick = function(){
+    var out = 'Aula 07 · Compromisso e manejo de crises\n\n';
+    document.querySelectorAll('.pergunta').forEach(function(p){
+      var q = p.querySelector('.pq').textContent.trim();
+      var a = p.querySelector('textarea').value.trim();
+      out += q + '\n' + (a || '(sem resposta)') + '\n\n';
+    });
+    var blob = new Blob([out], {type:'text/plain'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'aula07-respostas.txt';
+    a.click();
+  };
+
+  var ixLinks = document.querySelectorAll('.ix a');
+  var sections = Array.from(ixLinks).map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  function onScroll(){
+    var pos = window.scrollY + 120;
+    var current = sections[0];
+    sections.forEach(function(s){ if(s.offsetTop <= pos) current = s; });
+    ixLinks.forEach(function(a){ a.classList.toggle('on', document.querySelector(a.getAttribute('href')) === current); });
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+})();
+</script>
+</body></html>
