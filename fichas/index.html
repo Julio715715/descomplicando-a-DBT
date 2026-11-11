@@ -1901,6 +1901,10 @@ if(SO_MODELO){ for(let i=TOOLS.length-1;i>=0;i--) if(!(TOOLS[i].modelos||[]).inc
 const SPEC_DEPS = {};
 Object.values(SPEC).forEach(s=>{ const d = new Set(); (function w(o){ if(Array.isArray(o)) o.forEach(w); else if(o && typeof o==='object'){ if(o.se) d.add(o.se.k); Object.values(o).forEach(w); } })(s.passos); if(s._ip) for(const m of s._json.matchAll(IP_RE)) d.add(m[1]); SPEC_DEPS[s.id] = d; });
 const PDF_TOK = { "abandono": "18p0nca4nb", "aceitacao": "qn5c2f2ere", "adiamento": "1jgzjar78p", "ajuste-sono": "0zwe8df4e9", "analise-funcional": "8ce2ysoysr", "atividade-fisica": "z775at52ab", "att": "c19aj60a8o", "autoconhecimento": "8vsq806xri", "autodistanciamento": "huvzjauzcl", "automonitoramento": "geikoa7rwh", "ba": "x8g8v4770u", "balanca": "jw7sics1w3", "bondade": "v9mxqvlfcr", "cartoes": "gc04vkui8w", "checar-fatos": "v30xb2c8ck", "cinco-partes": "e8rhn7xju6", "cinco-sentidos": "axexof8sku", "compaixao": "gxegp7yy81", "comunicacao": "502j9a2hs7", "continuum": "ueylm6ll92", "dbt-mitos-relacoes": "nia8pxt4nx", "dbt-intensidade": "33hmcp8q63", "dbt-conversa-nao-funciona": "b80pvejmbl", "dbt-terminar-relacao": "9qk20wx5jz", "dbt-amizades": "ukqnc1d8rq", "dbt-mindfulness-outros": "ryc9m7hn6l", "mapa-apoio-social": "dg5oxjfnvt", "controle": "50jyxhsb0y", "curtograma": "vus0een2u3", "custo-beneficio": "12t1fk1v6h", "dbt-acao-oposta": "s70vongc0g", "dbt-accepts": "g2wmokdned", "dbt-aceitacao-radical": "6qlp94bnq1", "dbt-acumular-positivos": "hf6czn3fzu", "dbt-autoacalmar": "zspvhc4avi", "dbt-clarificar-objetivos": "scwom9tpue", "dbt-construir-dominio": "qff0aexp2o", "dbt-cope-ahead": "vzu3ib2so2", "dbt-descrever": "fr0f7e3nil", "dbt-descrever-emocao": "qj69hewjkt", "dbt-dialetica": "udhr9cytzp", "dbt-disposicao": "cz1ljeeyyq", "dbt-efetividade": "64bjrcyj2m", "dbt-emocao-atual": "ywe570keg4", "dbt-emocoes-extremas": "3r7qcymjcv", "dbt-funcoes-emocoes": "40ivaae13n", "dbt-improve": "6et5beu8s1", "dbt-meio-sorriso": "kzhtd2b8zh", "dbt-mente-sabia": "ez6nhosf7a", "dbt-mitos-emocoes": "sm7mni3cvd", "dbt-mudanca-comportamento": "nzq13yy97i", "dbt-observar": "8dsk1pkpy5", "dbt-participar": "rdj90ju4tf", "dbt-pros-contras": "2fuuazv81o", "dbt-regulacao-nao-funciona": "udg17ezn92", "dbt-sem-julgar": "634dlgjs2a", "dbt-stop": "sn7v0mhlmp", "dbt-uma-coisa": "2u3vbdotkd", "dbt-validar-outro": "iz61yltj8e", "dbt-virar-mente": "0nqp7vjc4d", "dearman": "q210pmh410", "definicao-termos": "mcbmobv5ro", "desapegado": "bn7mxzlhv5", "descatastrofizacao": "uneh7xeim6", "desf": "v1s3xn4lsk", "diario-emocoes": "zqg8sh52lm", "diario-sono": "ml35i6p0ou", "escaneamento": "xugzmyo94e", "escrita-expressiva": "cs0ipsd6xg", "eventos-agradaveis": "n2krhd8sie", "exame-evidencias": "q53cm178dp", "experimento": "lpnzurt9pe", "exposicao": "g8caar9pmo", "exposicao-imaginada": "khkuq6zlpv", "gratidao": "vxc7cndf2h", "habito": "ifho4bmfc0", "imagens-conclusao": "lsarwzdtwo", "intencoes": "e72lm6rr29", "lugar-seguro": "x9bx5dmkb7", "mapa-preferencias": "wlvdgw9gk6", "matriz-act": "g8zn5udm0o", "mindfulness": "k463z0zviq", "motivos-viver": "ckwia8jube", "objetivos": "2quyrsgdfu", "passageiros": "nxmnh6yp7t", "perfeccionismo": "cuzry640mk", "perfeccionismo-custos": "fqqgvt0rr8", "plano-desregulacao": "zzts354f19", "plano-seguranca": "7zrndlyp7x", "please": "s4f8f3doi1", "preocupacoes": "ysggbwrmk4", "pressupostos": "nrcuvad9iq", "prevencao-recaida": "h8osv0xtyu", "procrastinacao": "zbj2m0ah1h", "prontidao": "3ms4ijedt8", "pst": "n2emj32ymy", "raiva": "xw0x1lmpc7", "reatribuicao": "dfuvs979sf", "respiracao": "nzhehmax33", "rmp": "84cgqiy159", "rpd": "ie6d5gzymr", "ruminacao": "ux9khrjftk", "saborear": "siop9ewhbs", "self-contexto": "pmioz28eym", "seta-descendente": "92b7iigiv2", "tipp": "7wx6fyd8en", "triade": "py907ry4c7", "uva-passa": "g9arfanyq6", "validacao": "v3dczstg80", "valores-area": "qufl9phbwv", "viagem-futuro": "b7cxfeg3gs", "vlq": "lotn4tqn11", "woop": "pxkotea0pt", "estilos-parentais": "f1ejjwl1sr", "metas-smart": "21a9y5wtl2", "caminhos-lapide": "f0tgjst7gc", "estilos-parentais-filhos": "7z2z93ocbs"};
+const fichaURL = id => {
+  const proprio = /^https?:$/.test(location.protocol) && /(psicojulio\.com|pages\.dev)$/.test(location.hostname);
+  return (proprio ? location.origin + location.pathname : 'https://descomplicandoadbt.psicojulio.com/fichas/') + '#t=' + encodeURIComponent(id);
+};
 const pdfURL = id => PDF_TOK[id] ? `https://paineis-pacientes.pages.dev/f/${id}-${PDF_TOK[id]}.pdf` : '';
 const domLabel = d => (DOMINIOS.find(x=>x[0]===d)||[,''])[1];
 
@@ -1929,8 +1933,11 @@ function renderToolHead(){
       <button type="button" class="mini" id="b-nova">+ nova aplicação</button>
       <button type="button" class="mini" id="b-apagar-ap">${regs.length>1?'apagar esta aplicação':'apagar intervenção'}</button>
     </div>
-    ${pdfURL(t.id) ? `<div class="pdf-links"><a class="mini" href="${pdfURL(t.id)}" target="_blank" rel="noopener">PDF pra imprimir ↗</a><button type="button" class="mini" id="b-copia-pdf">copiar link do PDF</button></div>` : ''}`;
+    <div class="pdf-links"><button type="button" class="mini" id="b-copia-ficha">copiar link da ficha</button>${pdfURL(t.id) ? `<a class="mini" href="${pdfURL(t.id)}" target="_blank" rel="noopener">PDF pra imprimir ↗</a><button type="button" class="mini" id="b-copia-pdf">copiar link do PDF</button>` : ''}</div>`;
   document.getElementById('sel-aplic').onchange = e=>selecionar(p.id, t.id, e.target.value);
+  const bcf = document.getElementById('b-copia-ficha');
+  bcf.onclick = ()=>{ const u = fichaURL(t.id), ok = ()=>{ bcf.textContent = 'link copiado'; setTimeout(()=>{ if(bcf.isConnected) bcf.textContent = 'copiar link da ficha'; }, 2000); };
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(u).then(ok, ()=>prompt('Copia o link:', u)); else prompt('Copia o link:', u); };
   const bcp = document.getElementById('b-copia-pdf');
   if(bcp) bcp.onclick = ()=>{ const u = pdfURL(t.id), ok = ()=>{ bcp.textContent = 'link copiado'; setTimeout(()=>{ if(bcp.isConnected) bcp.textContent = 'copiar link do PDF'; }, 2000); };
     if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(u).then(ok, ()=>prompt('Copia o link:', u)); else prompt('Copia o link:', u); };
@@ -2203,15 +2210,20 @@ abrirSide(DB.sideAberta===null ? (window.innerWidth>=900 || !DB.pacientes.length
 if(pacAtual()) selecionar(DB.atual.p, DB.atual.tool, DB.atual.a);
 else { DB.atual = {p:null,tool:'lib',a:null}; renderSide(); carregarTela(false); }
 
-/* ---------- abrir por link: #p=<nome do paciente>&t=<id da intervenção> ----------
+/* ---------- abrir por link: #p=<nome do paciente>&t=<id da intervenção>, ou só #t=<id> (link da ficha) ----------
    acha o paciente pelo nome (sem diferenciar maiúscula) ou cria; abre a intervenção;
    começa aplicação nova se a última não for de hoje. Usado pela Rede do Caso. */
 function abrirPorLink(){
   const h = new URLSearchParams(location.hash.replace(/^#/,''));
   const nome = (h.get('p')||'').trim(), tid = (h.get('t')||'').trim();
-  if(!nome) return;
-  let p = DB.pacientes.find(x=>x.nome.trim().toLowerCase()===nome.toLowerCase());
-  if(!p){ p = normalizarPac({ id:uid(), nome }); DB.pacientes.push(p); }
+  if(!nome && !tid) return;
+  let p;
+  if(nome){ p = DB.pacientes.find(x=>x.nome.trim().toLowerCase()===nome.toLowerCase());
+    if(!p){ p = normalizarPac({ id:uid(), nome }); DB.pacientes.push(p); } }
+  else { /* só a ficha (#t=): abre no paciente aberto; sem nenhum, cria "Treino" */
+    if(!TOOLS.find(t=>t.id===tid)) return;
+    p = pacAtual() || DB.pacientes[0];
+    if(!p){ p = normalizarPac({ id:uid(), nome:'Treino' }); DB.pacientes.push(p); } }
   if(!tid || !TOOLS.find(t=>t.id===tid)){ selecionar(p.id, 'lib'); return; }
   const regs = regsDe(p, tid), hoje = new Date().toDateString();
   if(!regs.length || new Date(regs.at(-1).data).toDateString()!==hoje) regs.push(novoReg(tid));
