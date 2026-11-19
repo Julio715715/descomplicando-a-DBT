@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<title>Efetividade interpessoal · Lógica Psicológica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vinho:#8c2335; --vinho-escuro:#2d0a12; --rosa:#fdf0f2; --rosa-2:#f2dde0;
+  --dourado:#c8893a; --tinta:#111; --texto:#4a4a4a; --fraco:#8a8a8a;
+  --linha:#ececec; --papel:#fff; --papel-2:#faf9f7; --raio:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Sora',system-ui,-apple-system,sans-serif;background:var(--papel);color:var(--tinta);-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--vinho);outline-offset:3px;border-radius:4px}
+.wrap{max-width:780px;margin:0 auto;padding:0 1.6rem}
+
+.sidebar{position:fixed;inset:0 auto 0 0;width:270px;background:var(--vinho-escuro);color:#fff;
+  display:flex;flex-direction:column;z-index:60;padding:1.8rem 0 0;overflow-y:auto}
+.sb-brand{padding:0 1.5rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-brand .b1{font-size:1.02rem;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.sb-brand .b1 span{color:#e8909a}
+.sb-brand .b2{font-size:.68rem;color:rgba(255,255,255,.4);margin-top:.2rem}
+.sb-prog{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-prog-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.55rem}
+.sb-prog-n{font-size:1.4rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+.sb-prog-n small{font-size:.72rem;font-weight:400;color:rgba(255,255,255,.35)}
+.sb-prog-l{font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.35)}
+.bar{height:3px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden;margin-top:.2rem}
+.bar i{display:block;height:100%;background:var(--dourado);width:0%}
+.sb-nav{padding:.6rem 0}
+.sb-nav a{display:flex;gap:.6rem;align-items:center;font-size:.82rem;color:rgba(255,255,255,.7);
+  text-decoration:none;padding:.55rem 1.5rem}
+.sb-nav a:hover{color:#fff;background:rgba(255,255,255,.05)}
+.sb-nav .ic{font-size:.78rem;opacity:.7;flex-shrink:0}
+.sb-sep{font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.25);
+  padding:1.1rem 1.5rem .45rem}
+.ix a{display:block;font-size:.78rem;line-height:1.4;color:rgba(255,255,255,.5);text-decoration:none;
+  padding:.42rem 1.5rem;border-left:2px solid transparent;transition:.2s;cursor:pointer}
+.ix a:hover{color:#fff}
+.ix a.on{color:#fff;border-left-color:var(--vinho);background:rgba(140,35,53,.28);font-weight:500}
+.sb-foot{margin-top:auto;padding:1.2rem 1.5rem;border-top:1px solid rgba(255,255,255,.08)}
+.ix-pdf{display:block;text-align:center;background:#fff;color:var(--vinho-escuro);padding:.65rem;
+  border-radius:100px;font-size:.76rem;font-weight:700;text-decoration:none;transition:.2s}
+.ix-pdf:hover{background:var(--vinho);color:#fff}
+.sb-duo{display:flex;align-items:center;gap:.6rem;margin-top:1rem}
+.sb-duo .av{display:flex}
+.sb-duo .in{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--vinho);color:#fff;font-size:.6rem;font-weight:700;border:2px solid var(--vinho-escuro);margin-left:-9px}
+.sb-duo .in:first-child{margin-left:0}
+.sb-duo span{font-size:.62rem;color:rgba(255,255,255,.4);line-height:1.35}
+
+.main{margin-left:270px}
+.burger{display:none;position:fixed;top:.9rem;left:.9rem;z-index:80;background:var(--vinho-escuro);
+  color:#fff;border:none;width:42px;height:42px;border-radius:12px;font-size:1.05rem;cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.scrim{display:none;position:fixed;inset:0;background:rgba(20,8,12,.5);z-index:55}
+body.ix .scrim{display:block}
+
+.capa{background:linear-gradient(135deg,var(--rosa) 0%,var(--rosa-2) 100%);padding:3.6rem 0 3.2rem;margin-bottom:3rem}
+.kicker{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--vinho);font-weight:600}
+h1{font-size:clamp(1.75rem,4.4vw,2.7rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;margin:.8rem 0}
+.linha-meta{font-size:.82rem;color:#6b5257;line-height:1.7;margin-top:1.1rem}
+
+h2{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 .9rem;line-height:1.25}
+h2 .num{color:var(--rosa-2);font-size:1.05rem;font-weight:800;margin-right:.5rem}
+p{font-size:.95rem;line-height:1.85;color:var(--texto);font-weight:300;margin-top:1rem}
+p strong{font-weight:600;color:var(--tinta)}
+em{color:var(--tinta)}
+
+.essencial{background:var(--vinho-escuro);color:#fff;border-radius:20px;padding:2.2rem 2.4rem;position:relative;overflow:hidden}
+.essencial::after{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;border-radius:50%;background:rgba(140,35,53,.35)}
+.essencial .et{font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);position:relative;z-index:1}
+.essencial ul{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.9rem;position:relative;z-index:1}
+.essencial li{font-size:.92rem;line-height:1.6;color:rgba(255,255,255,.82);font-weight:300;
+  position:relative;padding-left:1.55rem;overflow-wrap:break-word}
+.essencial li::before{content:'';position:absolute;left:0;top:.5em;width:7px;height:7px;border-radius:50%;background:var(--dourado)}
+.essencial b{color:#fff;font-weight:600}
+
+ul.key{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.8rem}
+ul.key li{font-size:.9rem;line-height:1.7;color:var(--texto);font-weight:300;padding-left:1.3rem;position:relative}
+ul.key li::before{content:'';position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%;background:var(--vinho)}
+ul.key b{font-weight:600;color:var(--tinta)}
+
+.obs{background:var(--papel-2);border-left:3px solid var(--vinho);border-radius:0 12px 12px 0;padding:1.2rem 1.5rem;margin-top:1.6rem}
+.obs h4{font-size:.82rem;font-weight:700;color:var(--vinho-escuro);letter-spacing:-.01em}
+.obs p{font-size:.88rem;margin-top:.5rem;line-height:1.75}
+.nota-c{background:#fdf5ea;border:1.5px dashed #f0d9b0;border-radius:12px;padding:1.2rem 1.5rem;margin-top:1.6rem}
+.nota-c .ct{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dourado);font-weight:700;margin-bottom:.4rem}
+.nota-c p{font-size:.86rem;margin-top:0;line-height:1.7}
+
+.compara{display:grid;grid-template-columns:1fr;gap:12px;margin-top:1.6rem}
+.compara .d{border:1.5px solid var(--linha);border-radius:12px;padding:1.3rem 1.4rem}
+.compara .dt{font-size:.84rem;font-weight:700;color:var(--vinho);margin-bottom:.45rem}
+.compara p{font-size:.85rem;margin-top:0;line-height:1.65}
+
+.diagrama{margin-top:1.8rem;border:1.5px solid var(--linha);border-radius:var(--raio);
+  padding:1.7rem 1.7rem 1.3rem;background:var(--papel-2)}
+.diagrama svg{width:100%;height:auto;display:block;overflow:visible}
+.diagrama .dg-cap{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dourado);
+  font-weight:700;margin-bottom:.9rem}
+.diagrama .dg-legenda{font-size:.8rem;color:var(--fraco);margin-top:1.1rem;line-height:1.65}
+.diagrama .dg-legenda b{color:var(--tinta);font-weight:600}
+@media print{.diagrama{background:none;border-color:#ccc}}
+
+.bloco{border:1.5px solid var(--linha);border-radius:var(--raio);padding:1.8rem;margin-top:1.4rem}
+.check{display:flex;gap:.85rem;align-items:flex-start;padding:.7rem 0;border-bottom:1px solid #f5f5f5;cursor:pointer}
+.check:last-child{border-bottom:none}
+.check input{appearance:none;width:19px;height:19px;border:2px solid #d6d6d6;border-radius:5px;flex-shrink:0;margin-top:.15rem;cursor:pointer;transition:.2s;position:relative}
+.check input:checked{background:var(--vinho);border-color:var(--vinho)}
+.check input:checked::after{content:'✓';color:#fff;font-size:.7rem;position:absolute;top:-1px;left:3px}
+.check span{font-size:.89rem;line-height:1.55;color:var(--texto);font-weight:300}
+.check input:checked+span{color:var(--fraco);text-decoration:line-through}
+.pergunta{margin-top:1.5rem}
+.pergunta:first-child{margin-top:0}
+.pq{font-size:.89rem;font-weight:600;line-height:1.55;margin-bottom:.6rem}
+.pq b{color:var(--vinho);margin-right:.3rem}
+textarea{width:100%;min-height:110px;border:1.5px solid var(--linha);border-radius:12px;padding:.9rem 1rem;
+  font-family:inherit;font-size:.87rem;line-height:1.65;color:var(--tinta);resize:vertical}
+textarea:focus{outline:none;border-color:var(--vinho)}
+textarea::placeholder{color:#c9c9c9}
+details.gab{margin-top:.6rem}
+details.gab summary{font-size:.78rem;color:var(--vinho);font-weight:600;cursor:pointer}
+.gab-in{font-size:.85rem;line-height:1.75;color:var(--texto);margin-top:.6rem;padding:.9rem 1rem;background:var(--papel-2);border-radius:10px}
+@media print{details.gab{border-color:#ddd;background:none}}
+
+.acoes{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:1.4rem}
+.btn{border:1.5px solid var(--linha);background:var(--papel);color:var(--texto);padding:.6rem 1.2rem;
+  border-radius:100px;font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;gap:.4rem;transition:.2s}
+.btn:hover{border-color:var(--vinho);color:var(--vinho)}
+.btn.solid{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.btn.solid:hover{background:var(--vinho);border-color:var(--vinho);color:#fff}
+.estado{font-size:.72rem;color:var(--fraco)}
+
+ul.refs{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.7rem}
+ul.refs li{font-size:.85rem;line-height:1.7;color:var(--texto);font-weight:300;padding-left:1.2rem;position:relative}
+ul.refs li::before{content:'';position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:var(--dourado)}
+
+footer.rod{margin:3.5rem 0 3rem;padding-top:1.6rem;border-top:1px solid var(--linha);font-size:.76rem;color:var(--fraco)}
+
+@media print{
+  .sidebar,.burger,.acoes{display:none}
+  .main{margin-left:0}
+  .capa{background:none;padding:0 0 1.5rem}
+  .essencial{background:none;color:#000;border:1.5px solid #ccc}
+  .essencial li,.essencial .et{color:#000}
+  textarea{min-height:80px}
+}
+@media (max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:.25s;box-shadow:0 0 40px rgba(0,0,0,.3)}
+  body.ix .sidebar{transform:translateX(0)}
+  .main{margin-left:0}
+  .burger{display:block}
+}
+
+.cta{margin-top:3rem;background:var(--vinho-escuro);color:#fff;border-radius:20px;padding:1.8rem 2rem}
+.cta .k{font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.cta h3{font-size:1.1rem;font-weight:700;letter-spacing:-.02em;margin:.4rem 0 .8rem}
+.cta ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.1rem}
+.cta li{font-size:.85rem;line-height:1.6;color:rgba(255,255,255,.78);font-weight:300;padding-left:1.2rem;position:relative}
+.cta li::before{content:'';position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:var(--dourado)}
+.cta a{display:inline-block;background:#fff;color:var(--vinho-escuro);padding:.6rem 1.3rem;border-radius:100px;font-size:.78rem;font-weight:700;text-decoration:none}
+.cta a:hover{background:var(--vinho);color:#fff}
+.sb-sig{font-size:.78rem;font-weight:600;color:#fff;line-height:1.4}
+.sb-sig span{display:block;font-size:.64rem;font-weight:400;color:rgba(255,255,255,.4)}
+.foot-c{margin:3rem 0 3rem;padding-top:1.4rem;border-top:1px solid var(--linha);font-size:.74rem;color:var(--fraco);line-height:1.7}
+.foot-c a{color:var(--fraco)}
+.estado{opacity:0;transition:.2s}.estado.on{opacity:1}
+.check.done span{color:var(--fraco);text-decoration:line-through}
+</style>
+</head>
+<body>
+
+<button class="burger" id="burger" aria-label="Abrir menu">☰</button>
+<div class="scrim" id="scrim"></div>
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="b1">Lógica <span>Psicológica</span></div>
+    <div class="b2">Aulas livres</div>
+  </div>
+  <nav class="sb-nav">
+    <a href="/aulas/"><span class="ic">←</span>Aulas livres</a>
+    <a href="/"><span class="ic">◆</span>Início do portal</a>
+  </nav>
+  <div class="sb-sep">Neste material</div>
+  <div class="ix">
+    <a href="#s0">O essencial</a>
+    <a href="#s1">01 · Habilidades sociais e efetividade interpessoal</a>
+    <a href="#s2">02 · Por que o campo relacional importa</a>
+    <a href="#s3">03 · Atenção plena na interação</a>
+    <a href="#s4">04 · O mapa de apoio social</a>
+    <a href="#s5">05 · Estilos de comunicação e assertividade</a>
+    <a href="#s6">06 · Validação e pensamento dialético</a>
+    <a href="#s7">07 · DEAR MAN, GIVE, FAST e STOP</a>
+    <a href="#s8">08 · Levar para a prática</a>
+    <a href="#s9">09 · Perguntas de revisão</a>
+    <a href="#s10">10 · Referências</a>
+  </div>
+  <div class="sb-foot">
+    <a class="ix-pdf" href="resumo.pdf" download>Baixar o PDF</a>
+    <div class="sb-duo">
+      <div class="av"><div class="in">JG</div></div>
+      <div class="sb-sig">Prof. Júlio Gonçalves<span>MSc · CRP 12/17614</span></div>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+<header class="capa">
+  <div class="wrap">
+    <div class="kicker">Resumo de aula · Aula livre</div>
+    <h1>Efetividade interpessoal</h1>
+    <div class="linha-meta">Descomplicando a DBT · Aula 11<br>Júlio Gonçalves e Andressa Juliana · Descomplicando a DBT</div>
+    <p style="margin-top:1.2rem">A diferença entre habilidades sociais e efetividade interpessoal, por que o campo relacional importa no transtorno borderline, o mapa de apoio social, os quatro estilos de comunicação, a validação e as habilidades DEAR MAN, GIVE, FAST e STOP.</p>
+  </div>
+</header>
+
+<main class="conteudo wrap">
+  <div class="obs"><h4>Sobre este material</h4><p>Resumo da aula de efetividade interpessoal, feito a partir das anotações do encontro. Casos e falas de participantes foram generalizados.</p></div>
+  <div class="obs"><h4>Como usar</h4><p>Abra as seções que quiser ler, marque o que pretende aplicar e responda o que fizer sentido. Tudo fica salvo neste aparelho — ninguém mais vê.</p></div>
+
+  <div class="essencial" id="s0" style="margin-top:1.6rem">
+    <div class="et">O essencial</div>
+    <ul>
+      <li><strong>Efetividade é orientada por objetivo.</strong> Cada conversa equilibra o que a pessoa quer, a relação e o autorrespeito.</li>
+      <li><strong>O relacional sustenta o ganho.</strong> Encerrar o tratamento só na regulação deixa de fora boa parte da vida da pessoa.</li>
+      <li><strong>Conexão é biologia.</strong> Relações fortes se associam a 50% mais chance de sobrevivência.</li>
+      <li><strong>Mapear antes de treinar.</strong> O mapa de apoio social mostra com quem, onde e o que cada relação rende e cobra.</li>
+      <li><strong>Assertividade se aprende.</strong> As pessoas transitam entre os estilos conforme o vínculo.</li>
+      <li><strong>Se a conversa desregula, para.</strong> STOP na ativação moderada; tolerância e adiamento na crise.</li>
+    </ul>
+  </div>
+
+  <h2 id="s1"><span class="num">01</span>Habilidades sociais e efetividade interpessoal</h2>
+  <p>Na TCC brasileira, o treino de habilidades sociais tem como referência o trabalho de Zilda e Almir Del Prette, organizado em classes de habilidades como comunicação, civilidade, assertividade, empatia e expressão de sentimentos (Del Prette &amp; Del Prette, 2017). A efetividade interpessoal de Linehan segue outra lógica: o treino é guiado pelas necessidades e valores da pessoa em cada interação, equilibrando três objetivos, conseguir o que quer, cuidar da relação e manter o autorrespeito (Linehan, 2015). Essa lógica é especialmente útil nos casos de desregulação emocional.</p>
+  <div class="diagrama">
+    <div class="dg-cap">Habilidades sociais e efetividade interpessoal</div>
+    <svg aria-label="À esquerda, classes de habilidades sociais da TCC; à direita, o triângulo da DBT com objetivo (DEAR MAN), relação (GIVE) e autorrespeito (FAST)" role="img" viewbox="0 0 720 274" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="fkArrow" markerheight="7" markerwidth="7" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="#2d0a12"></path></marker></defs>
+<g fill="#2d0a12" font-family="Sora, sans-serif">
+<rect fill="#fdf0f2" height="260" rx="12" stroke="#d9aeb6" width="300" x="0" y="0"></rect>
+<text fill="#2d0a12" font-size="14" font-weight="700" text-anchor="start" x="16" y="28">habilidades sociais na TCC</text>
+<text fill="#6b5257" font-size="12.5" font-weight="600" text-anchor="start" x="16" y="48">classes de habilidades treinadas</text>
+<rect fill="#ffffff" height="28" rx="6" stroke="#f2c6cc" width="268" x="16" y="64"></rect>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="28" y="83">comunicação</text>
+<rect fill="#ffffff" height="28" rx="6" stroke="#f2c6cc" width="268" x="16" y="100"></rect>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="28" y="119">civilidade</text>
+<rect fill="#ffffff" height="28" rx="6" stroke="#f2c6cc" width="268" x="16" y="136"></rect>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="28" y="155">assertividade</text>
+<rect fill="#ffffff" height="28" rx="6" stroke="#f2c6cc" width="268" x="16" y="172"></rect>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="28" y="191">empatia</text>
+<rect fill="#ffffff" height="28" rx="6" stroke="#f2c6cc" width="268" x="16" y="208"></rect>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="28" y="227">expressão de sentimentos</text>
+<rect fill="#2d0a12" height="260" rx="12" width="400" x="320" y="0"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="start" x="336" y="28">efetividade interpessoal na DBT</text>
+<text fill="#f2c6cc" font-size="12.5" font-weight="600" text-anchor="start" x="336" y="48">três objetivos a equilibrar em cada conversa</text>
+<polygon fill="none" points="520,104 420,214 620,214" stroke="#d9aeb6" stroke-width="2"></polygon>
+<circle cx="520" cy="104" fill="#c8893a" r="36"></circle>
+<text fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle" x="520" y="103">DEAR MAN</text>
+<text fill="#ffffff" font-size="11.5" font-weight="600" text-anchor="middle" x="520" y="119">objetivo</text>
+<circle cx="420" cy="214" fill="#c8893a" r="36"></circle>
+<text fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle" x="420" y="213">GIVE</text>
+<text fill="#ffffff" font-size="11.5" font-weight="600" text-anchor="middle" x="420" y="229">relação</text>
+<circle cx="620" cy="214" fill="#c8893a" r="36"></circle>
+<text fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle" x="620" y="213">FAST</text>
+<text fill="#ffffff" font-size="11.5" font-weight="600" text-anchor="middle" x="620" y="229">autorrespeito</text>
+<text fill="#f2c6cc" font-size="12.5" font-weight="600" text-anchor="middle" x="520" y="178">necessidades</text>
+<text fill="#f2c6cc" font-size="12.5" font-weight="600" text-anchor="middle" x="520" y="194">e valores</text>
+</g>
+</svg>
+    <div class="dg-legenda">A DBT organiza o treino pelo que a pessoa quer de cada interação (Linehan, 2015).</div>
+  </div>
+
+  <h2 id="s2"><span class="num">02</span>Por que o campo relacional importa</h2>
+  <p>No transtorno da personalidade borderline, boa parte das demandas está no campo relacional, conjugal e social, e o autoconceito marcado pelo medo do abandono depende da presença do outro. Na experiência clínica de quem conduziu a aula, encerrar o tratamento só com regulação emocional e atenção plena, sem trabalhar a efetividade interpessoal, deixa a pessoa mais vulnerável a recaídas. É a efetividade que sustenta a qualidade de vida no longo prazo, e o próprio vínculo terapêutico serve de modelo de validação.</p>
+  <p>Há boas razões biológicas pra isso. Nos experimentos de Harlow (1958), filhotes de macaco rhesus preferiam a mãe substituta de pano, que dava conforto, à de arame, que dava leite, e esses estudos se tornaram um apoio importante à teoria do apego. Numa metanálise com 148 estudos e mais de 308 mil pessoas, relações sociais mais fortes se associaram a 50% mais chance de sobrevivência no período acompanhado (Holt-Lunstad et al., 2010).</p>
+  <div class="diagrama">
+    <div class="dg-cap">Conexão social e sobrevivência</div>
+    <svg aria-label="À esquerda, as duas mães substitutas de Harlow, de arame com leite e de pano sem leite; à direita, barras comparando relações fracas e fortes com mais 50 por cento de sobrevivência" role="img" viewbox="0 0 720 234" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="fkArrow" markerheight="7" markerwidth="7" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="#2d0a12"></path></marker></defs>
+<g fill="#2d0a12" font-family="Sora, sans-serif">
+<rect fill="#fdf0f2" height="230" rx="12" stroke="#d9aeb6" width="340" x="0" y="0"></rect>
+<text fill="#2d0a12" font-size="14" font-weight="700" text-anchor="start" x="16" y="28">Harlow (1958)</text>
+<rect fill="none" height="100" rx="6" stroke="#6b5257" stroke-dasharray="3 3" stroke-width="2" width="60" x="50" y="60"></rect>
+<circle cx="80" cy="50" fill="none" r="16" stroke="#6b5257" stroke-width="2"></circle>
+<rect fill="#c8893a" height="10" rx="3" width="22" x="104" y="84"></rect>
+<text fill="#6b5257" font-size="12.5" font-weight="600" text-anchor="middle" x="80" y="182">arame com leite</text>
+<rect fill="#f2dde0" height="100" rx="20" width="70" x="210" y="60"></rect>
+<circle cx="245" cy="50" fill="#f2dde0" r="18"></circle>
+<circle cx="245" cy="108" fill="#2d0a12" r="14"></circle>
+<text fill="#2d0a12" font-size="12.5" font-weight="700" text-anchor="middle" x="245" y="182">pano, sem leite</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="500" text-anchor="start" x="16" y="206">Os filhotes passavam a maior parte do tempo</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="500" text-anchor="start" x="16" y="223">com a de pano.</text>
+<rect fill="#2d0a12" height="230" rx="12" width="360" x="360" y="0"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="start" x="376" y="28">Holt-Lunstad et al. (2010)</text>
+<text fill="#f2c6cc" font-size="12.5" font-weight="600" text-anchor="start" x="376" y="50">148 estudos · 308 mil pessoas</text>
+<rect fill="#a3424f" height="34" rx="6" width="200" x="376" y="86"></rect>
+<text fill="#ffffff" font-size="12.5" font-weight="700" text-anchor="start" x="386" y="108">relações fracas</text>
+<rect fill="#c8893a" height="34" rx="6" width="300" x="376" y="132"></rect>
+<text fill="#ffffff" font-size="12.5" font-weight="700" text-anchor="start" x="386" y="154">relações fortes</text>
+<text fill="#ffffff" font-size="15" font-weight="700" text-anchor="end" x="690" y="154">+50%</text>
+<text fill="#f2c6cc" font-size="12.5" font-weight="500" text-anchor="start" x="376" y="196">de chance de sobrevivência ao longo do</text>
+<text fill="#f2c6cc" font-size="12.5" font-weight="500" text-anchor="start" x="376" y="213">seguimento</text>
+</g>
+</svg>
+    <div class="dg-legenda">Regular emoções com a ajuda de outra pessoa faz parte da biologia da espécie.</div>
+  </div>
+
+  <h2 id="s3"><span class="num">03</span>Atenção plena na interação</h2>
+  <p>As técnicas de conversa, DEAR MAN, GIVE, FAST e o disco arranhado, vêm junto com atenção plena, validação, avaliação da satisfação e senso de pertencimento a grupos e comunidades. Faz parte da efetividade reconhecer quando uma relação é invalidante ou prejudicial e, às vezes, encerrar um vínculo desgastante pra preservar o autorrespeito.</p>
+  <p>A atenção plena dos módulos anteriores entra aqui pra que o cérebro não antecipe a solução enquanto o outro ainda está falando. O experimento proposto na aula comparou duas escutas: uma atenta ao ritmo da fala e às microexpressões, outra distraída, com anotação demais ou segunda tela. A conclusão foi que estar imerso na relação vale mais do que registrar todos os dados da sessão. E o roteiro das habilidades é uma base adaptável: virar manual rígido pode ser uma forma disfarçada de esquiva. Em pacientes com medo intenso de abandono, sobretudo nos relacionamentos amorosos, a regulação emocional precisa vir antes pra sustentar a conversa.</p>
+
+  <h2 id="s4"><span class="num">04</span>O mapa de apoio social</h2>
+  <div class="callout"><div class="co-t">Fichas da aula</div>No sistema de fichas do curso: <a href="https://descomplicandoadbt.psicojulio.com/fichas/#t=mapa-apoio-social" rel="noopener" target="_blank">mapa do apoio social</a>, <a href="https://descomplicandoadbt.psicojulio.com/fichas/#t=teste-estilos-comunicacao" rel="noopener" target="_blank">teste de estilos de comunicação</a> e <a href="https://descomplicandoadbt.psicojulio.com/fichas/#t=dearman" rel="noopener" target="_blank">DEAR MAN, GIVE e FAST</a>.</div>
+  <p>O mapa de apoio social avalia e gera percepção sobre a rede: quantas interações a pessoa tem, a satisfação com cada uma, o apoio pra regulação que elas oferecem e os custos emocionais, como raiva e ressentimento (Van Dijk, 2012). Ele ajuda a encontrar vulnerabilidades e precipitantes pra análise em cadeia e a definir metas graduais, um contexto e um comportamento-alvo de cada vez.</p>
+  <div class="diagrama">
+    <div class="dg-cap">O mapa de apoio social</div>
+    <svg aria-label="Mapa em anéis com a pessoa no centro e contatos coloridos conforme a relação rende, cobra ou é mista; ao lado, o que o mapa avalia" role="img" viewbox="0 0 720 310" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="fkArrow" markerheight="7" markerwidth="7" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="#2d0a12"></path></marker></defs>
+<g fill="#2d0a12" font-family="Sora, sans-serif">
+<circle cx="200" cy="150" fill="#faf9f7" r="130" stroke="#f2c6cc"></circle>
+<text fill="#6b5257" font-size="11.5" font-weight="600" text-anchor="middle" x="200" y="34">longe</text>
+<circle cx="200" cy="150" fill="#fdf0f2" r="90" stroke="#f2c6cc"></circle>
+<text fill="#6b5257" font-size="11.5" font-weight="600" text-anchor="middle" x="200" y="74">meio</text>
+<circle cx="200" cy="150" fill="#f2dde0" r="50" stroke="#f2c6cc"></circle>
+<text fill="#6b5257" font-size="11.5" font-weight="600" text-anchor="middle" x="200" y="114">perto</text>
+<line stroke="#d9aeb6" stroke-width="3" x1="200" x2="139.378" y1="150" y2="115"></line>
+<circle cx="139.378" cy="115" fill="#d9aeb6" r="16"></circle>
+<text fill="#2d0a12" font-size="12" font-weight="700" text-anchor="middle" x="139.378" y="145">irmã</text>
+<line stroke="#d9aeb6" stroke-width="3" x1="200" x2="262.354" y1="150" y2="114"></line>
+<circle cx="262.354" cy="114" fill="#d9aeb6" r="16"></circle>
+<text fill="#2d0a12" font-size="12" font-weight="700" text-anchor="middle" x="262.354" y="144">amiga</text>
+<line stroke="#8c2335" stroke-width="1.6" x1="200" x2="305.246" y1="150" y2="188.306"></line>
+<circle cx="305.246" cy="188.306" fill="#8c2335" r="16"></circle>
+<text fill="#2d0a12" font-size="12" font-weight="700" text-anchor="middle" x="305.246" y="218.306">chefe</text>
+<line stroke="#8c2335" stroke-width="1.6" x1="200" x2="200" y1="150" y2="220"></line>
+<circle cx="200" cy="220" fill="#8c2335" r="16"></circle>
+<text fill="#2d0a12" font-size="12" font-weight="700" text-anchor="middle" x="200" y="250">ex</text>
+<line stroke="#d9aeb6" stroke-width="3" x1="200" x2="103.005" y1="150" y2="206"></line>
+<circle cx="103.005" cy="206" fill="#d9aeb6" r="16"></circle>
+<text fill="#2d0a12" font-size="12" font-weight="700" text-anchor="middle" x="103.005" y="236">vizinho</text>
+<line stroke="#c8893a" stroke-width="1.6" x1="200" x2="167.137" y1="150" y2="211.806"></line>
+<circle cx="167.137" cy="211.806" fill="#c8893a" r="16"></circle>
+<text fill="#2d0a12" font-size="12" font-weight="700" text-anchor="middle" x="167.137" y="241.806">grupo</text>
+<circle cx="200" cy="150" fill="#2d0a12" r="20"></circle>
+<text fill="#ffffff" font-size="13" font-weight="700" text-anchor="middle" x="200" y="154">eu</text>
+<rect fill="#fdf0f2" height="64" rx="10" stroke="#d9aeb6" width="340" x="380" y="10"></rect>
+<text fill="#2d0a12" font-size="14" font-weight="700" x="394" y="38">quantas interações</text>
+<text fill="#2d0a12" font-size="13" x="394" y="60.2">frequência com cada pessoa</text>
+<rect fill="#fdf0f2" height="64" rx="10" stroke="#d9aeb6" width="340" x="380" y="82"></rect>
+<text fill="#2d0a12" font-size="14" font-weight="700" x="394" y="110">satisfação</text>
+<text fill="#2d0a12" font-size="13" x="394" y="132.2">de 0 a 10, e se sai melhor ou pior</text>
+<rect fill="#fdf0f2" height="64" rx="10" stroke="#d9aeb6" width="340" x="380" y="154"></rect>
+<text fill="#2d0a12" font-size="14" font-weight="700" x="394" y="182">o que a relação rende</text>
+<text fill="#2d0a12" font-size="13" x="394" y="204.2">apoio, regulação, pertencimento</text>
+<rect fill="#ffffff" height="64" rx="10" stroke="#8c2335" width="340" x="380" y="226"></rect>
+<text fill="#8c2335" font-size="14" font-weight="700" x="394" y="254">o que a relação cobra</text>
+<text fill="#2d0a12" font-size="13" x="394" y="276.2">raiva, ressentimento, medo</text>
+<circle cx="20" cy="296" fill="#d9aeb6" r="7"></circle>
+<text fill="#6b5257" font-size="12" font-weight="600" text-anchor="start" x="32" y="300">rende</text>
+<circle cx="90" cy="296" fill="#8c2335" r="7"></circle>
+<text fill="#6b5257" font-size="12" font-weight="600" text-anchor="start" x="102" y="300">cobra</text>
+<circle cx="160" cy="296" fill="#c8893a" r="7"></circle>
+<text fill="#6b5257" font-size="12" font-weight="600" text-anchor="start" x="172" y="300">misto</text>
+</g>
+</svg>
+    <div class="dg-legenda">Exemplo ilustrativo. O mapa aponta vulnerabilidades e precipitantes pra análise em cadeia.</div>
+  </div>
+  <p>Efetividade interpessoal não se mede por número de amigos. Tem quem prefira poucos vínculos e tem as "borboletas sociais", e o parâmetro é a satisfação e a qualidade das relações. Quando alguém recusa ampliar a rede, vale investigar ansiedade social: a recusa pode ser esquiva por medo do julgamento, e não preferência.</p>
+  <div class="diagrama">
+    <div class="dg-cap">Qualidade conta mais que quantidade</div>
+    <svg aria-label="Três redes: poucos vínculos satisfeitos, muitos vínculos satisfeitos, e poucos vínculos por esquiva, com espaços tracejados" role="img" viewbox="0 0 720 214" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="fkArrow" markerheight="7" markerwidth="7" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="#2d0a12"></path></marker></defs>
+<g fill="#2d0a12" font-family="Sora, sans-serif">
+<rect fill="#fdf0f2" height="210" rx="12" stroke="#d9aeb6" width="232" x="0" y="0"></rect>
+<circle cx="116" cy="90" fill="#2d0a12" r="12"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="116" x2="116" y1="90" y2="48"></line>
+<circle cx="116" cy="48" fill="#d9aeb6" r="8"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="116" x2="152.373" y1="90" y2="111"></line>
+<circle cx="152.373" cy="111" fill="#d9aeb6" r="8"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="116" x2="79.6269" y1="90" y2="111"></line>
+<circle cx="79.6269" cy="111" fill="#d9aeb6" r="8"></circle>
+<text fill="#2d0a12" font-size="14" font-weight="700" text-anchor="start" x="16" y="26">poucos vínculos</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="500" text-anchor="start" x="16" y="168">satisfeito com o que tem</text>
+<rect fill="#fdf0f2" height="210" rx="12" stroke="#d9aeb6" width="232" x="244" y="0"></rect>
+<circle cx="360" cy="90" fill="#2d0a12" r="12"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="360" x2="360" y1="90" y2="44"></line>
+<circle cx="360" cy="44" fill="#d9aeb6" r="8"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="360" x2="389.568" y1="90" y2="54.762"></line>
+<circle cx="389.568" cy="54.762" fill="#d9aeb6" r="8"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="360" x2="405.301" y1="90" y2="82.0122"></line>
+<circle cx="405.301" cy="82.0122" fill="#d9aeb6" r="8"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="360" x2="399.837" y1="90" y2="113"></line>
+<circle cx="399.837" cy="113" fill="#d9aeb6" r="8"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="360" x2="375.733" y1="90" y2="133.226"></line>
+<circle cx="375.733" cy="133.226" fill="#d9aeb6" r="8"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="360" x2="344.267" y1="90" y2="133.226"></line>
+<circle cx="344.267" cy="133.226" fill="#d9aeb6" r="8"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="360" x2="320.163" y1="90" y2="113"></line>
+<circle cx="320.163" cy="113" fill="#d9aeb6" r="8"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="360" x2="314.699" y1="90" y2="82.0122"></line>
+<circle cx="314.699" cy="82.0122" fill="#d9aeb6" r="8"></circle>
+<line stroke="#d9aeb6" stroke-width="1.6" x1="360" x2="330.432" y1="90" y2="54.762"></line>
+<circle cx="330.432" cy="54.762" fill="#d9aeb6" r="8"></circle>
+<text fill="#2d0a12" font-size="14" font-weight="700" text-anchor="start" x="260" y="26">borboleta social</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="500" text-anchor="start" x="260" y="168">muitos vínculos, também</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="500" text-anchor="start" x="260" y="185">satisfeito</text>
+<rect fill="#ffffff" height="210" rx="12" stroke="#8c2335" width="232" x="488" y="0"></rect>
+<circle cx="604" cy="90" fill="#2d0a12" r="12"></circle>
+<line stroke="#8c2335" stroke-dasharray="3 3" stroke-width="1.6" x1="604" x2="604" y1="90" y2="48"></line>
+<circle cx="604" cy="48" fill="#8c2335" r="8"></circle>
+<line stroke="#8c2335" stroke-dasharray="3 3" stroke-width="1.6" x1="604" x2="604" y1="90" y2="132"></line>
+<circle cx="604" cy="132" fill="#8c2335" r="8"></circle>
+<circle cx="639.238" cy="119.568" fill="none" r="8" stroke="#8c2335" stroke-dasharray="3 2"></circle>
+<circle cx="568.762" cy="119.568" fill="none" r="8" stroke="#8c2335" stroke-dasharray="3 2"></circle>
+<text fill="#8c2335" font-size="14" font-weight="700" text-anchor="start" x="504" y="26">poucos por esquiva</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="500" text-anchor="start" x="504" y="168">gostaria de mais, e o medo</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="500" text-anchor="start" x="504" y="185">do julgamento impede</text>
+</g>
+</svg>
+    <div class="dg-legenda">Quando a pessoa recusa ampliar vínculos, vale investigar ansiedade social antes de chamar isso de preferência.</div>
+  </div>
+
+  <h2 id="s5"><span class="num">05</span>Estilos de comunicação e assertividade</h2>
+  <p>São quatro estilos clássicos. O passivo se subjuga, engole o que sente e acumula ressentimento. O agressivo rompe limites, humilha e tenta controlar o outro. O passivo-agressivo mostra o descontentamento por ironia ou sarcasmo. O assertivo expressa o que sente respeitando os próprios limites e os do outro.</p>
+  <div class="diagrama">
+    <div class="dg-cap">Os quatro estilos de comunicação</div>
+    <svg aria-label="Grade com quatro estilos: passivo, assertivo, passivo-agressivo e agressivo, conforme a expressão das próprias necessidades e o respeito ao outro" role="img" viewbox="0 0 720 324" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="fkArrow" markerheight="7" markerwidth="7" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="#2d0a12"></path></marker></defs>
+<g fill="#2d0a12" font-family="Sora, sans-serif">
+<rect fill="#fdf0f2" height="140" stroke="#f2c6cc" width="320" x="70" y="10"></rect>
+<text fill="#2d0a12" font-size="15" font-weight="700" text-anchor="start" x="86" y="40">passivo</text>
+<text fill="#2d0a12" font-size="13" font-weight="500" text-anchor="start" x="86" y="66">engole o que sente, acumula</text>
+<text fill="#2d0a12" font-size="13" font-weight="500" text-anchor="start" x="86" y="83.68">ressentimento</text>
+<rect fill="#2d0a12" height="140" stroke="#f2c6cc" width="320" x="390" y="10"></rect>
+<text fill="#ffffff" font-size="15" font-weight="700" text-anchor="start" x="406" y="40">assertivo</text>
+<text fill="#ffffff" font-size="13" font-weight="500" text-anchor="start" x="406" y="66">diz o que sente respeitando os próprios</text>
+<text fill="#ffffff" font-size="13" font-weight="500" text-anchor="start" x="406" y="83.68">limites e os do outro</text>
+<rect fill="#ffffff" height="140" stroke="#f2c6cc" width="320" x="70" y="150"></rect>
+<text fill="#8c2335" font-size="15" font-weight="700" text-anchor="start" x="86" y="180">passivo-agressivo</text>
+<text fill="#2d0a12" font-size="13" font-weight="500" text-anchor="start" x="86" y="206">mostra o descontentamento por ironia ou</text>
+<text fill="#2d0a12" font-size="13" font-weight="500" text-anchor="start" x="86" y="223.68">sarcasmo</text>
+<rect fill="#f6dde1" height="140" stroke="#f2c6cc" width="320" x="390" y="150"></rect>
+<text fill="#8c2335" font-size="15" font-weight="700" text-anchor="start" x="406" y="180">agressivo</text>
+<text fill="#2d0a12" font-size="13" font-weight="500" text-anchor="start" x="406" y="206">rompe limites, humilha, tenta controlar</text>
+<text fill="#8a5a1e" font-size="12.5" font-weight="700" text-anchor="middle" x="390" y="312">expressa as próprias necessidades: pouco  ·  muito</text>
+<text fill="#8a5a1e" font-size="12.5" font-weight="700" text-anchor="middle" transform="rotate(-90 24 150)" x="24" y="150">respeito ao outro: baixo · alto</text>
+</g>
+</svg>
+    <div class="dg-legenda">Ninguém mora num estilo só: a pessoa transita entre eles conforme o vínculo.</div>
+  </div>
+  <p>Uma escala curta ajuda a rastrear o estilo, com itens sobre segurar o que sente, medo da reação dos outros, gritos e ironia. O resultado é discutido com a pessoa e cruzado com o mapa social, pra ver quais estilos geram custo no longo prazo e com quem, e em que contexto, a assertividade precisa ser desenvolvida.</p>
+  <p>Assertividade é aprendida, e na vida adulta exige esforço. Conhecer a própria história ajuda a entender os padrões que aparecem no consultório. A aula listou seis habilidades de base: mapear o apoio social, pedir sem prejudicar o vínculo, negociar, perguntar antes de supor, recusar preservando a relação e decidir orientado por valores.</p>
+
+  <h2 id="s6"><span class="num">06</span>Validação e pensamento dialético</h2>
+  <p>Validar é escutar de verdade e compreender o lado do outro sem precisar concordar. Uma sugestão da aula pra gerar empatia é imaginar a pessoa como criança. Pensar dialeticamente é olhar o quadro inteiro e evitar o cabo de guerra. Os seis níveis vão de prestar atenção até tratar a pessoa como igual (Linehan, 1997). Pra treinar, a gente escolhe situações a partir do mapa social, identifica as próprias tendências, como interromper ou falar de si, e faz roleplay na sessão.</p>
+  <div class="diagrama">
+    <div class="dg-cap">Os seis níveis de validação</div>
+    <svg aria-label="Escada de seis degraus: prestar atenção, refletir, ler o não dito, validar pela história, validar pelo agora e genuinidade radical" role="img" viewbox="0 0 720 284" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="fkArrow" markerheight="7" markerwidth="7" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="#2d0a12"></path></marker></defs>
+<g fill="#2d0a12" font-family="Sora, sans-serif">
+<rect fill="#fdf5ea" height="138" rx="10" width="112" x="0" y="142"></rect>
+<text fill="#2d0a12" font-size="16" font-weight="700" text-anchor="start" x="12" y="168">V1</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="700" text-anchor="start" x="12" y="190">prestar</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="700" text-anchor="start" x="12" y="207">atenção</text>
+<text fill="#2d0a12" font-size="12" font-weight="500" text-anchor="start" x="12" y="228">escutar de</text>
+<text fill="#2d0a12" font-size="12" font-weight="500" text-anchor="start" x="12" y="244.32">verdade, sem</text>
+<text fill="#2d0a12" font-size="12" font-weight="500" text-anchor="start" x="12" y="260.64">preparar a</text>
+<text fill="#2d0a12" font-size="12" font-weight="500" text-anchor="start" x="12" y="276.96">resposta</text>
+<rect fill="#f2dde0" height="162" rx="10" width="112" x="121" y="118"></rect>
+<text fill="#2d0a12" font-size="16" font-weight="700" text-anchor="start" x="133" y="144">V2</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="700" text-anchor="start" x="133" y="166">refletir com</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="700" text-anchor="start" x="133" y="183">precisão</text>
+<text fill="#2d0a12" font-size="12" font-weight="500" text-anchor="start" x="133" y="204">repetir o que</text>
+<text fill="#2d0a12" font-size="12" font-weight="500" text-anchor="start" x="133" y="220.32">ouviu, sem</text>
+<text fill="#2d0a12" font-size="12" font-weight="500" text-anchor="start" x="133" y="236.64">julgar</text>
+<rect fill="#c9707b" height="186" rx="10" width="112" x="242" y="94"></rect>
+<text fill="#2d0a12" font-size="16" font-weight="700" text-anchor="start" x="254" y="120">V3</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="700" text-anchor="start" x="254" y="142">ler o não</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="700" text-anchor="start" x="254" y="159">dito</text>
+<text fill="#2d0a12" font-size="12" font-weight="500" text-anchor="start" x="254" y="180">nomear o que</text>
+<text fill="#2d0a12" font-size="12" font-weight="500" text-anchor="start" x="254" y="196.32">a pessoa</text>
+<text fill="#2d0a12" font-size="12" font-weight="500" text-anchor="start" x="254" y="212.64">sente e não</text>
+<text fill="#2d0a12" font-size="12" font-weight="500" text-anchor="start" x="254" y="228.96">falou</text>
+<rect fill="#a3424f" height="210" rx="10" width="112" x="363" y="70"></rect>
+<text fill="#ffffff" font-size="16" font-weight="700" text-anchor="start" x="375" y="96">V4</text>
+<text fill="#ffffff" font-size="12.5" font-weight="700" text-anchor="start" x="375" y="118">pela</text>
+<text fill="#ffffff" font-size="12.5" font-weight="700" text-anchor="start" x="375" y="135">história</text>
+<text fill="#ffffff" font-size="12" font-weight="500" text-anchor="start" x="375" y="156">faz sentido</text>
+<text fill="#ffffff" font-size="12" font-weight="500" text-anchor="start" x="375" y="172.32">dado o que</text>
+<text fill="#ffffff" font-size="12" font-weight="500" text-anchor="start" x="375" y="188.64">ela viveu</text>
+<rect fill="#5a1624" height="234" rx="10" width="112" x="484" y="46"></rect>
+<text fill="#ffffff" font-size="16" font-weight="700" text-anchor="start" x="496" y="72">V5</text>
+<text fill="#ffffff" font-size="12.5" font-weight="700" text-anchor="start" x="496" y="94">pelo agora</text>
+<text fill="#ffffff" font-size="12" font-weight="500" text-anchor="start" x="496" y="115">faz sentido</text>
+<text fill="#ffffff" font-size="12" font-weight="500" text-anchor="start" x="496" y="131.32">pra qualquer</text>
+<text fill="#ffffff" font-size="12" font-weight="500" text-anchor="start" x="496" y="147.64">pessoa nessa</text>
+<text fill="#ffffff" font-size="12" font-weight="500" text-anchor="start" x="496" y="163.96">situação</text>
+<rect fill="#2d0a12" height="258" rx="10" width="112" x="605" y="22"></rect>
+<text fill="#ffffff" font-size="16" font-weight="700" text-anchor="start" x="617" y="48">V6</text>
+<text fill="#ffffff" font-size="12.5" font-weight="700" text-anchor="start" x="617" y="70">genuinidade</text>
+<text fill="#ffffff" font-size="12.5" font-weight="700" text-anchor="start" x="617" y="87">radical</text>
+<text fill="#ffffff" font-size="12" font-weight="500" text-anchor="start" x="617" y="108">tratar como</text>
+<text fill="#ffffff" font-size="12" font-weight="500" text-anchor="start" x="617" y="124.32">igual, sem</text>
+<text fill="#ffffff" font-size="12" font-weight="500" text-anchor="start" x="617" y="140.64">fragilizar</text>
+</g>
+</svg>
+    <div class="dg-legenda">Validar é compreender o lado da outra pessoa sem precisar concordar (Linehan, 1997).</div>
+  </div>
+  <p>A aula comparou a manutenção de uma relação à revisão periódica do carro: problemas pequenos resolvidos cedo evitam estragos maiores. A passividade custa autorrespeito e acumula ressentimento; a agressividade isola. O trabalho é chegar a um equilíbrio assertivo entre as próprias necessidades e as do outro, com treino contínuo em roleplays e experimentos comportamentais ajustados ao mapa social de cada paciente.</p>
+
+  <h2 id="s7"><span class="num">07</span>DEAR MAN, GIVE, FAST e STOP</h2>
+  <p>As três siglas resumem as habilidades centrais: DEAR MAN pra definir e buscar o objetivo, GIVE pra preservar a relação e FAST pra manter o autorrespeito. O disco arranhado, dentro do "mente alerta", mantém o foco quando a outra pessoa resiste: repetir o pedido com calma, sem entrar em discussão paralela. Postura corporal e validação ajudam, e conversas que empacam pedem ajuste no roteiro.</p>
+  <div class="diagrama">
+    <div class="dg-cap">DEAR MAN, GIVE e FAST</div>
+    <svg aria-label="Três colunas com as letras de DEAR MAN, GIVE e FAST e o significado de cada uma" role="img" viewbox="0 0 720 334" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="fkArrow" markerheight="7" markerwidth="7" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="#2d0a12"></path></marker></defs>
+<g fill="#2d0a12" font-family="Sora, sans-serif">
+<rect fill="#fdf0f2" height="330" rx="12" stroke="#2d0a12" width="232" x="0" y="0"></rect>
+<rect fill="#2d0a12" height="54" rx="12" width="232" x="0" y="0"></rect>
+<text fill="#ffffff" font-size="16" font-weight="700" text-anchor="start" x="16" y="26">DEAR MAN</text>
+<text fill="#ffffff" font-size="12.5" font-weight="600" text-anchor="start" x="16" y="44">pra conseguir o que quer</text>
+<rect fill="#2d0a12" height="28" rx="6" width="28" x="14" y="66"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="28" y="85">D</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="52" y="85">descrever a situação</text>
+<rect fill="#2d0a12" height="28" rx="6" width="28" x="14" y="103"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="28" y="122">E</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="52" y="122">expressar o que sente</text>
+<rect fill="#2d0a12" height="28" rx="6" width="28" x="14" y="140"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="28" y="159">A</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="52" y="159">afirmar o pedido</text>
+<rect fill="#2d0a12" height="28" rx="6" width="28" x="14" y="177"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="28" y="196">R</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="52" y="196">reforçar, dizer o ganho</text>
+<rect fill="#2d0a12" height="28" rx="6" width="28" x="14" y="214"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="28" y="233">M</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="52" y="233">mente alerta</text>
+<rect fill="#2d0a12" height="28" rx="6" width="28" x="14" y="251"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="28" y="270">A</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="52" y="270">aparentar confiança</text>
+<rect fill="#2d0a12" height="28" rx="6" width="28" x="14" y="288"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="28" y="307">N</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="52" y="307">negociar</text>
+<rect fill="#fdf0f2" height="330" rx="12" stroke="#a3424f" width="232" x="244" y="0"></rect>
+<rect fill="#a3424f" height="54" rx="12" width="232" x="244" y="0"></rect>
+<text fill="#ffffff" font-size="16" font-weight="700" text-anchor="start" x="260" y="26">GIVE</text>
+<text fill="#ffffff" font-size="12.5" font-weight="600" text-anchor="start" x="260" y="44">pra cuidar da relação</text>
+<rect fill="#a3424f" height="28" rx="6" width="28" x="258" y="66"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="272" y="85">G</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="296" y="85">gentil</text>
+<rect fill="#a3424f" height="28" rx="6" width="28" x="258" y="103"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="272" y="122">I</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="296" y="122">interessado</text>
+<rect fill="#a3424f" height="28" rx="6" width="28" x="258" y="140"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="272" y="159">V</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="296" y="159">validar</text>
+<rect fill="#a3424f" height="28" rx="6" width="28" x="258" y="177"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="272" y="196">E</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="296" y="196">jeito leve</text>
+<rect fill="#fdf0f2" height="330" rx="12" stroke="#c8893a" width="232" x="488" y="0"></rect>
+<rect fill="#c8893a" height="54" rx="12" width="232" x="488" y="0"></rect>
+<text fill="#ffffff" font-size="16" font-weight="700" text-anchor="start" x="504" y="26">FAST</text>
+<text fill="#ffffff" font-size="12.5" font-weight="600" text-anchor="start" x="504" y="44">pra manter o autorrespeito</text>
+<rect fill="#c8893a" height="28" rx="6" width="28" x="502" y="66"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="516" y="85">F</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="540" y="85">justo</text>
+<rect fill="#c8893a" height="28" rx="6" width="28" x="502" y="103"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="516" y="122">A</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="540" y="122">sem pedir desculpa a mais</text>
+<rect fill="#c8893a" height="28" rx="6" width="28" x="502" y="140"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="516" y="159">S</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="540" y="159">fiel aos valores</text>
+<rect fill="#c8893a" height="28" rx="6" width="28" x="502" y="177"></rect>
+<text fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle" x="516" y="196">T</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="600" text-anchor="start" x="540" y="196">verdadeiro</text>
+</g>
+</svg>
+    <div class="dg-legenda">O roteiro é uma base adaptável. Postura corporal e validação ajudam o pedido a funcionar (Linehan, 2015).</div>
+  </div>
+  <p>Se a pessoa desregula no meio da conversa, entra o STOP: parar, dar um passo atrás, física ou mentalmente, observar o que acontece por dentro e prosseguir com atenção. Em crise mais alta, a prioridade passa a ser a tolerância ao mal-estar, e a conversa é adiada de forma combinada, voltando só depois que a emoção baixar.</p>
+  <div class="diagrama">
+    <div class="dg-cap">Quando a conversa desregula</div>
+    <svg aria-label="Termômetro de ativação: em crise alta, tolerância ao mal-estar e adiar; em ativação moderada, STOP; ao lado, as quatro letras do STOP" role="img" viewbox="0 0 720 322" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="fkArrow" markerheight="7" markerwidth="7" orient="auto" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="#2d0a12"></path></marker></defs>
+<g fill="#2d0a12" font-family="Sora, sans-serif">
+<rect fill="#ffffff" height="260" rx="22" stroke="#e6d0d4" width="44" x="20" y="10"></rect>
+<rect fill="#8c2335" height="48" rx="6" width="32" x="26" y="16"></rect>
+<rect fill="#b8434f" height="48" rx="6" width="32" x="26" y="66"></rect>
+<rect fill="#c8893a" height="48" rx="6" width="32" x="26" y="116"></rect>
+<rect fill="#d9aeb6" height="48" rx="6" width="32" x="26" y="166"></rect>
+<rect fill="#f2dde0" height="48" rx="6" width="32" x="26" y="216"></rect>
+<circle cx="42" cy="290" fill="#f2dde0" r="26"></circle>
+<text fill="#8c2335" font-size="13" font-weight="700" text-anchor="start" x="80" y="46">crise alta</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="500" text-anchor="start" x="80" y="66">Tolerância ao mal-estar e adiar</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="500" text-anchor="start" x="80" y="83">a conversa até a emoção baixar.</text>
+<text fill="#2d0a12" font-size="13" font-weight="700" text-anchor="start" x="80" y="190">ativação moderada</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="500" text-anchor="start" x="80" y="210">STOP e segue a conversa com</text>
+<text fill="#2d0a12" font-size="12.5" font-weight="500" text-anchor="start" x="80" y="227">cuidado.</text>
+<rect fill="#8c2335" height="60" rx="10" width="54" x="330" y="10"></rect>
+<text fill="#ffffff" font-size="22" font-weight="700" text-anchor="middle" x="357" y="49">S</text>
+<rect fill="#fdf0f2" height="60" rx="10" stroke="#d9aeb6" width="328" x="392" y="10"></rect>
+<text fill="#2d0a12" font-size="14" font-weight="700" x="406" y="38">parar</text>
+<text fill="#6b5257" font-size="13" x="406" y="60.2">não agir no impulso</text>
+<rect fill="#2d0a12" height="60" rx="10" width="54" x="330" y="82"></rect>
+<text fill="#ffffff" font-size="22" font-weight="700" text-anchor="middle" x="357" y="121">T</text>
+<rect fill="#fdf0f2" height="60" rx="10" stroke="#d9aeb6" width="328" x="392" y="82"></rect>
+<text fill="#2d0a12" font-size="14" font-weight="700" x="406" y="110">dar um passo atrás</text>
+<text fill="#6b5257" font-size="13" x="406" y="132.2">distância física ou mental</text>
+<rect fill="#2d0a12" height="60" rx="10" width="54" x="330" y="154"></rect>
+<text fill="#ffffff" font-size="22" font-weight="700" text-anchor="middle" x="357" y="193">O</text>
+<rect fill="#fdf0f2" height="60" rx="10" stroke="#d9aeb6" width="328" x="392" y="154"></rect>
+<text fill="#2d0a12" font-size="14" font-weight="700" x="406" y="182">observar</text>
+<text fill="#6b5257" font-size="13" x="406" y="204.2">o que acontece por dentro e por fora</text>
+<rect fill="#2d0a12" height="60" rx="10" width="54" x="330" y="226"></rect>
+<text fill="#ffffff" font-size="22" font-weight="700" text-anchor="middle" x="357" y="265">P</text>
+<rect fill="#fdf0f2" height="60" rx="10" stroke="#d9aeb6" width="328" x="392" y="226"></rect>
+<text fill="#2d0a12" font-size="14" font-weight="700" x="406" y="254">prosseguir com atenção</text>
+<text fill="#6b5257" font-size="13" x="406" y="276.2">com o objetivo em mente</text>
+</g>
+</svg>
+    <div class="dg-legenda">A conversa só é retomada depois que a emoção baixa.</div>
+  </div>
+
+  <h2 id="s8"><span class="num">08</span>Levar para a prática</h2>
+  <div class="bloco">
+      <label class="check"><input type="checkbox"><span>Antes de treinar, monto o mapa de apoio social com o paciente.</span></label>
+      <label class="check"><input type="checkbox"><span>Pergunto o que cada relação rende e o que ela cobra.</span></label>
+      <label class="check"><input type="checkbox"><span>Investigo ansiedade social quando o paciente diz que não quer mais vínculos.</span></label>
+      <label class="check"><input type="checkbox"><span>Uso a escala de estilos e cruzo com o mapa social.</span></label>
+      <label class="check"><input type="checkbox"><span>Treino DEAR MAN, GIVE e FAST em roleplay, com situações reais do mapa.</span></label>
+      <label class="check"><input type="checkbox"><span>Combino o STOP e o adiamento para quando a conversa desregular.</span></label>
+  </div>
+
+  <h2 id="s9"><span class="num">09</span>Perguntas de revisão</h2>
+  <div class="bloco">
+    <div class="pergunta">
+      <div class="pq"><b>01.</b> Qual a diferença entre o treino de habilidades sociais e a efetividade interpessoal da DBT?</div>
+      <textarea placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver comentário</summary><div class="gab-in">O treino de habilidades sociais organiza o trabalho em classes de habilidades. A efetividade interpessoal organiza cada interação pelos objetivos da pessoa, equilibrando conseguir o que quer (DEAR MAN), cuidar da relação (GIVE) e manter o autorrespeito (FAST), guiada por necessidades e valores.</div></details>
+    </div>
+    <div class="pergunta">
+      <div class="pq"><b>02.</b> Por que o campo relacional é central no tratamento do transtorno borderline?</div>
+      <textarea placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver comentário</summary><div class="gab-in">Porque boa parte das demandas e dos gatilhos está nas relações, e o autoconceito ligado ao medo do abandono depende do outro. Sem efetividade interpessoal, o ganho da regulação tende a não se sustentar no dia a dia.</div></details>
+    </div>
+    <div class="pergunta">
+      <div class="pq"><b>03.</b> O que o mapa de apoio social avalia e como ele entra na análise em cadeia?</div>
+      <textarea placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver comentário</summary><div class="gab-in">A quantidade de interações, a satisfação com cada uma, o apoio pra regulação e os custos emocionais (raiva, ressentimento, medo de ficar só). Mostra vulnerabilidades e precipitantes pra cadeia e orienta metas graduais, um contexto e um comportamento-alvo por vez.</div></details>
+    </div>
+    <div class="pergunta">
+      <div class="pq"><b>04.</b> Descreva os quatro estilos de comunicação e por que ninguém fica num só.</div>
+      <textarea placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver comentário</summary><div class="gab-in">Passivo (engole e acumula ressentimento), agressivo (rompe limites, humilha, controla), passivo-agressivo (ironia, sarcasmo) e assertivo (expressa respeitando os próprios limites e os do outro). As pessoas transitam entre eles conforme o vínculo.</div></details>
+    </div>
+    <div class="pergunta">
+      <div class="pq"><b>05.</b> Quais são os seis níveis de validação?</div>
+      <textarea placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver comentário</summary><div class="gab-in">Prestar atenção; refletir com precisão; ler o não dito; validar pela história; validar pelo que faz sentido agora; genuinidade radical, tratando a pessoa como igual.</div></details>
+    </div>
+    <div class="pergunta">
+      <div class="pq"><b>06.</b> O que fazer quando a pessoa desregula no meio de uma conversa difícil?</div>
+      <textarea placeholder="Escreva aqui…"></textarea>
+      <details class="gab"><summary>Ver comentário</summary><div class="gab-in">Usar o STOP: parar, dar um passo atrás, observar e prosseguir com atenção. Se a crise estiver alta, priorizar tolerância ao mal-estar e adiar a conversa de forma combinada, retomando depois que a emoção baixar.</div></details>
+    </div>
+    <div class="acoes">
+      <button class="btn solid" id="exp">Exportar respostas</button>
+      <button class="btn" id="lmp">Limpar</button>
+      <a class="btn" href="resumo.pdf" download>Baixar o PDF</a>
+      <span class="estado" id="saved">Salvo neste aparelho</span>
+    </div>
+  </div>
+
+  <h2 id="s10"><span class="num">10</span>Referências</h2>
+  <ul class="refs">
+    <li>Del Prette, Z. A. P., & Del Prette, A. (2017). <em>Competência social e habilidades sociais: Manual teórico-prático</em>. Vozes.</li>
+    <li>Harlow, H. F. (1958). The nature of love. <em>American Psychologist, 13</em>(12), 673-685.</li>
+    <li>Holt-Lunstad, J., Smith, T. B., & Layton, J. B. (2010). Social relationships and mortality risk: A meta-analytic review. <em>PLoS Medicine, 7</em>(7), e1000316.</li>
+    <li>Linehan, M. M. (1997). Validation and psychotherapy. In A. C. Bohart & L. S. Greenberg (Eds.), <em>Empathy reconsidered: New directions in psychotherapy</em> (pp. 353-392). American Psychological Association.</li>
+    <li>Linehan, M. M. (2015). <em>DBT skills training manual</em> (2nd ed.). Guilford Press.</li>
+    <li>Van Dijk, S. (2012). <em>DBT made simple: A step-by-step guide to dialectical behavior therapy</em>. New Harbinger.</li>
+  </ul>
+
+  <div class="cta">
+    <div class="k">Aprenda muito mais na</div>
+    <h3>Comunidade Lógica Psicológica</h3>
+    <ul>
+      <li>Aprofundar o raciocínio clínico com ciência, processos e análise funcional.</li>
+      <li>Estruturar uma prática ética, com pensamento crítico e evidências atualizadas.</li>
+      <li>Desenvolver o self clínico com supervisão, leituras guiadas e rede.</li>
+    </ul>
+    <a href="https://psicojulio.com/comunidade-logica-psicologica/" target="_blank" rel="noopener">Participar da comunidade →</a>
+  </div>
+
+  <div class="foot-c">
+    <a href="mailto:contato@psicojulio.com">contato@psicojulio.com</a> · <a href="tel:+5547999338021">(47) 99933-8021</a><br>
+    Rua Concórdia, 703, São Vicente, Itajaí — 88309-645<br>
+    CNPJ 49.649.803/0001-60
+  </div>
+</main>
+</div>
+
+<script>
+(function(){
+  var K = 'mat-DBT-Efetividade-';
+  var burger = document.getElementById('burger'), scrim = document.getElementById('scrim');
+  if(burger) burger.onclick = function(){ document.body.classList.toggle('ix'); };
+  if(scrim) scrim.onclick = function(){ document.body.classList.remove('ix'); };
+
+  var s = document.getElementById('saved'), tm;
+  function flag(){ if(!s) return; s.classList.add('on'); clearTimeout(tm); tm = setTimeout(function(){ s.classList.remove('on'); }, 1600); }
+
+  document.querySelectorAll('.check input').forEach(function(c, i){
+    var k = K + 'ck' + i;
+    try{ if(localStorage.getItem(k) === '1'){ c.checked = true; c.closest('.check').classList.add('done'); } }catch(e){}
+    c.addEventListener('change', function(){
+      c.closest('.check').classList.toggle('done', c.checked);
+      try{ localStorage.setItem(k, c.checked ? '1' : '0'); }catch(e){} flag();
+    });
+  });
+  document.querySelectorAll('.pergunta textarea').forEach(function(t, i){
+    var k = K + 'q' + i;
+    try{ var v = localStorage.getItem(k); if(v) t.value = v; }catch(e){}
+    t.addEventListener('input', function(){ try{ localStorage.setItem(k, t.value); }catch(e){} flag(); });
+  });
+
+  var b = document.getElementById('exp');
+  if(b) b.addEventListener('click', function(){
+    var out = 'RESPOSTAS — Efetividade interpessoal\n\n';
+    document.querySelectorAll('.pergunta').forEach(function(q){
+      out += q.querySelector('.pq').innerText + '\n' + (q.querySelector('textarea').value || '(sem resposta)') + '\n\n';
+    });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([out], {type:'text/plain'}));
+    a.download = 'DBT-Efetividade-respostas.txt'; a.click();
+  });
+  var l = document.getElementById('lmp');
+  if(l) l.addEventListener('click', function(){
+    if(!confirm('Apagar suas anotações deste material?')) return;
+    try{ Object.keys(localStorage).filter(function(k){ return k.indexOf(K) === 0; }).forEach(function(k){ localStorage.removeItem(k); }); }catch(e){}
+    location.reload();
+  });
+
+  var ixLinks = document.querySelectorAll('.ix a');
+  var sections = Array.from(ixLinks).map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  function onScroll(){
+    var pos = window.scrollY + 120, current = sections[0];
+    sections.forEach(function(sc){ if(sc.offsetTop <= pos) current = sc; });
+    ixLinks.forEach(function(a){ a.classList.toggle('on', document.querySelector(a.getAttribute('href')) === current); });
+  }
+  window.addEventListener('scroll', onScroll); onScroll();
+})();
+</script>
+
+</body>
+</html>
