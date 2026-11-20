@@ -410,6 +410,7 @@ header .selo{display:none}
 #desfazer{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:80;display:flex;align-items:center;gap:14px;padding:11px 12px 11px 16px;border-radius:12px;background:#2f2c1c;color:#f6f1e3;font-family:var(--sans);font-size:14px;box-shadow:0 12px 30px -10px rgba(0,0,0,.45);max-width:calc(100vw - 32px)}
 #desfazer[hidden]{display:none}
 #desfazer span{white-space:nowrap}
+#menu-lixo{position:fixed;right:auto;width:max-content;min-width:220px;max-width:calc(100vw - 32px)}
 #desfazer{width:max-content}
 #desfazer button{border:0;background:transparent;color:var(--lp-gold,#c9a85c);font-weight:700;font-size:14px;cursor:pointer;padding:4px 6px;border-radius:6px}
 .aplics .quem{color:var(--oliva);font-family:var(--serif);font-weight:500;font-size:1.15rem}
@@ -2106,7 +2107,7 @@ function renderToolNav(){
   document.getElementById('toolnav').innerHTML = `<button type="button" class="tn lib" data-tool="lib" aria-current="${DB.atual.tool==='lib'}">Biblioteca</button>` + usadas.map(t=>{
     const n = p ? regsDe(p, t.id).length : 0;
     const at = t.id===DB.atual.tool;
-    return `<span class="tn-w${at?' on':''}"><button type="button" class="tn" data-tool="${t.id}" aria-current="${at}">${esc(t.curto)}${n?`<span>${n}</span>`:''}</button>${n?`<button type="button" class="tn-x" data-apagar="${t.id}" title="Apagar ${esc(t.curto)} deste paciente" aria-label="Apagar ${esc(t.curto)} deste paciente"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`:''}</span>`;
+    return `<span class="tn-w${at?' on':''}"><button type="button" class="tn" data-tool="${t.id}" aria-current="${at}">${esc(t.curto)}${n?`<span>${n}</span>`:''}</button>${n?`<button type="button" class="tn-x" data-apagar="${t.id}" aria-haspopup="${n>1}" aria-expanded="false" title="Apagar ${esc(t.curto)} deste paciente" aria-label="Apagar ${esc(t.curto)} deste paciente"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`:''}</span>`;
   }).join('');
 }
 function renderToolHead(){
@@ -2378,19 +2379,51 @@ document.getElementById('form-novo').addEventListener('submit', e=>{
   const p = normalizarPac({ id:uid(), nome }); DB.pacientes.push(p); inp.value='';
   selecionar(p.id, 'lib');
 });
-function apagarIntervencao(id){
-  const p = pacAtual(); if(!p) return; const t = TOOLS.find(x=>x.id===id); const antes = p.tools[id] || [];
-  if(!antes.length) return;
-  p.tools[id] = []; salvar(); selecionar(p.id, DB.atual.tool===id ? 'lib' : DB.atual.tool);
+function mostrarDesfazer(txt, volta){
   let d = document.getElementById('desfazer');
   if(!d){ d = document.createElement('div'); d.id = 'desfazer'; d.setAttribute('role','status'); document.body.appendChild(d); }
-  d.innerHTML = `<span>${esc(t ? t.curto : 'Intervenção')} apagada</span><button type="button">Desfazer</button>`; d.hidden = false;
-  clearTimeout(apagarIntervencao._t); apagarIntervencao._t = setTimeout(()=>{ d.hidden = true; }, 7000);
-  d.querySelector('button').onclick = ()=>{ clearTimeout(apagarIntervencao._t); d.hidden = true;
-    const pp = DB.pacientes.find(x=>x.id===p.id); if(!pp) return; pp.tools[id] = antes; salvar(); selecionar(pp.id, id); };
+  d.innerHTML = `<span>${esc(txt)}</span><button type="button">Desfazer</button>`; d.hidden = false;
+  clearTimeout(mostrarDesfazer._t); mostrarDesfazer._t = setTimeout(()=>{ d.hidden = true; }, 7000);
+  d.querySelector('button').onclick = ()=>{ clearTimeout(mostrarDesfazer._t); d.hidden = true; volta(); };
 }
+function apagarIntervencao(id, so){
+  fecharMenuLixo();
+  const p = pacAtual(); if(!p) return; const t = TOOLS.find(x=>x.id===id); const nome = t ? t.curto : 'Intervenção';
+  const antes = (p.tools[id] || []).slice(); if(!antes.length) return;
+  const ultimo = so==='ultima' && antes.length>1;
+  const atualAntes = DB.atual.a, toolAntes = DB.atual.tool;
+  if(ultimo){ p.tools[id] = antes.slice(0, -1); salvar();
+    selecionar(p.id, id, p.tools[id][p.tools[id].length-1].id); }
+  else { p.tools[id] = []; salvar(); selecionar(p.id, DB.atual.tool===id ? 'lib' : DB.atual.tool); }
+  mostrarDesfazer(ultimo ? `Última aplicação de ${nome} apagada` : `${nome} apagada`, ()=>{
+    const pp = DB.pacientes.find(x=>x.id===p.id); if(!pp) return; pp.tools[id] = antes; salvar();
+    selecionar(pp.id, id, toolAntes===id && antes.some(r=>r.id===atualAntes) ? atualAntes : antes[antes.length-1].id); });
+}
+function fecharMenuLixo(){ const m = document.getElementById('menu-lixo'); if(m){ m.remove(); document.querySelectorAll('.tn-x[aria-expanded="true"]').forEach(b=>b.setAttribute('aria-expanded','false')); } }
+function abrirMenuLixo(btn, id){
+  const aberto = document.getElementById('menu-lixo'); const mesmo = aberto && aberto.dataset.tool===id; fecharMenuLixo(); if(mesmo) return;
+  const p = pacAtual(); if(!p) return; const regs = p.tools[id] || [];
+  if(regs.length < 2){ apagarIntervencao(id); return; }
+  const m = document.createElement('div'); m.id = 'menu-lixo'; m.className = 'menu-mais menu-lixo'; m.setAttribute('role','menu'); m.dataset.tool = id;
+  m.innerHTML = `<button type="button" role="menuitem" data-op="ultima">Apagar só a última (${dataBR(regs[regs.length-1].data)})</button>
+    <button type="button" role="menuitem" class="perigo" data-op="todas">Apagar todas (${regs.length})</button>
+    <div class="sep" role="separator"></div><button type="button" role="menuitem" data-op="cancelar">Cancelar</button>`;
+  document.body.appendChild(m);
+  const r = btn.getBoundingClientRect(), w = m.offsetWidth;
+  m.style.top = (r.bottom + 6) + 'px';
+  m.style.left = Math.max(16, Math.min(r.left + r.width/2 - 24, innerWidth - w - 16)) + 'px';
+  btn.setAttribute('aria-expanded','true');
+  m.addEventListener('click', e=>{ e.stopPropagation(); const b = e.target.closest('[data-op]'); if(!b) return;
+    if(b.dataset.op==='cancelar'){ fecharMenuLixo(); btn.focus(); return; }
+    apagarIntervencao(id, b.dataset.op); });
+  m.querySelector('button').focus();
+}
+if(!window._lixoFora){ window._lixoFora = true;
+  document.addEventListener('click', e=>{ if(!e.target.closest('#menu-lixo') && !e.target.closest('.tn-x')) fecharMenuLixo(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && document.getElementById('menu-lixo')){ const id = document.getElementById('menu-lixo').dataset.tool; fecharMenuLixo(); const b = document.querySelector(`.tn-x[data-apagar="${id}"]`); if(b) b.focus(); } });
+  window.addEventListener('resize', fecharMenuLixo); document.getElementById('toolnav').addEventListener('scroll', fecharMenuLixo, {passive:true}); window.addEventListener('scroll', fecharMenuLixo, {passive:true}); }
 document.getElementById('toolnav').addEventListener('click', e=>{
-  const x = e.target.closest('[data-apagar]'); if(x){ e.stopPropagation(); apagarIntervencao(x.dataset.apagar); return; }
+  const x = e.target.closest('[data-apagar]'); if(x){ e.stopPropagation(); abrirMenuLixo(x, x.dataset.apagar); return; }
   const b = e.target.closest('[data-tool]'); if(!b || !pacAtual()) return;
   selecionar(DB.atual.p, b.dataset.tool);
 });
