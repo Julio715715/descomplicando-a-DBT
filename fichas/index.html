@@ -400,6 +400,18 @@ header .selo{display:none}
 .tn:hover{color:var(--gilt)}
 .tn[aria-current="true"]{background:transparent;color:var(--oliva);border-bottom-color:var(--dourado);font-weight:800}
 .tn[aria-current="true"] span{background:var(--dourado);color:#fffdf7}
+.tn-w{display:inline-flex;align-items:center;position:relative;flex:none}
+.tn-w.on{border-bottom:2px solid var(--dourado);margin-bottom:-1px}
+.tn-w.on .tn{border-bottom-color:transparent;padding-right:4px}
+.tn-x{display:none;align-items:center;justify-content:center;width:26px;height:26px;margin-right:6px;border:0;border-radius:7px;background:transparent;color:var(--sage);cursor:pointer;padding:0}
+.tn-w.on .tn-x,.tn-w:hover .tn-x,.tn-x:focus-visible{display:inline-flex}
+.tn-x:hover{color:#a4492f;background:color-mix(in srgb,#a4492f 10%,transparent)}
+.tn-x:focus-visible{outline:2px solid var(--lp-gold);outline-offset:1px}
+#desfazer{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:80;display:flex;align-items:center;gap:14px;padding:11px 12px 11px 16px;border-radius:12px;background:#2f2c1c;color:#f6f1e3;font-family:var(--sans);font-size:14px;box-shadow:0 12px 30px -10px rgba(0,0,0,.45);max-width:calc(100vw - 32px)}
+#desfazer[hidden]{display:none}
+#desfazer span{white-space:nowrap}
+#desfazer{width:max-content}
+#desfazer button{border:0;background:transparent;color:var(--lp-gold,#c9a85c);font-weight:700;font-size:14px;cursor:pointer;padding:4px 6px;border-radius:6px}
 .aplics .quem{color:var(--oliva);font-family:var(--serif);font-weight:500;font-size:1.15rem}
 
 /* progresso */
@@ -2093,7 +2105,8 @@ function renderToolNav(){
   const usadas = TOOLS.filter(t=> (p && regsDe(p, t.id).length) || t.id===DB.atual.tool);
   document.getElementById('toolnav').innerHTML = `<button type="button" class="tn lib" data-tool="lib" aria-current="${DB.atual.tool==='lib'}">Biblioteca</button>` + usadas.map(t=>{
     const n = p ? regsDe(p, t.id).length : 0;
-    return `<button type="button" class="tn" data-tool="${t.id}" aria-current="${t.id===DB.atual.tool}">${esc(t.curto)}${n?`<span>${n}</span>`:''}</button>`;
+    const at = t.id===DB.atual.tool;
+    return `<span class="tn-w${at?' on':''}"><button type="button" class="tn" data-tool="${t.id}" aria-current="${at}">${esc(t.curto)}${n?`<span>${n}</span>`:''}</button>${n?`<button type="button" class="tn-x" data-apagar="${t.id}" title="Apagar ${esc(t.curto)} deste paciente" aria-label="Apagar ${esc(t.curto)} deste paciente"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`:''}</span>`;
   }).join('');
 }
 function renderToolHead(){
@@ -2123,8 +2136,8 @@ function renderToolHead(){
           <div class="sep" role="separator"></div><div class="rot">Compartilhar e imprimir</div>
           <button type="button" role="menuitem" id="b-copia-ficha">Copiar link da ficha</button>
           ${pdfURL(t.id) ? `<a role="menuitem" href="${pdfURL(t.id)}" target="_blank" rel="noopener">PDF pra imprimir ↗</a><button type="button" role="menuitem" id="b-copia-pdf">Copiar link do PDF</button>` : ''}
-          <div class="sep" role="separator"></div>
-          <button type="button" role="menuitem" class="perigo" id="b-apagar-ap">${regs.length>1?'Apagar esta aplicação':'Apagar intervenção'}</button>
+          ${regs.length>1 ? `<div class="sep" role="separator"></div>
+          <button type="button" role="menuitem" class="perigo" id="b-apagar-ap">Apagar esta aplicação</button>` : ''}
         </div>
       </div>
     </div>`}`;
@@ -2365,7 +2378,19 @@ document.getElementById('form-novo').addEventListener('submit', e=>{
   const p = normalizarPac({ id:uid(), nome }); DB.pacientes.push(p); inp.value='';
   selecionar(p.id, 'lib');
 });
+function apagarIntervencao(id){
+  const p = pacAtual(); if(!p) return; const t = TOOLS.find(x=>x.id===id); const antes = p.tools[id] || [];
+  if(!antes.length) return;
+  p.tools[id] = []; salvar(); selecionar(p.id, DB.atual.tool===id ? 'lib' : DB.atual.tool);
+  let d = document.getElementById('desfazer');
+  if(!d){ d = document.createElement('div'); d.id = 'desfazer'; d.setAttribute('role','status'); document.body.appendChild(d); }
+  d.innerHTML = `<span>${esc(t ? t.curto : 'Intervenção')} apagada</span><button type="button">Desfazer</button>`; d.hidden = false;
+  clearTimeout(apagarIntervencao._t); apagarIntervencao._t = setTimeout(()=>{ d.hidden = true; }, 7000);
+  d.querySelector('button').onclick = ()=>{ clearTimeout(apagarIntervencao._t); d.hidden = true;
+    const pp = DB.pacientes.find(x=>x.id===p.id); if(!pp) return; pp.tools[id] = antes; salvar(); selecionar(pp.id, id); };
+}
 document.getElementById('toolnav').addEventListener('click', e=>{
+  const x = e.target.closest('[data-apagar]'); if(x){ e.stopPropagation(); apagarIntervencao(x.dataset.apagar); return; }
   const b = e.target.closest('[data-tool]'); if(!b || !pacAtual()) return;
   selecionar(DB.atual.p, b.dataset.tool);
 });
