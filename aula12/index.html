@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<title>Aula 12 · Próximos passos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vinho:#8c2335; --vinho-escuro:#2d0a12; --rosa:#fdf0f2; --rosa-2:#f2dde0;
+  --dourado:#c8893a; --tinta:#111; --texto:#4a4a4a; --fraco:#8a8a8a;
+  --linha:#ececec; --papel:#fff; --papel-2:#faf9f7; --raio:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Sora',system-ui,-apple-system,sans-serif;background:var(--papel);color:var(--tinta);-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--vinho);outline-offset:3px;border-radius:4px}
+.wrap{max-width:780px;margin:0 auto;padding:0 1.6rem}
+
+.sidebar{position:fixed;inset:0 auto 0 0;width:270px;background:var(--vinho-escuro);color:#fff;
+  display:flex;flex-direction:column;z-index:60;padding:1.8rem 0 0;overflow-y:auto}
+.sb-brand{padding:0 1.5rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-brand .b1{font-size:1.02rem;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.sb-brand .b1 span{color:#e8909a}
+.sb-brand .b2{font-size:.68rem;color:rgba(255,255,255,.4);margin-top:.2rem}
+.sb-prog{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-prog-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.55rem}
+.sb-prog-n{font-size:1.4rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+.sb-prog-n small{font-size:.72rem;font-weight:400;color:rgba(255,255,255,.35)}
+.sb-prog-l{font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.35)}
+.bar{height:3px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden;margin-top:.2rem}
+.bar i{display:block;height:100%;background:var(--dourado);width:0%}
+.sb-nav{padding:.6rem 0}
+.sb-nav a{display:flex;gap:.6rem;align-items:center;font-size:.82rem;color:rgba(255,255,255,.7);
+  text-decoration:none;padding:.55rem 1.5rem}
+.sb-nav a:hover{color:#fff;background:rgba(255,255,255,.05)}
+.sb-nav .ic{font-size:.78rem;opacity:.7;flex-shrink:0}
+.sb-sep{font-size:.58rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.25);
+  padding:1.1rem 1.5rem .45rem}
+.ix a{display:block;font-size:.78rem;line-height:1.4;color:rgba(255,255,255,.5);text-decoration:none;
+  padding:.42rem 1.5rem;border-left:2px solid transparent;transition:.2s;cursor:pointer}
+.ix a:hover{color:#fff}
+.ix a.on{color:#fff;border-left-color:var(--vinho);background:rgba(140,35,53,.28);font-weight:500}
+.sb-foot{margin-top:auto;padding:1.2rem 1.5rem;border-top:1px solid rgba(255,255,255,.08)}
+.ix-pdf{display:block;text-align:center;background:#fff;color:var(--vinho-escuro);padding:.65rem;
+  border-radius:100px;font-size:.76rem;font-weight:700;text-decoration:none;transition:.2s}
+.ix-pdf:hover{background:var(--vinho);color:#fff}
+.sb-duo{display:flex;align-items:center;gap:.6rem;margin-top:1rem}
+.sb-duo .av{display:flex}
+.sb-duo .in{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--vinho);color:#fff;font-size:.6rem;font-weight:700;border:2px solid var(--vinho-escuro);margin-left:-9px}
+.sb-duo .in:first-child{margin-left:0}
+.sb-duo span{font-size:.62rem;color:rgba(255,255,255,.4);line-height:1.35}
+
+.main{margin-left:270px}
+.burger{display:none;position:fixed;top:.9rem;left:.9rem;z-index:80;background:var(--vinho-escuro);
+  color:#fff;border:none;width:42px;height:42px;border-radius:12px;font-size:1.05rem;cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.scrim{display:none;position:fixed;inset:0;background:rgba(20,8,12,.5);z-index:55}
+body.ix .scrim{display:block}
+
+.capa{background:linear-gradient(135deg,var(--rosa) 0%,var(--rosa-2) 100%);padding:3.6rem 0 3.2rem;margin-bottom:3rem}
+.kicker{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--vinho);font-weight:600}
+h1{font-size:clamp(1.75rem,4.4vw,2.7rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;margin:.8rem 0}
+.linha-meta{font-size:.82rem;color:#6b5257;line-height:1.7;margin-top:1.1rem}
+
+h2{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 .9rem;line-height:1.25}
+h2 .num{color:var(--rosa-2);font-size:1.05rem;font-weight:800;margin-right:.5rem}
+p{font-size:.95rem;line-height:1.85;color:var(--texto);font-weight:300;margin-top:1rem}
+p strong{font-weight:600;color:var(--tinta)}
+em{color:var(--tinta)}
+
+.essencial{background:var(--vinho-escuro);color:#fff;border-radius:20px;padding:2.2rem 2.4rem;position:relative;overflow:hidden}
+.essencial::after{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;border-radius:50%;background:rgba(140,35,53,.35)}
+.essencial .et{font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);position:relative;z-index:1}
+.essencial ul{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.9rem;position:relative;z-index:1}
+.essencial li{font-size:.92rem;line-height:1.6;color:rgba(255,255,255,.82);font-weight:300;
+  position:relative;padding-left:1.55rem;overflow-wrap:break-word}
+.essencial li::before{content:'';position:absolute;left:0;top:.5em;width:7px;height:7px;border-radius:50%;background:var(--dourado)}
+.essencial b{color:#fff;font-weight:600}
+
+ul.key{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.8rem}
+ul.key li{font-size:.9rem;line-height:1.7;color:var(--texto);font-weight:300;padding-left:1.3rem;position:relative}
+ul.key li::before{content:'';position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%;background:var(--vinho)}
+ul.key b{font-weight:600;color:var(--tinta)}
+
+.obs{background:var(--papel-2);border-left:3px solid var(--vinho);border-radius:0 12px 12px 0;padding:1.2rem 1.5rem;margin-top:1.6rem}
+.obs h4{font-size:.82rem;font-weight:700;color:var(--vinho-escuro);letter-spacing:-.01em}
+.obs p{font-size:.88rem;margin-top:.5rem;line-height:1.75}
+.nota-c{background:#fdf5ea;border:1.5px dashed #f0d9b0;border-radius:12px;padding:1.2rem 1.5rem;margin-top:1.6rem}
+.nota-c .ct{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dourado);font-weight:700;margin-bottom:.4rem}
+.nota-c p{font-size:.86rem;margin-top:0;line-height:1.7}
+
+.compara{display:grid;grid-template-columns:1fr;gap:12px;margin-top:1.6rem}
+.compara .d{border:1.5px solid var(--linha);border-radius:12px;padding:1.3rem 1.4rem}
+.compara .dt{font-size:.84rem;font-weight:700;color:var(--vinho);margin-bottom:.45rem}
+.compara p{font-size:.85rem;margin-top:0;line-height:1.65}
+
+.diagrama{margin-top:1.8rem;border:1.5px solid var(--linha);border-radius:var(--raio);
+  padding:1.7rem 1.7rem 1.3rem;background:var(--papel-2)}
+.diagrama svg{width:100%;height:auto;display:block;overflow:visible}
+.diagrama .dg-cap{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dourado);
+  font-weight:700;margin-bottom:.9rem}
+.diagrama .dg-legenda{font-size:.8rem;color:var(--fraco);margin-top:1.1rem;line-height:1.65}
+.diagrama .dg-legenda b{color:var(--tinta);font-weight:600}
+@media print{.diagrama{background:none;border-color:#ccc}}
+
+.bloco{border:1.5px solid var(--linha);border-radius:var(--raio);padding:1.8rem;margin-top:1.4rem}
+.check{display:flex;gap:.85rem;align-items:flex-start;padding:.7rem 0;border-bottom:1px solid #f5f5f5;cursor:pointer}
+.check:last-child{border-bottom:none}
+.check input{appearance:none;width:19px;height:19px;border:2px solid #d6d6d6;border-radius:5px;flex-shrink:0;margin-top:.15rem;cursor:pointer;transition:.2s;position:relative}
+.check input:checked{background:var(--vinho);border-color:var(--vinho)}
+.check input:checked::after{content:'✓';color:#fff;font-size:.7rem;position:absolute;top:-1px;left:3px}
+.check span{font-size:.89rem;line-height:1.55;color:var(--texto);font-weight:300}
+.check input:checked+span{color:var(--fraco);text-decoration:line-through}
+.pergunta{margin-top:1.5rem}
+.pergunta:first-child{margin-top:0}
+.pq{font-size:.89rem;font-weight:600;line-height:1.55;margin-bottom:.6rem}
+.pq b{color:var(--vinho);margin-right:.3rem}
+textarea{width:100%;min-height:110px;border:1.5px solid var(--linha);border-radius:12px;padding:.9rem 1rem;
+  font-family:inherit;font-size:.87rem;line-height:1.65;color:var(--tinta);resize:vertical}
+textarea:focus{outline:none;border-color:var(--vinho)}
+textarea::placeholder{color:#c9c9c9}
+details.gab{margin-top:.6rem}
+details.gab summary{font-size:.78rem;color:var(--vinho);font-weight:600;cursor:pointer}
+.gab-in{font-size:.85rem;line-height:1.75;color:var(--texto);margin-top:.6rem;padding:.9rem 1rem;background:var(--papel-2);border-radius:10px}
+@media print{details.gab{border-color:#ddd;background:none}}
+
+.acoes{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:1.4rem}
+.btn{border:1.5px solid var(--linha);background:var(--papel);color:var(--texto);padding:.6rem 1.2rem;
+  border-radius:100px;font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;gap:.4rem;transition:.2s}
+.btn:hover{border-color:var(--vinho);color:var(--vinho)}
+.btn.solid{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.btn.solid:hover{background:var(--vinho);border-color:var(--vinho);color:#fff}
+.estado{font-size:.72rem;color:var(--fraco)}
+
+ul.refs{list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.7rem}
+ul.refs li{font-size:.85rem;line-height:1.7;color:var(--texto);font-weight:300;padding-left:1.2rem;position:relative}
+ul.refs li::before{content:'';position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:var(--dourado)}
+
+footer.rod{margin:3.5rem 0 3rem;padding-top:1.6rem;border-top:1px solid var(--linha);font-size:.76rem;color:var(--fraco)}
+
+@media print{
+  .sidebar,.burger,.acoes{display:none}
+  .main{margin-left:0}
+  .capa{background:none;padding:0 0 1.5rem}
+  .essencial{background:none;color:#000;border:1.5px solid #ccc}
+  .essencial li,.essencial .et{color:#000}
+  textarea{min-height:80px}
+}
+@media (max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:.25s;box-shadow:0 0 40px rgba(0,0,0,.3)}
+  body.ix .sidebar{transform:translateX(0)}
+  .main{margin-left:0}
+  .burger{display:block}
+}
+
+.cta{margin-top:3rem;background:var(--vinho-escuro);color:#fff;border-radius:20px;padding:1.8rem 2rem}
+.cta .k{font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.cta h3{font-size:1.1rem;font-weight:700;letter-spacing:-.02em;margin:.4rem 0 .8rem}
+.cta ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.1rem}
+.cta li{font-size:.85rem;line-height:1.6;color:rgba(255,255,255,.78);font-weight:300;padding-left:1.2rem;position:relative}
+.cta li::before{content:'';position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:var(--dourado)}
+.cta a{display:inline-block;background:#fff;color:var(--vinho-escuro);padding:.6rem 1.3rem;border-radius:100px;font-size:.78rem;font-weight:700;text-decoration:none}
+.cta a:hover{background:var(--vinho);color:#fff}
+.sb-sig{font-size:.78rem;font-weight:600;color:#fff;line-height:1.4}
+.sb-sig span{display:block;font-size:.64rem;font-weight:400;color:rgba(255,255,255,.4)}
+.foot-c{margin:3rem 0 3rem;padding-top:1.4rem;border-top:1px solid var(--linha);font-size:.74rem;color:var(--fraco);line-height:1.7}
+.foot-c a{color:var(--fraco)}
+.estado{opacity:0;transition:.2s}.estado.on{opacity:1}
+.check.done span{color:var(--fraco);text-decoration:line-through}
+</style>
+</head>
+<body>
+
+<button class="burger" id="burger" aria-label="Abrir menu">☰</button>
+<div class="scrim" id="scrim"></div>
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="b1">Descomplicando <span>a DBT</span></div>
+    <div class="b2">Portal da turma · 2026</div>
+  </div>
+  <nav class="sb-nav">
+    <a href="../#inicio"><span class="ic">◆</span>Início</a>
+    <a href="../#grade"><span class="ic">▤</span>As 12 aulas</a>
+    <a href="../#anotacoes"><span class="ic">✎</span>Minhas anotações</a>
+    <a href="../#metodo"><span class="ic">◇</span>Como funciona</a>
+  </nav>
+  <div class="sb-sep">Neste material</div>
+  <div class="ix">
+    <a href="#s0">O essencial</a>
+    <a href="#s1">01 · As estruturas de suporte</a>
+    <a href="#s2">02 · Pilares e grupo de habilidades</a>
+    <a href="#s3">03 · A equipe de consultoria</a>
+    <a href="#s4">04 · Dialética e responsabilidade</a>
+    <a href="#s5">05 · Acordos, regras e papéis</a>
+    <a href="#s6">06 · A estrutura de uma reunião</a>
+    <a href="#s7">07 · O observador e o sino</a>
+    <a href="#s8">08 · Começar e o que evitar</a>
+    <a href="#s9">09 · O grupo de habilidades</a>
+    <a href="#s10">10 · Regras do grupo</a>
+    <a href="#s11">11 · Pesquisa e adaptações</a>
+    <a href="#s12">12 · Quando faltam recursos</a>
+    <a href="#s13">13 · Formação, certificação e leituras</a>
+    <a href="#s14">14 · Levar para a prática</a>
+    <a href="#s15">15 · Perguntas de revisão</a>
+    <a href="#s16">16 · Referências</a>
+  </div>
+  <div class="sb-foot">
+    <a class="ix-pdf" href="resumo.pdf" download>Baixar o PDF</a>
+    <div class="sb-duo">
+      <div class="av"><div class="in">JG</div><div class="in">AJ</div></div>
+      <span>Idealização<br>Júlio &amp; Andressa</span>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+<header class="capa">
+  <div class="wrap">
+    <div class="kicker">Aula 12 · sábado, 7 de novembro de 2026</div>
+    <h1>Próximos passos</h1>
+    <div class="linha-meta">Conduzido por Júlio Gonçalves, com Andressa Juliana<br>Material de apoio, resumo fiel ao que foi dito no encontro</div>
+    <p style="margin-top:1.2rem">Grupo de consultoria e grupo de habilidades: como funcionam, como começar com os recursos que tu tens e por onde seguir a formação.</p>
+  </div>
+</header>
+
+<main class="conteudo wrap">
+  <div class="obs"><h4>Sobre este material</h4><p>Resumo da aula de próximos passos, feito a partir das anotações do encontro. As fontes foram conferidas e, onde a fala de aula pedia ajuste, há uma nota.</p></div>
+  <div class="obs"><h4>Como usar</h4><p>Abre as seções que quiseres ler, marca o que pretendes aplicar e responde o que fizer sentido. Tudo fica salvo neste aparelho e ninguém mais vê.</p></div>
+
+  <div class="essencial" id="s0" style="margin-top:1.6rem">
+    <div class="et">O essencial</div>
+    <ul>
+      <li><b>O modelo completo da DBT tem quatro componentes.</b> Sem a equipe de consultoria e sem o grupo de habilidades, o que sobra é uma terapia individual avançada, que fica atrás da aplicação conjunta validada pelo protocolo.</li>
+      <li><b>A equipe de consultoria é o único componente voltado pro cuidado do terapeuta.</b> Ela evita a polarização entre aceitação e mudança, o julgamento do paciente, o abandono da hierarquia de alvos e o esgotamento profissional.</li>
+      <li><b>Consultoria não é supervisão tradicional.</b> A equipe trabalha em dialética, divide a responsabilidade pelos pacientes e segue uma estrutura fixa de reunião, com mindfulness, pauta e papéis definidos, entre eles o do observador com o sino.</li>
+      <li><b>O grupo de habilidades tem formato próprio:</b> 24 semanas, os quatro módulos duas vezes, encontros semanais de duas horas, seis a oito participantes e dois líderes.</li>
+      <li><b>Dá pra adaptar</b> (adolescentes, famílias, SUS, ambulatório) desde que se mantenham as tarefas de casa, os quatro módulos e dois líderes inseridos numa equipe de consultoria.</li>
+    </ul>
+  </div>
+
+  <h2 id="s1"><span class="num">01</span>O que faltava pra fechar o curso: as estruturas de suporte</h2>
+  <p>Júlio abriu o encontro com os próximos passos pra finalizar o curso. Além da terapia individual, o modelo completo da DBT depende, obrigatoriamente, de mais duas estruturas: a equipe de consultoria e o grupo de habilidades. Sem elas, a intervenção vira uma terapia individual avançada, com menos relevância e menos eficácia do que a aplicação conjunta validada pelo protocolo.</p>
+  <p>Os quatro componentes do tratamento são a terapia individual, o grupo de habilidades, o coaching por telefone e a equipe de consultoria (Linehan, 1993). Os três primeiros cuidam do paciente. A equipe cuida de quem aplica.</p>
+  <div class="diagrama">
+    <div class="dg-cap">Figura 1 · Os quatro componentes da DBT</div>
+    <svg viewBox="0 0 680 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Os quatro componentes da DBT: terapia individual, grupo de habilidades, coaching por telefone e equipe de consultoria">
+  <rect x="0" y="16" width="152" height="104" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+  <text x="76" y="56" text-anchor="middle" font-family="Sora, sans-serif" font-size="10.5" font-weight="700" fill="#a86a26">Terapia</text>
+  <text x="76" y="70" text-anchor="middle" font-family="Sora, sans-serif" font-size="10.5" font-weight="700" fill="#a86a26">individual</text>
+  <text x="76" y="94" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.6" fill="#4a4a4a">cuida do paciente</text>
+  <rect x="176" y="16" width="152" height="104" rx="10" fill="#8c2335"/>
+  <text x="252" y="56" text-anchor="middle" font-family="Sora, sans-serif" font-size="10.5" font-weight="700" fill="#fff">Grupo de</text>
+  <text x="252" y="70" text-anchor="middle" font-family="Sora, sans-serif" font-size="10.5" font-weight="700" fill="#fff">habilidades</text>
+  <text x="252" y="94" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.6" fill="#f2c6cc">cuida do paciente</text>
+  <rect x="352" y="16" width="152" height="104" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+  <text x="428" y="56" text-anchor="middle" font-family="Sora, sans-serif" font-size="10.5" font-weight="700" fill="#a86a26">Coaching</text>
+  <text x="428" y="70" text-anchor="middle" font-family="Sora, sans-serif" font-size="10.5" font-weight="700" fill="#a86a26">por telefone</text>
+  <text x="428" y="94" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.6" fill="#4a4a4a">cuida do paciente</text>
+  <rect x="528" y="16" width="152" height="104" rx="10" fill="#2d0a12"/>
+  <text x="604" y="56" text-anchor="middle" font-family="Sora, sans-serif" font-size="10.5" font-weight="700" fill="#fff">Equipe de</text>
+  <text x="604" y="70" text-anchor="middle" font-family="Sora, sans-serif" font-size="10.5" font-weight="700" fill="#fff">consultoria</text>
+  <text x="604" y="94" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.6" fill="#f2c6cc">cuida do terapeuta</text>
+  <text x="340" y="141" text-anchor="middle" font-family="Sora, sans-serif" font-size="8" fill="#4a4a4a">Em destaque, as duas estruturas desta aula</text>
+</svg>
+    <div class="dg-legenda">O grupo de habilidades e a equipe de consultoria são as duas estruturas que faltavam no curso.</div>
+  </div>
+
+  <h2 id="s2"><span class="num">02</span>Os pilares do curso e o lugar do grupo de habilidades</h2>
+  <p>Júlio revisou os pilares essenciais da DBT: o modelo biossocial, as dialéticas entre aceitação e mudança e a hierarquia de alvos, em que a vida do paciente é prioridade absoluta. O treino efetivo de habilidades exige que o paciente esteja num grupo de habilidades. O grupo funciona como reforço semanal da sessão individual e permite a troca de modelos entre os participantes.</p>
+
+  <h2 id="s3"><span class="num">03</span>A equipe de consultoria: terapia pro terapeuta</h2>
+  <p>Entre os quatro componentes, a equipe de consultoria é a única voltada exclusivamente pro cuidado do terapeuta e pra garantir a adesão correta ao protocolo. O espaço serve pra evitar que o profissional escorregue pra polarizações de aceitação ou de mudança, julgue o paciente, abandone a hierarquia de alvos ou chegue ao esgotamento profissional.</p>
+  <div class="obs">
+    <h4>Sobre a evidência da equipe</h4>
+    <p>Em aula, a equipe foi apresentada como requisito presente nos ensaios clínicos validados da DBT. Nos ensaios, ela de fato compõe o pacote de tratamento. Até a data deste resumo, porém, não foi localizado ensaio que tenha isolado o efeito da equipe, e o que existe é pesquisa qualitativa. Walsh, Ryan e Flynn (2018) entrevistaram 11 clínicos de três equipes e descreveram a reunião como fonte de apoio, de motivação e de ajuda pra regular emoções.</p>
+  </div>
+
+  <h2 id="s4"><span class="num">04</span>Dialética e responsabilidade compartilhada</h2>
+  <p>A equipe de consultoria opera por princípios dialéticos: quando há discordância, procura uma síntese. Ela não funciona como uma supervisão clínica tradicional, que orienta diretamente a conduta sobre o paciente.</p>
+  <p>O grupo não julga os limites individuais dos profissionais e assume uma responsabilidade compartilhada pelos pacientes. Por isso o suicídio de um paciente é uma perda pra equipe inteira, que cuida do colega por tabela.</p>
+
+  <h2 id="s5"><span class="num">05</span>Acordos, regras e papéis</h2>
+  <p>A formação da equipe exige um contrato inicial de compromissos básicos. A reunião é tratada como uma sessão clínica inegociável, voltada a aumentar a eficácia dos colegas e a apontar os problemas subentendidos, os "elefantes na sala".</p>
+  <p>Os seis acordos da equipe (Linehan, 1993; Sayrs &amp; Linehan, 2019) são: dialético, consultoria ao paciente, consistência, observar limites, empatia fenomenológica e falibilidade. O regimento da tua equipe precisa deixar os seis claros.</p>
+  <p>As reuniões distribuem funções específicas entre os membros:</p>
+  <ul class="key">
+    <li><b>Líder da reunião</b> cuida da administração e conduz o mindfulness.</li>
+    <li><b>Observador ou colíder</b> cuida do equilíbrio dialético e aponta desvios.</li>
+    <li><b>Secretário</b> é o responsável pela ata.</li>
+    <li><b>Líder da equipe</b> cuida da gestão externa e dos projetos.</li>
+  </ul>
+
+  <h2 id="s6"><span class="num">06</span>A estrutura de uma reunião</h2>
+  <p>Cada encontro começa com cinco minutos de mindfulness. Em seguida vem a verificação de faltas e atrasos, com análises em cadeia breves, a leitura dos acordos e a revisão da ata pendente.</p>
+  <p>A prioridade da pauta é o risco de vida de pacientes ou a saúde do próprio terapeuta. O apoio ao terapeuta se organiza em quatro tipos de pedido: informação pra avaliação, solução de problemas, validação e a aplicação conjunta de empatia e motivação.</p>
+  <div class="diagrama">
+    <div class="dg-cap">Figura 2 · Sequência de uma reunião de consultoria</div>
+    <svg viewBox="0 0 680 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Seis etapas de uma reunião de consultoria, da prática de mindfulness aos pedidos de apoio ao terapeuta">
+<rect x="0" y="14" width="100" height="100" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="50" y="34" text-anchor="middle" font-family="Sora, sans-serif" font-size="9" font-weight="700" fill="#c8893a">1</text>
+<text x="50" y="56" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.2" font-weight="700" fill="#a86a26">Mindfulness</text>
+<text x="50" y="73" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.4" fill="#4a4a4a">5 minutos</text>
+<rect x="116" y="14" width="100" height="100" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="166" y="34" text-anchor="middle" font-family="Sora, sans-serif" font-size="9" font-weight="700" fill="#c8893a">2</text>
+<text x="166" y="56" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.2" font-weight="700" fill="#a86a26">Faltas e atrasos</text>
+<text x="166" y="73" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.4" fill="#4a4a4a">cadeias breves</text>
+<rect x="232" y="14" width="100" height="100" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="282" y="34" text-anchor="middle" font-family="Sora, sans-serif" font-size="9" font-weight="700" fill="#c8893a">3</text>
+<text x="282" y="52" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.2" font-weight="700" fill="#a86a26">Leitura dos</text>
+<text x="282" y="65" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.2" font-weight="700" fill="#a86a26">acordos</text>
+<rect x="348" y="14" width="100" height="100" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="398" y="34" text-anchor="middle" font-family="Sora, sans-serif" font-size="9" font-weight="700" fill="#c8893a">4</text>
+<text x="398" y="56" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.2" font-weight="700" fill="#a86a26">Ata pendente</text>
+<text x="398" y="73" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.4" fill="#4a4a4a">revisão</text>
+<rect x="464" y="14" width="100" height="100" rx="10" fill="#8c2335"/>
+<text x="514" y="34" text-anchor="middle" font-family="Sora, sans-serif" font-size="9" font-weight="700" fill="#e8b563">5</text>
+<text x="514" y="56" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.2" font-weight="700" fill="#fff">Pauta</text>
+<text x="514" y="73" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.2" fill="#f2c6cc">vida e saúde do</text>
+<text x="514" y="83" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.2" fill="#f2c6cc">terapeuta primeiro</text>
+<rect x="580" y="14" width="100" height="100" rx="10" fill="#2d0a12"/>
+<text x="630" y="34" text-anchor="middle" font-family="Sora, sans-serif" font-size="9" font-weight="700" fill="#e8b563">6</text>
+<text x="630" y="52" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.2" font-weight="700" fill="#fff">Apoio ao</text>
+<text x="630" y="65" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.2" font-weight="700" fill="#fff">terapeuta</text>
+<text x="630" y="82" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.4" fill="#f2c6cc">4 tipos de pedido</text>
+<g fill="#c8893a"><polygon points="102,60 112,64 102,68"/><polygon points="218,60 228,64 218,68"/><polygon points="334,60 344,64 334,68"/><polygon points="450,60 460,64 450,68"/><polygon points="566,60 576,64 566,68"/></g>
+  <text x="340" y="138" text-anchor="middle" font-family="Sora, sans-serif" font-size="8" fill="#4a4a4a">Pedidos de apoio: informação pra avaliação · solução de problemas · validação · empatia e motivação</text>
+</svg>
+    <div class="dg-legenda">O risco de vida e a saúde do terapeuta têm prioridade na pauta.</div>
+  </div>
+
+  <h2 id="s7"><span class="num">07</span>O observador e o sino</h2>
+  <p>O observador monitora a reunião de forma ativa e usa um sino pra sinalizar desvios: participante em silêncio prolongado, uso de celular, comentário julgador, postura defensiva.</p>
+  <p>Diante de dificuldades como julgamento de pacientes ou resistência a expor as próprias falhas, os participantes treinam a ação oposta e a aceitação do desconforto. O que se busca é superar o medo da falibilidade num ambiente estruturado pelo não julgamento.</p>
+
+  <h2 id="s8"><span class="num">08</span>Como começar a tua consultoria e o que evitar</h2>
+  <p>Três profissionais já podem iniciar uma equipe de consultoria. As reuniões são semanais e fixas, de 60 a 90 minutos, durante um ano, e o regimento precisa ser claro e conter os seis acordos.</p>
+  <p>Quatro armadilhas fazem o grupo perder a função:</p>
+  <ul class="key">
+    <li>virar uma <b>supervisão tradicional</b>;</li>
+    <li>virar um espaço de <b>desabafo informal</b>;</li>
+    <li>virar emissão de <b>conselhos diretos</b>;</li>
+    <li>virar um <b>tribunal</b> de julgamento de pacientes e colegas.</li>
+  </ul>
+
+  <h2 id="s9"><span class="num">09</span>O grupo de habilidades: estrutura e dinâmica</h2>
+  <p>O grupo de habilidades é voltado aos pacientes e se organiza em ciclos de 24 semanas ao longo de um ano, cobrindo duas vezes cada um dos quatro módulos principais. Os encontros são semanais, de duas horas, com seis a oito participantes e dois líderes (Linehan, 2015).</p>
+  <p>Cada encontro inclui mindfulness, o relato do uso das habilidades da semana anterior, um intervalo pra descontração e a introdução e a prática de uma nova habilidade.</p>
+  <div class="diagrama">
+    <div class="dg-cap">Figura 3 · O ciclo de 24 semanas</div>
+    <svg viewBox="0 0 680 168" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ciclo de 24 semanas do grupo de habilidades: duas voltas pelos quatro módulos">
+<rect x="0" y="14" width="92" height="56" rx="10" fill="#8c2335"/>
+<text x="46" y="39" text-anchor="middle" font-family="Sora, sans-serif" font-size="10" font-weight="700" fill="#fff">1ª volta</text>
+<text x="46" y="54" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.6" fill="#f2c6cc">4 módulos</text>
+<rect x="104" y="14" width="132" height="56" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="170" y="47" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">Mindfulness</text>
+<rect x="248" y="14" width="132" height="56" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="314" y="40" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">Tolerância ao</text>
+<text x="314" y="53" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">mal-estar</text>
+<rect x="392" y="14" width="132" height="56" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="458" y="40" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">Regulação</text>
+<text x="458" y="53" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">emocional</text>
+<rect x="536" y="14" width="132" height="56" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="602" y="40" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">Efetividade</text>
+<text x="602" y="53" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">interpessoal</text>
+<rect x="0" y="82" width="92" height="56" rx="10" fill="#8c2335"/>
+<text x="46" y="107" text-anchor="middle" font-family="Sora, sans-serif" font-size="10" font-weight="700" fill="#fff">2ª volta</text>
+<text x="46" y="122" text-anchor="middle" font-family="Sora, sans-serif" font-size="7.6" fill="#f2c6cc">4 módulos</text>
+<rect x="104" y="82" width="132" height="56" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="170" y="115" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">Mindfulness</text>
+<rect x="248" y="82" width="132" height="56" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="314" y="108" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">Tolerância ao</text>
+<text x="314" y="121" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">mal-estar</text>
+<rect x="392" y="82" width="132" height="56" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="458" y="108" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">Regulação</text>
+<text x="458" y="121" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">emocional</text>
+<rect x="536" y="82" width="132" height="56" rx="10" fill="#fff" stroke="#c8893a" stroke-width="1.5"/>
+<text x="602" y="108" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">Efetividade</text>
+<text x="602" y="121" text-anchor="middle" font-family="Sora, sans-serif" font-size="9.4" font-weight="700" fill="#a86a26">interpessoal</text>
+
+  <text x="340" y="160" text-anchor="middle" font-family="Sora, sans-serif" font-size="8.4" fill="#4a4a4a">24 semanas · 2 horas por semana · 6 a 8 participantes · 2 líderes · tarefa de casa</text>
+</svg>
+    <div class="dg-legenda">Cada um dos quatro módulos é visto duas vezes ao longo do ano.</div>
+  </div>
+
+  <h2 id="s10"><span class="num">10</span>Regras do grupo</h2>
+  <p>As regras do grupo de habilidades incluem:</p>
+  <ul class="key">
+    <li><b>desligamento por quatro faltas consecutivas;</b></li>
+    <li><b>proibição de uso de álcool ou drogas;</b></li>
+    <li><b>restrição de detalhes</b> sobre comportamentos suicidas ou automutilação.</li>
+  </ul>
+
+  <h2 id="s11"><span class="num">11</span>O que a pesquisa mostra e como adaptar</h2>
+  <p>Júlio apresentou que a DBT completa e o grupo de habilidades isolado reduzem tentativas de suicídio e que os dois se saem melhor do que a terapia individual sem o grupo. O estudo que sustenta essa comparação pede um ajuste fino na leitura.</p>
+  <div class="obs">
+    <h4>O que o estudo mostrou com mais precisão</h4>
+    <p>Linehan e colaboradores (2015) sortearam 99 mulheres com transtorno de personalidade borderline e alto risco de suicídio pra três condições: DBT padrão, treino de habilidades com manejo de caso (DBT-S) e terapia individual com grupo de atividades (DBT-I). Nas tentativas de suicídio, as três condições melhoraram de forma parecida. A vantagem das condições com treino de habilidades apareceu na autolesão sem intenção suicida, na depressão e na ansiedade, e a DBT padrão teve menos abandono do que a DBT-I (24% contra 48%). A conclusão dos autores é que as intervenções que incluem treino de habilidades são mais eficazes do que a DBT sem ele.</p>
+  </div>
+  <p>Fora do transtorno borderline, a base é menor. Uma revisão sistemática encontrou 17 estudos com treino de habilidades sem os outros modos de tratamento e concluiu que a evidência é preliminar (Valentine et al., 2015). Num ensaio piloto com 44 adultos com ansiedade ou depressão, sem borderline, 16 semanas de treino de habilidades superaram um grupo de atividades na desregulação emocional, e o uso das habilidades mediou essa diferença (Neacsiu et al., 2014). O uso de habilidades já tinha aparecido como mediador de mudança no tratamento do borderline (Neacsiu et al., 2010).</p>
+  <p>Esse conjunto permite adaptações pra adolescentes, famílias, o SUS e ambulatórios, desde que se mantenham as tarefas de casa, os quatro módulos obrigatórios e dois líderes inseridos numa equipe de consultoria. Pra adolescentes, o manual de referência é o de Rathus e Miller (2015).</p>
+
+  <h2 id="s12"><span class="num">12</span>Quando faltam recursos</h2>
+  <p>Júlio apontou alternativas pra contextos com limitação financeira ou estrutural:</p>
+  <ul class="key">
+    <li>formar equipes de consultoria com apenas três profissionais;</li>
+    <li>integrar o treino de habilidades à terapia individual, com cartões e tarefas;</li>
+    <li>fazer atendimentos individuais quinzenais combinados com o grupo semanal.</li>
+  </ul>
+  <p>Pra quem trabalha no SUS e no CAPS, a implementação com dois profissionais é viável. O coaching por telefone deve seguir as diretrizes mínimas do manual, pra manter o tratamento completo.</p>
+
+  <h2 id="s13"><span class="num">13</span>Formação, certificação e leituras</h2>
+  <p>Júlio indicou os caminhos formais de capacitação. O primeiro é o treinamento intensivo da Behavioral Tech, oferecido pela DBT Brasil, com turmas programadas pra agosto de 2027 e 2028, em formato online com etapas presenciais de cinco dias. O segundo é a certificação da DBT-Linehan Board of Certification (DBT-LBC).</p>
+  <div class="obs">
+    <h4>Valores e datas: conferir na fonte</h4>
+    <p>Os valores ditos em aula chegaram truncados na anotação automática e por isso não entram aqui. Confere preço e datas direto com a DBT Brasil, e as taxas da certificação no site da DBT-LBC. Na página da Behavioral Tech, o intensivo aparece em formato de equipe, de 3 a 8 profissionais que se reúnem toda semana, com preço em dólares por equipe. Essa página não lista a turma brasileira, então o formato e o preço dela precisam ser confirmados com a DBT Brasil.</p>
+  </div>
+  <p>Ao final, Júlio recomendou leituras essenciais e um plano de estudos mensal, apresentados nos slides. As indicações de leitura foram:</p>
+  <ul class="key">
+    <li><b>A base:</b> Linehan, o manual de treinamento de habilidades (2015) e <i>Cognitive-behavioral treatment of borderline personality disorder</i> (1993).</li>
+    <li><b>Da teoria pra sessão:</b> Koerner, <i>Aplicando a Terapia Comportamental Dialética</i>, e Van Dijk, <i>DBT made simple</i>.</li>
+    <li><b>Pra montar o teu serviço:</b> Sayrs e Linehan, <i>DBT teams</i>, e Rathus e Miller, o manual de habilidades pra adolescentes.</li>
+    <li><b>O sétimo:</b> Linehan, <i>Building a life worth living</i>, a memória dela.</li>
+  </ul>
+
+  <h2 id="s14"><span class="num">14</span>Levar para a prática</h2>
+  <div class="bloco">
+      <label class="check"><input type="checkbox"><span>Marquei com colegas a primeira reunião de uma equipe de consultoria, com três ou mais pessoas e 60 a 90 minutos, só pra combinar os compromissos.</span></label>
+      <label class="check"><input type="checkbox"><span>Defini quem faz o papel de líder da reunião, de observador e de secretário.</span></label>
+      <label class="check"><input type="checkbox"><span>Li no manual a estrutura do grupo de habilidades: 24 semanas, quatro módulos e dois líderes.</span></label>
+      <label class="check"><input type="checkbox"><span>Escolhi uma habilidade pra ensinar com tarefa de casa, e revisei a tarefa na sessão seguinte.</span></label>
+      <label class="check"><input type="checkbox"><span>Levei um caso pra equipe e comecei pelo pedido de informação pra avaliação.</span></label>
+  </div>
+
+  <h2 id="s15"><span class="num">15</span>Perguntas de revisão</h2>
+  <div class="bloco">
+    <div class="pergunta">
+      <div class="pq"><b>01.</b> Por que, sem a equipe de consultoria e sem o grupo de habilidades, a DBT vira uma terapia individual avançada?</div>
+      <textarea placeholder="Escreve aqui…"></textarea>
+      <details class="gab"><summary>Ver comentário</summary><div class="gab-in">Porque os quatro componentes cumprem funções diferentes. O grupo de habilidades treina o paciente toda semana e reforça a sessão individual, e a equipe cuida do terapeuta e da adesão ao protocolo. Sem os dois, resta a sessão individual sozinha, que fica atrás da aplicação conjunta validada. No estudo de Linehan e colaboradores (2015), a condição sem treino de habilidades rendeu menos em autolesão, depressão e ansiedade.</div></details>
+    </div>
+    <div class="pergunta">
+      <div class="pq"><b>02.</b> Em que a equipe de consultoria difere de uma supervisão clínica tradicional?</div>
+      <textarea placeholder="Escreve aqui…"></textarea>
+      <details class="gab"><summary>Ver comentário</summary><div class="gab-in">Ela cuida do terapeuta, e não orienta diretamente a conduta sobre o paciente. Opera por princípios dialéticos, busca síntese nas discordâncias, não julga os limites dos profissionais e divide a responsabilidade pelos pacientes.</div></details>
+    </div>
+    <div class="pergunta">
+      <div class="pq"><b>03.</b> Descreve a sequência de uma reunião de consultoria e o que vem primeiro na pauta.</div>
+      <textarea placeholder="Escreve aqui…"></textarea>
+      <details class="gab"><summary>Ver comentário</summary><div class="gab-in">Cinco minutos de mindfulness, faltas e atrasos com cadeias breves, leitura dos acordos, revisão da ata pendente e pauta. Na pauta, o risco de vida de pacientes e a saúde do terapeuta vêm primeiro. O apoio se organiza em pedidos de informação pra avaliação, solução de problemas, validação, e empatia com motivação.</div></details>
+    </div>
+    <div class="pergunta">
+      <div class="pq"><b>04.</b> O que o estudo de Linehan e colaboradores (2015) mostrou sobre o grupo de habilidades, e que ajuste cabe na frase "reduz tentativas de suicídio"?</div>
+      <textarea placeholder="Escreve aqui…"></textarea>
+      <details class="gab"><summary>Ver comentário</summary><div class="gab-in">As três condições, inclusive a individual com grupo de atividades, melhoraram de forma parecida nas tentativas de suicídio. As condições com treino de habilidades foram melhores em autolesão sem intenção suicida, depressão e ansiedade, e a DBT padrão teve menos abandono. O ajuste é que a vantagem do grupo apareceu nesses desfechos, e não nas tentativas.</div></details>
+    </div>
+    <div class="pergunta">
+      <div class="pq"><b>05.</b> Um serviço do SUS tem só dois profissionais. O que dá pra manter do modelo?</div>
+      <textarea placeholder="Escreve aqui…"></textarea>
+      <details class="gab"><summary>Ver comentário</summary><div class="gab-in">Dá pra implementar com dois profissionais. O núcleo a preservar são as tarefas de casa, os quatro módulos, dois líderes no grupo inseridos numa equipe de consultoria e o coaching por telefone seguindo as diretrizes mínimas do manual. A equipe de consultoria também pode começar com três pessoas.</div></details>
+    </div>
+    <div class="acoes">
+      <button class="btn solid" id="exp">Exportar respostas</button>
+      <button class="btn" id="lmp">Limpar</button>
+      <a class="btn" href="resumo.pdf" download>Baixar o PDF</a>
+      <span class="estado" id="saved">Salvo neste aparelho</span>
+    </div>
+  </div>
+
+  <h2 id="s16"><span class="num">16</span>Referências</h2>
+  <ul class="refs">
+    <li>Behavioral Tech Institute. (s.d.). <em>DBT intensive training</em>. https://behavioraltech.org/training/dbt-intensive-training/ (acesso em 23 nov. 2026).</li>
+    <li>DBT-Linehan Board of Certification. (s.d.). <em>Individual clinician certification</em>. https://dbt-lbc.org (acesso em 23 nov. 2026).</li>
+    <li>Koerner, K. (2011). <em>Doing dialectical behavior therapy: A practical guide</em>. Guilford Press. [ed. bras.: <em>Aplicando a Terapia Comportamental Dialética: um guia prático</em>. Sinopsys.]</li>
+    <li>Linehan, M. M. (1993). <em>Cognitive-behavioral treatment of borderline personality disorder</em>. Guilford Press.</li>
+    <li>Linehan, M. M. (2015). <em>DBT skills training manual</em> (2nd ed.). Guilford Press. [ed. bras.: <em>Treinamento de habilidades em DBT</em>, 2ª ed. Porto Alegre: Artmed, 2026.]</li>
+    <li>Linehan, M. M. (2020). <em>Building a life worth living: A memoir</em>. Random House.</li>
+    <li>Linehan, M. M., Korslund, K. E., Harned, M. S., Gallop, R. J., Lungu, A., Neacsiu, A. D., McDavid, J., Comtois, K. A., &amp; Murray-Gregory, A. M. (2015). Dialectical behavior therapy for high suicide risk in individuals with borderline personality disorder: A randomized clinical trial and component analysis. <em>JAMA Psychiatry, 72</em>(5), 475&ndash;482.</li>
+    <li>Neacsiu, A. D., Eberle, J. W., Kramer, R., Wiesmann, T., &amp; Linehan, M. M. (2014). Dialectical behavior therapy skills for transdiagnostic emotion dysregulation: A pilot randomized controlled trial. <em>Behaviour Research and Therapy, 59</em>, 40&ndash;51.</li>
+    <li>Neacsiu, A. D., Rizvi, S. L., &amp; Linehan, M. M. (2010). Dialectical behavior therapy skills use as a mediator and outcome of treatment for borderline personality disorder. <em>Behaviour Research and Therapy, 48</em>(9), 832&ndash;839.</li>
+    <li>Rathus, J. H., &amp; Miller, A. L. (2015). <em>DBT skills manual for adolescents</em>. Guilford Press.</li>
+    <li>Sayrs, J. H. R., &amp; Linehan, M. M. (2019). <em>DBT teams: Development and practice</em>. Guilford Press.</li>
+    <li>Valentine, S. E., Bankoff, S. M., Poulin, R. M., Reidler, E. B., &amp; Pantalone, D. W. (2015). The use of dialectical behavior therapy skills training as stand-alone treatment: A systematic review of the treatment outcome literature. <em>Journal of Clinical Psychology, 71</em>(1), 1&ndash;20.</li>
+    <li>Van Dijk, S. (2013). <em>DBT made simple: A step-by-step guide to dialectical behavior therapy</em>. New Harbinger.</li>
+    <li>Walsh, C., Ryan, P., &amp; Flynn, D. (2018). Exploring dialectical behaviour therapy clinicians' experiences of team consultation meetings. <em>Borderline Personality Disorder and Emotion Dysregulation, 5</em>, 3.</li>
+  </ul>
+
+  <div class="nota-c" style="margin-top:2rem">
+    <div class="ct">Nota de método</div>
+    <p>Resumo escrito a partir das anotações automáticas do encontro de 7 de novembro de 2026, conduzido por Júlio Gonçalves com Andressa Juliana. A oralidade foi removida e o conteúdo foi reorganizado em ordem didática. Três pontos da fala receberam ajuste ou nota: o resultado de Linehan et al. (2015) sobre tentativas de suicídio, a afirmação de que a equipe aparece em todos os ensaios, e os valores do treinamento e da certificação, que chegaram truncados e foram omitidos. Os seis acordos da equipe aparecem só pelo nome, e o detalhamento de cada um está em Sayrs e Linehan (2019). As sete indicações de leitura vêm dos slides da aula. A segunda edição do manual de Rathus e Miller tem lançamento previsto pra dezembro de 2026, e por isso a referência é a primeira edição.</p>
+  </div>
+
+  <footer class="rod">
+    Lógica Psicológica · Descomplicando a DBT · Idealizado e conduzido por Júlio Gonçalves e Andressa Juliana
+  </footer>
+</main>
+</div>
+
+<script>
+(function(){
+  var K = 'mat-DBT-ProximosPassos-';
+  var burger = document.getElementById('burger'), scrim = document.getElementById('scrim');
+  if(burger) burger.onclick = function(){ document.body.classList.toggle('ix'); };
+  if(scrim) scrim.onclick = function(){ document.body.classList.remove('ix'); };
+
+  var s = document.getElementById('saved'), tm;
+  function flag(){ if(!s) return; s.classList.add('on'); clearTimeout(tm); tm = setTimeout(function(){ s.classList.remove('on'); }, 1600); }
+
+  document.querySelectorAll('.check input').forEach(function(c, i){
+    var k = K + 'ck' + i;
+    try{ if(localStorage.getItem(k) === '1'){ c.checked = true; c.closest('.check').classList.add('done'); } }catch(e){}
+    c.addEventListener('change', function(){
+      c.closest('.check').classList.toggle('done', c.checked);
+      try{ localStorage.setItem(k, c.checked ? '1' : '0'); }catch(e){} flag();
+    });
+  });
+  document.querySelectorAll('.pergunta textarea').forEach(function(t, i){
+    var k = K + 'q' + i;
+    try{ var v = localStorage.getItem(k); if(v) t.value = v; }catch(e){}
+    t.addEventListener('input', function(){ try{ localStorage.setItem(k, t.value); }catch(e){} flag(); });
+  });
+
+  var b = document.getElementById('exp');
+  if(b) b.addEventListener('click', function(){
+    var out = 'RESPOSTAS · Próximos passos\n\n';
+    document.querySelectorAll('.pergunta').forEach(function(q){
+      out += q.querySelector('.pq').innerText + '\n' + (q.querySelector('textarea').value || '(sem resposta)') + '\n\n';
+    });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([out], {type:'text/plain'}));
+    a.download = 'DBT-ProximosPassos-respostas.txt'; a.click();
+  });
+  var l = document.getElementById('lmp');
+  if(l) l.addEventListener('click', function(){
+    if(!confirm('Apagar suas anotações deste material?')) return;
+    try{ Object.keys(localStorage).filter(function(k){ return k.indexOf(K) === 0; }).forEach(function(k){ localStorage.removeItem(k); }); }catch(e){}
+    location.reload();
+  });
+
+  var ixLinks = document.querySelectorAll('.ix a');
+  var sections = Array.from(ixLinks).map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  function onScroll(){
+    var pos = window.scrollY + 120, current = sections[0];
+    sections.forEach(function(sc){ if(sc.offsetTop <= pos) current = sc; });
+    ixLinks.forEach(function(a){ a.classList.toggle('on', document.querySelector(a.getAttribute('href')) === current); });
+  }
+  window.addEventListener('scroll', onScroll); onScroll();
+})();
+</script>
+
+</body>
+</html>
